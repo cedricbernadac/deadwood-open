@@ -1,0 +1,136 @@
+{
+  "music": {
+    "ambient": {
+      "src": "/audio/night-watch.mp3",
+      "gain": 0.22
+    },
+    "brute": {
+      "src": "/audio/colossus.mp3",
+      "gain": 0.22
+    },
+    "finale": {
+      "src": "/audio/last-stand.mp3",
+      "gain": 0.22
+    },
+    "tacticalA": {
+      "src": "/audio/tactical-resolve-a.mp3",
+      "gain": 0.2101
+    },
+    "tacticalB": {
+      "src": "/audio/tactical-resolve-b.mp3",
+      "gain": 0.22
+    },
+    "covertA": {
+      "src": "/audio/covert-ostinato-a.mp3",
+      "gain": 0.1983
+    },
+    "covertB": {
+      "src": "/audio/covert-ostinato-b.mp3",
+      "gain": 0.203
+    },
+    "nightA": {
+      "src": "/audio/night-resolve-a.mp3",
+      "gain": 0.2053
+    },
+    "nightB": {
+      "src": "/audio/night-resolve-b.mp3",
+      "gain": 0.1851
+    }
+  },
+  "effects": {
+    "pistol": [
+      {
+        "src": "/audio/pistol-1.wav",
+        "gain": 0.65
+      }
+    ],
+    "rifle": [
+      {
+        "src": "/audio/heavy-rifle-bass-2.wav",
+        "gain": 0.3,
+        "loop": {
+          "start": 0.05,
+          "end": 1.15,
+          "crossfade": 0.04
+        }
+      }
+    ],
+    "assaultBurst": [
+      {
+        "src": "/audio/assault-fire-4.wav",
+        "gain": 0.389,
+        "grain": {
+          "start": 0.69,
+          "end": 0.785,
+          "fadeIn": 0.001,
+          "fadeOut": 0.012
+        }
+      }
+    ],
+    "rocket": [
+      {
+        "src": "/audio/rocket-launcher-1.wav",
+        "gain": 0.355
+      }
+    ],
+    "flamethrower": [
+      {
+        "src": "/audio/flamethrower-3.wav",
+        "gain": 0.351,
+        "loop": {
+          "start": 0.35,
+          "end": 3.45,
+          "crossfade": 0.08
+        }
+      }
+    ],
+    "katanaLight": [
+      {
+        "src": "/audio/katana-slash-3.wav",
+        "gain": 0.5
+      }
+    ],
+    "katanaHeavy": [
+      {
+        "src": "/audio/katana-special-3.wav",
+        "gain": 0.5
+      }
+    ],
+    "smg": [
+      {
+        "src": "/audio/smg-3.wav",
+        "gain": 0.9
+      }
+    ],
+    "shotgun": [
+      {
+        "src": "/audio/shotgun-heavy-2.wav",
+        "gain": 0.65
+      }
+    ],
+    "explosion": [
+      {
+        "src": "/audio/grenade-explosion-4.wav",
+        "gain": 0.42
+      }
+    ],
+    "shotgunPump": [
+      {
+        "src": "/audio/reload-shotgun-click-3.wav",
+        "gain": 0.29
+      }
+    ],
+    "brute": [
+      {
+        "src": "/audio/brute-roar.wav",
+        "gain": 0.35
+      }
+    ],
+    "boss": [
+      {
+        "src": "/audio/boss-roar.wav",
+        "gain": 0.4
+      }
+    ]
+  }
+}

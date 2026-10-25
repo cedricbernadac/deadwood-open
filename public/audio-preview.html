@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Deadwood · Aperçu audio hors partie</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;padding:32px 18px;background:#14201d;color:#e8e7d9;font:15px system-ui,sans-serif}
+    main{max-width:780px;margin:auto}h1{font-size:28px;margin:0 0 10px}h2{font-size:18px;margin:0 0 14px}p{line-height:1.55;color:#b7c6bc}
+    section{margin:18px 0;padding:20px;border:1px solid #536957;border-radius:9px;background:#1c2c25}
+    .buttons{display:flex;gap:10px;flex-wrap:wrap}button{font:inherit;color:#f3ead1;padding:11px 16px;background:#354b3b;border:1px solid #7c916f;border-radius:5px;cursor:pointer}
+    button:hover{background:#48624b}button:focus-visible{outline:3px solid #e6c577;outline-offset:3px}button[aria-pressed=true]{background:#79673f;border-color:#e6c577}
+    .primary{background:#aa874b;color:#101d16;font-weight:700}.primary:hover{background:#c9a863}
+    .status{display:grid;gap:7px;margin-top:18px;padding:14px;background:#122019;border-radius:5px;color:#dcc78d;font-size:14px}
+    label{display:block;margin:18px 0 8px}input{width:100%;accent-color:#d8bb7b}output{font-variant-numeric:tabular-nums}.note{font-size:13px;color:#a7b8ac;margin-bottom:0}
+    .language{display:flex;align-items:center;gap:10px;justify-content:flex-end;margin:0 0 20px}.language select{font:inherit;color:inherit;background:#1c2c25;border:1px solid #7c916f;border-radius:5px;padding:7px}
+    .inline{display:flex;align-items:center;gap:8px;margin:14px 0 0}.inline input{width:auto}button[aria-current=true]{border:2px solid #e6c577}
+    .badge{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:9px;background:#e6c577;color:#1b1b14;font-size:12px;font-weight:700}.badge[hidden]{display:none}
+  </style>
+</head>
+<body>
+  <main>
+    <label class="language" for="language"><span data-preview-text="language">Langue</span><select id="language"><option value="fr">Français</option><option value="en">English</option></select></label>
+    <h1 data-preview-text="heading">Aperçu audio · hors partie</h1>
+    <p data-preview-text="intro">Écoute les musiques et bruitages du moteur réel de Deadwood. Cet aperçu ne crée aucune salle et ne lance aucune partie. Commence avec un volume modéré.</p>
+    <section>
+      <h2 data-preview-text="playback">Lecture et volume</h2>
+      <div class="buttons">
+        <button id="activate" class="primary" type="button" data-preview-text="activate">Activer le son</button>
+        <button id="mute" type="button" data-preview-text="mute">Couper le son</button>
+        <button id="resume" type="button" data-preview-text="resume">Reprendre</button>
+        <button id="stop" type="button" data-preview-text="stop">Tout arrêter</button>
+      </div>
+      <label for="volume"><span data-preview-text="volume">Volume général :</span> <output id="volume-output">55 %</output></label>
+      <input id="volume" type="range" min="0" max="1" step=".01" value=".55">
+      <div class="status" aria-live="polite">
+        <span id="audio-status">Le son attend une activation.</span>
+        <span id="music-status">Musique arrêtée.</span>
+        <span id="asset-status">Aucun fichier demandé avant l’activation.</span>
+        <span id="action-status">Prêt pour l’écoute.</span>
+      </div>
+    </section>
+    <section>
+      <h2 data-preview-text="music">Musique</h2>
+      <div class="buttons">
+        <button type="button" data-mode="ambient" data-theme="tactical-a" aria-pressed="false" data-preview-text="tacticalA">Tactical Resolve · A</button>
+        <button type="button" data-mode="ambient" data-theme="tactical-b" aria-pressed="false" data-preview-text="tacticalB">Tactical Resolve · B</button>
+        <button type="button" data-mode="ambient" data-theme="covert-a" aria-pressed="false" data-preview-text="covertA">Covert Ostinato · A</button>
+        <button type="button" data-mode="ambient" data-theme="covert-b" aria-pressed="false" data-preview-text="covertB">Covert Ostinato · B</button>
+        <button type="button" data-mode="ambient" data-theme="night-a" aria-pressed="false" data-preview-text="nightA">Night Resolve · A</button>
+        <button type="button" data-mode="ambient" data-theme="night-b" aria-pressed="false" data-preview-text="nightB">Night Resolve · B</button>
+        <button type="button" data-mode="brute" aria-pressed="false" data-preview-text="brute">Colosse</button>
+        <button type="button" data-mode="finale" aria-pressed="false" data-preview-text="finale">Vague finale</button>
+      </div>
+      <p class="note" data-preview-text="musicNote">Compare Tactical Resolve, Covert Ostinato et Night Resolve, puis choisis ta musique à l’accueil ou dans le menu de pause. Cet aperçu ne change pas ton choix dans le jeu. Covert Ostinato · B est le choix par défaut ; l’ambiance originale ne joue plus qu’en secours, si un fichier manque. Les thèmes des colosses et de la finale sont conservés.</p>
+    </section>
+    <section>
+      <h2 data-preview-text="effects">Bruitages</h2>
+      <p class="note" data-preview-text="choices">Mitrailleuse : nouvelle série Bass n°2 en rafale. SMG : tir automatique soutenu n°3. Pompe : ancienne série Heavy Machine Gun n°2 pour le tir ; « shotgun reload click » n°3 pour réarmer après chaque tir. Pistolet : n°1. Magnum : impact dans la terre. Grenade : « grenade explosion » n°4, hauteur d’origine conservée.</p>
+      <p class="note" data-preview-text="arsenalChoices">Fusil d’assaut : un coup de « heavy machine gun auto fire » n°4 par balle ; les fins de son se chevauchent pendant le tir maintenu, sans boucle autonome. L’aperçu déclenche un coup toutes les 130 ms. Lance-roquettes : « rocket launcher » n°1 pour le départ ; son impact utilise « grenade explosion » n°3, fourni par le propriétaire ; la grenade garde la n°4. Lance-flammes : « flame thrower » n°3, jet continu. Hauteur et tempo des extraits conservés.</p>
+      <p class="note" data-preview-text="katanaChoices">Katana : attaque courte « sword slash » n°3 (6 s) ; attaque forte « sword slash special attack » n°3 (3 s). Les aperçus jouent les prises complètes, hauteur et tempo d’origine. En partie, une nouvelle attaque remplace la queue du coup précédent.</p>
+      <p class="note" data-preview-text="batChoices">Batte, choix du 13 octobre : attaque légère « Axe swing followed by medium impact » n°1, élan + impact (50 ms de silence initial retirées ; la lecture part 121 ms plus loin pour que l’impact tombe au contact, 0,12 s après le clic) ; attaque puissante « Axe swing followed by medium impact » n°4 (718 ms de silence initial retirées ; départ 117 ms après le clic, impact à 0,35 s). L’élan joue à chaque coup ; sur un coup raté, l’impact s’efface juste avant. Les anciennes prises « hard boxing glove heavy impact » n°4 et « slow swing followed by heavy impact » n°2 restent archivées. L’aperçu joue un coup qui touche et laisse jouer toute la queue sonore, hauteur et tempo d’origine.</p>
+      <p class="note" data-preview-text="fireaxeChoices">Hache de pompier : « Axe swing followed by medium impact », n°3 pour le léger et n°2 pour le lourd. Le début quasi muet et son petit transitoire isolé sont retirés sur 663 ms dans le léger ; le swing principal reste entier. La prise lourde reste entière. Pics RMS calés sur les impacts du jeu à 0,40 / 0,55 s, à confirmer à l’écoute. Hauteur, tempo et queues conservés.</p>
+      <p class="note" data-preview-text="hammerSniperChoices">Sniper : « sniper riffle shot » n°2. Masse à pointes : « swing followed by medium impact » n°4 pour le léger (504 ms de silence initial retirées, 2,496 s conservées) ; « slow swing followed by heavy impact » n°3 pour le puissant (384 ms retirées, 1,616 s conservée). La prise légère attend 200 ms supplémentaires : pic RMS à 0,50 s ; geste et dégâts restent à 0,30 s. La prise puissante attend 250 ms supplémentaires, soit 100 ms de moins que le réglage précédent : son pic RMS arrive à 1,00 s ; le geste et les dégâts restent à 0,75 s. Ce pic est un repère technique, à confirmer à l’écoute. À chaque coup léger, touché ou raté, « mace wooshing swing » n°4 souffle avant le contact : départ 156 ms après le clic, sa partie forte finit à 0,30 s. L’aperçu laisse jouer toute la queue sonore, hauteur et tempo d’origine.</p>
+      <div class="buttons">
+        <button type="button" data-effect="pistol" data-preview-text="pistol">Pistolet</button>
+        <button type="button" data-effect="rifle" data-preview-text="rifle">MITRAILLEUSE · tir continu 7 s</button>
+        <button type="button" data-effect="smg" data-preview-text="smg">SMG · rafale 10 coups</button>
+        <button type="button" data-effect="assault" data-preview-text="assault">Fusil d’assaut · coup « short explosion » n°4 · tir continu 7 s</button>
+        <button type="button" data-effect="rocket" data-preview-text="rocket">Lance-roquettes · n°1</button>
+        <button type="button" data-effect="flamethrower" data-preview-text="flamethrower">Lance-flammes · n°3 · jet 5 s</button>
+        <button type="button" data-effect="batLight" data-preview-text="batLight">Batte · attaque légère · élan + impact n°1</button>
+        <button type="button" data-effect="batHeavy" data-preview-text="batHeavy">Batte · attaque puissante · élan + impact n°4</button>
+        <button type="button" data-effect="fireaxeLight" data-preview-text="fireaxeLight">Hache · attaque légère · n°3</button>
+        <button type="button" data-effect="fireaxeHeavy" data-preview-text="fireaxeHeavy">Hache · attaque lourde · n°2</button>
+        <button type="button" data-effect="katanaLight" data-preview-text="katanaLight">Katana · attaque courte · n°3 · 6 s</button>
+        <button type="button" data-effect="katanaHeavy" data-preview-text="katanaHeavy">Katana · attaque forte · n°3 · 3 s</button>
+        <button type="button" data-effect="sniperShot" data-preview-text="sniperShot">Sniper · « sniper riffle shot » · n°2</button>
+        <button type="button" data-effect="hammerLight" data-preview-text="hammerLight">Masse · attaque légère · souffle n°4 + impact moyen n°4</button>
+        <button type="button" data-effect="hammerHeavy" data-preview-text="hammerHeavy">Masse · attaque puissante · impact lourd n°3</button>
+        <button type="button" id="automatic-comparison" data-preview-text="comparison">Mitrailleuse + SMG · ensemble 7 s</button>
+        <button type="button" data-effect="shotgun" data-preview-text="shotgun">FUSIL À POMPE</button>
+        <button type="button" data-effect="shotgunPump" data-preview-text="shotgunPump">Réarmer la pompe · n°3</button>
+        <button type="button" data-effect="magnum" data-preview-text="magnum">Magnum doré</button>
+        <button type="button" id="minigun-burst" data-preview-text="minigun">Minigun · rotation 1 s + 75 coups</button>
+        <button type="button" data-effect="explosion" data-preview-text="explosion">Explosion de grenade · n°4</button>
+        <button type="button" data-effect="rocketExplosion" data-preview-text="rocketExplosion">Impact de roquette · n°3</button>
+        <button type="button" data-effect="headshot" data-preview-text="headshot">Confirmation de tir à la tête · synthèse</button>
+        <button type="button" data-effect="chainDemo" data-preview-text="chainDemo">Série d’éliminations · double → inarrêtable · synthèse</button>
+        <button type="button" data-effect="groan" data-preview-text="groan">Grognement</button>
+        <button type="button" data-effect="brute" data-preview-text="bruteCry">Cri du colosse</button>
+        <button type="button" data-effect="boss" data-preview-text="bossCry">Cri du boss</button>
+        <button type="button" data-effect="boardBreak" data-preview-text="boardBreak">Planche cassée</button>
+        <button type="button" data-effect="repair" data-preview-text="repair">Réparation</button>
+        <button type="button" data-effect="footstepIndoor" data-preview-text="footstepIndoor">Pas sur le bois</button>
+        <button type="button" data-effect="footstepOutdoor" data-preview-text="footstepOutdoor">Pas sur la terre</button>
+      </div>
+      <p class="note" data-preview-text="effectsNote">La mitrailleuse joue plus de six raccords de sa portion soutenue, sans rejouer la fin de rafale entre deux tours. Chaque bruitage attend son fichier avant de commencer. Les écoutes sont isolées de la musique ; le statut indique si un son généré remplace un fichier absent.</p>
+    </section>
+    <section>
+      <h2 data-preview-text="killClacs">Élimination · propositions pour Famille (défaut provisoire, à choisir à l’oreille)</h2>
+      <p class="note" data-preview-text="killClacsNote">Tu as demandé le 14 octobre un son d’élimination plus sec en Famille, pas glauque : « un petit clac ou un petit pop ». Chaque bouton joue le grognement de mort habituel, puis le son d’élimination 40 ms après le coup, comme en partie. Personne ne les a encore écoutés : le défaut provisoire a été choisi par une mesure (celui qui passe le mieux au-dessus des tirs). Ton choix tient en une ligne, FAMILLE_KILL dans audio.js.</p>
+      <div class="buttons">
+        <button type="button" data-clac="null"><span data-preview-text="clacThump">Ancien : petit choc sourd</span><span class="badge" data-clac-badge="null" data-preview-text="chosen" hidden>choisi</span></button>
+        <button type="button" data-clac="bois"><span data-preview-text="clacBois">Clac de bois (bois)</span><span class="badge" data-clac-badge="bois" data-preview-text="chosen" hidden>choisi</span></button>
+        <button type="button" data-clac="pop"><span data-preview-text="clacPop">Pop de dessin animé (pop)</span><span class="badge" data-clac-badge="pop" data-preview-text="chosen" hidden>choisi</span></button>
+        <button type="button" data-clac="tac"><span data-preview-text="clacTac">Tac-tac (tac)</span><span class="badge" data-clac-badge="tac" data-preview-text="chosen" hidden>choisi</span></button>
+      </div>
+      <label class="inline" for="clac-pistol"><input id="clac-pistol" type="checkbox"> <span data-preview-text="clacPistol">Avec un tir de pistolet</span></label>
+      <p class="note" id="clac-status"></p>
+    </section>
+    <section>
+      <h2 data-preview-text="video">Extrait vidéo du tir · 25–30 s</h2>
+      <audio id="minigun-reference" controls preload="none" src="/audio/minigun-fire.wav" aria-label="Extrait vidéo complet du tir du minigun, cinq secondes"></audio>
+      <p class="note" data-preview-text="videoNote">Écoute les cinq secondes complètes. Le bouton minigun joue la première seconde du même fichier pendant la rotation, puis sa portion de tir soutenu pendant 75 coups, environ 4,1 secondes. L’introduction ne revient pas dans la boucle de tir. Une écoute arrête l’autre.</p>
+    </section>
+    <section>
+      <h2 data-preview-text="reloads">Rechargements</h2>
+      <div class="buttons">
+        <button type="button" data-reload="pistol" data-preview-text="reloadPistol">Recharger le pistolet</button>
+        <button type="button" data-reload="rifle" data-preview-text="reloadRifle">Recharger la mitrailleuse</button>
+        <button type="button" data-reload="smg" data-preview-text="reloadSmg">Recharger le SMG</button>
+        <button type="button" data-reload="assault" data-preview-text="reloadAssault">Recharger le fusil d’assaut · mécanisme SMG</button>
+        <button type="button" data-reload="rocket" data-preview-text="reloadRocket">Recharger le lance-roquettes · son généré</button>
+        <button type="button" data-reload="flamethrower" data-preview-text="reloadFlamethrower">Recharger le lance-flammes · son généré</button>
+        <button type="button" data-reload="shotgun" data-preview-text="reloadShotgun">Recharger le fusil à pompe</button>
+        <button type="button" data-reload="magnum" data-preview-text="reloadMagnum">Recharger le magnum</button>
+        <button type="button" data-reload="minigun" data-preview-text="reloadMinigun">Recharger le minigun</button>
+      </div>
+      <p class="note" data-preview-text="reloadNote">Un seul rechargement joue à la fois. Chaque extrait conserve son timbre et s’arrête au plus tard à la fin du rechargement de l’arme. Le rechargement R du fusil à pompe conserve sa séquence ; le clic-tic n°3 accompagne seulement le réarmement après un tir.</p>
+    </section>
+  </main>
+  <script type="module">
+    import { SoundEngine } from './audio.js';
+    import { getLanguage, setLanguage } from './i18n.js';
+    import { MINIGUN_TIMING, FIRE_INTERVALS, MAX_WAVES } from './rules.js';
+    import { MUSIC_THEME_CATALOG } from './music-themes.js';
+
+    const english={
+      language:'Language',heading:'Audio preview · outside the game',
+      intro:'Listen to music and sound effects from the real Deadwood audio engine. This preview does not create a room or start a game. Start at a moderate volume.',
+      playback:'Playback and volume',activate:'Enable audio',mute:'Mute',resume:'Resume',stop:'Stop all',volume:'Master volume:',music:'Music',ambient:'Original atmosphere',tacticalA:'Tactical Resolve · A',tacticalB:'Tactical Resolve · B',covertA:'Covert Ostinato · A',covertB:'Covert Ostinato · B',nightA:'Night Resolve · A',nightB:'Night Resolve · B',brute:'Colossus',finale:'Final wave',
+      musicNote:'Compare Tactical Resolve, Covert Ostinato and Night Resolve, then choose your music on the home or pause screen. This preview does not change your in-game choice. Covert Ostinato · B is the default; the original atmosphere only plays as a fallback when a file is missing. Colossus and final-wave themes are preserved.',effects:'Sound effects',
+      choices:'Machine gun: new Bass series, take 2, sustained fire. SMG: sustained automatic fire, take 3. Shotgun: earlier Heavy Machine Gun series, take 2 for firing; “shotgun reload click”, take 3, for pumping after each shot. Pistol: take 1. Magnum: impact into earth. Grenade: “grenade explosion”, take 4, original pitch preserved.',
+      pistol:'Pistol',rifle:'MACHINE GUN · continuous fire, 7 s',smg:'SMG · 10-round burst',shotgun:'SHOTGUN',shotgunPump:'Cycle shotgun pump · take 3',magnum:'Golden Magnum',minigun:'Minigun · 1 s spin-up + 75 rounds',explosion:'Grenade explosion · take 4',rocketExplosion:'Rocket impact · take 3',headshot:'Head-shot confirmation · synthesized',chainDemo:'Kill chain · double → unstoppable · synthesized',groan:'Zombie groan',bruteCry:'Colossus cry',bossCry:'Boss cry',boardBreak:'Breaking plank',repair:'Repair',footstepIndoor:'Footsteps on wood',footstepOutdoor:'Footsteps on dirt',
+      effectsNote:'The machine gun loops its sustained section more than six times, without replaying the burst ending between loops. Each effect waits for its file before starting. Previews play separately from music; the status shows when generated audio replaces a missing file.',
+      video:'Video firing excerpt · 25–30 s',videoLabel:'Complete five-second minigun firing excerpt from the video',
+      videoNote:'Listen to the full five seconds. The minigun button plays the first second of the same recording during spin-up, then its sustained firing section for 75 rounds, about 4.1 seconds. The introduction never repeats in the firing loop. Starting one stops the other.',
+      reloads:'Reloading',reloadPistol:'Reload pistol',reloadRifle:'Reload machine gun',reloadSmg:'Reload SMG',reloadShotgun:'Reload shotgun',reloadMagnum:'Reload Magnum',reloadMinigun:'Reload minigun',
+      reloadNote:'Only one reload plays at a time. Each excerpt keeps its original tone and stops no later than the end of the weapon reload. The shotgun R reload keeps its sequence; take 3 only accompanies pumping after a shot.'
+    };
+    const messages={
+      fr:{pageTitle:'Deadwood · Aperçu audio hors partie',waiting:'Le son attend une activation.',muted:'Son coupé.',enabled:'Audio activé.',musicStopped:'Musique arrêtée.',paused:'en pause',generatedScore:'partition générée',localFile:'fichier local',loading:'chargement',noFiles:'Aucun fichier demandé avant l’activation.',files:'{decoded} fichier(s) décodé(s) sur {requested} demandé(s). Les fichiers absents gardent leur son généré.',ready:'Prêt pour l’écoute.',loadingEffect:'Chargement du bruitage…',listening:'Écoute activée.',allMuted:'Tous les sons sont coupés.',resumed:'Lecture reprise.',stopped:'Lecture arrêtée, sources libérées.',transition:'Transition vers {mode}.',generatedEffect:'son généré · fichier absent',minigunAction:'Minigun · rotation 1 s puis {rounds} coups en {seconds} s · {source}.',localShot:'tir : fichier local',generatedShot:'tir généré · fichier absent',videoAction:'Extrait vidéo du tir · fichier local complet, 5 secondes.',videoUnavailable:'Extrait vidéo local indisponible.'},
+      en:{pageTitle:'Deadwood · Audio preview outside the game',waiting:'Audio is waiting for activation.',muted:'Audio muted.',enabled:'Audio enabled.',musicStopped:'Music stopped.',paused:'paused',generatedScore:'generated score',localFile:'local file',loading:'loading',noFiles:'No files requested before activation.',files:'{decoded} file(s) decoded out of {requested} requested. Missing files keep their generated sound.',ready:'Ready to listen.',loadingEffect:'Loading sound effect…',listening:'Audio preview enabled.',allMuted:'All audio muted.',resumed:'Playback resumed.',stopped:'Playback stopped, sources released.',transition:'Transitioning to {mode}.',generatedEffect:'generated sound · file missing',minigunAction:'Minigun · 1 s spin-up then {rounds} rounds in {seconds} s · {source}.',localShot:'firing: local file',generatedShot:'generated firing · file missing',videoAction:'Video firing excerpt · complete local file, 5 seconds.',videoUnavailable:'Local video excerpt unavailable.'}
+    };
+    english.comparison='Machine gun + SMG · together for 7 s';
+    Object.assign(english,{katanaLight:'Katana · quick slash · take 3 · 6 s',katanaHeavy:'Katana · heavy slash · take 3 · 3 s',katanaChoices:'Katana: quick attack “sword slash”, take 3 (6 s); heavy attack “sword slash special attack”, take 3 (3 s). Previews play the complete recordings at original pitch and tempo. In the game, the next attack replaces the previous swing’s tail.'});
+    Object.assign(english,{batLight:'Bat · light strike · swing + impact take 1',batHeavy:'Bat · heavy strike · swing + impact take 4',batChoices:'Bat, chosen on 13 October: light strike “Axe swing followed by medium impact”, take 1, swing + impact (50 ms of leading silence removed; playback starts 121 ms in, so the impact lands at contact, 0.12 s after the click); heavy strike “Axe swing followed by medium impact”, take 4 (718 ms of leading silence removed; starts 117 ms after the click, impact at 0.35 s). The swing plays on every strike; on a miss, the impact fades out just before. The previous takes “hard boxing glove heavy impact” 4 and “slow swing followed by heavy impact” 2 stay archived. The preview plays a landed strike and lets the full sound tail play at original pitch and tempo.'});
+    Object.assign(english,{fireaxeLight:'Fire axe · light strike · take 3',fireaxeHeavy:'Fire axe · heavy strike · take 2',fireaxeChoices:'Fire axe: “Axe swing followed by medium impact”, take 3 for light and take 2 for heavy. The light recording loses 663 ms of quiet lead and a small isolated transient; its main swing is complete. The heavy recording is untrimmed. RMS peaks align with gameplay impacts at 0.40 / 0.55 s, to be confirmed by listening. Original pitch, tempo and complete remaining tails.'});
+    Object.assign(english,{sniperShot:'Sniper · “sniper riffle shot” · take 2',hammerLight:'Hammer · light strike · whoosh take 4 + medium impact take 4',hammerHeavy:'Hammer · heavy strike · heavy impact take 3',hammerSniperChoices:'Sniper: “sniper riffle shot”, take 2. Spiked hammer: “swing followed by medium impact”, take 4 for the light strike (504 ms of leading silence removed; 2.496 s retained); “slow swing followed by heavy impact”, take 3 for the heavy strike (384 ms removed; 1.616 s retained). The light recording waits an extra 200 ms: RMS peak at 0.50 s; swing and damage remain at 0.30 s. The heavy recording waits an extra 250 ms, 100 ms less than the previous setting: its RMS peak arrives at 1.00 s; the swing and damage remain at 0.75 s. This peak is a technical reference, to be confirmed by listening. On every light strike, hit or miss, “mace wooshing swing” take 4 whooshes before contact: it starts 156 ms after the click and its loud part ends at 0.30 s. The preview lets the full sound tail play at original pitch and tempo.'});
+    Object.assign(english,{assault:'Assault rifle · “short explosion” shot take 4 · continuous fire, 7 s',rocket:'Rocket launcher · take 1',flamethrower:'Flamethrower · take 3 · 5 s jet',reloadAssault:'Reload assault rifle · SMG mechanism',reloadRocket:'Reload rocket launcher · generated sound',reloadFlamethrower:'Reload flamethrower · generated sound',arsenalChoices:'Assault rifle: one attack from “heavy machine gun auto fire”, take 4, per bullet; tails overlap during held fire, with no autonomous loop. This preview triggers one shot every 130 ms. Rocket launcher: “rocket launcher”, take 1 for launching; its impact uses the owner-supplied “grenade explosion” take 3; the grenade keeps take 4. Flamethrower: “flame thrower”, take 3, sustained jet. Excerpts keep their original pitch and tempo.'});
+    Object.assign(messages.fr,{candidateMissing:'fichier absent · ambiance originale conservée',candidateLoading:'chargement du fichier local',candidateLocal:'fichier local',candidateSelected:'Transition vers {theme}.',comparisonAction:'Écoute simultanée · 7 s · mitrailleuse : {rifle} ; SMG : {smg}.',generatedReload:'mécanisme généré · aucun fichier choisi'});
+    Object.assign(messages.en,{candidateMissing:'file missing · original atmosphere retained',candidateLoading:'loading local file',candidateLocal:'local file',candidateSelected:'Transitioning to {theme}.',comparisonAction:'Simultaneous playback · 7 s · machine gun: {rifle}; SMG: {smg}.',generatedReload:'generated mechanism · no selected file'});
+    // The Famille kill proposals (art/frisson/KILL-SOUND.md section 5).
+    Object.assign(english,{killClacs:'Kill · proposals for Famille (provisional default, to choose by ear)',killClacsNote:'On 14 October you asked for a drier kill sound in Famille, not a gloomy one: “a little clack or a little pop”. Each button plays the usual death groan, then the kill sound 40 ms after the shot, as in a game. Nobody has heard them yet: the provisional default was chosen by a measurement (the one that cuts best through gunfire). Your choice is one line, FAMILLE_KILL in audio.js.',clacThump:'Old: soft thud',clacBois:'Wooden clack (bois)',clacPop:'Cartoon pop (pop)',clacTac:'Castanet tac-tac (tac)',clacPistol:'With a pistol shot',chosen:'chosen'});
+    Object.assign(messages.fr,{clacChosen:'Aujourd’hui en Famille : {name} (défaut provisoire, mesuré, pas encore écouté).',clacOld:'Aujourd’hui en Famille : l’ancien petit choc sourd.',clacAction:'{name} · grognement de mort puis son d’élimination{shot}.',clacShot:', après un tir de pistolet'});
+    Object.assign(messages.en,{clacChosen:'Famille plays today: {name} (provisional default, measured, not yet heard).',clacOld:'Famille plays today: the old soft thud.',clacAction:'{name} · death groan, then the kill sound{shot}.',clacShot:', after a pistol shot'});
+    const textNodes=[...document.querySelectorAll('[data-preview-text]')];
+    const french=Object.fromEntries(textNodes.map(node=>[node.dataset.previewText,node.textContent]));
+    const languageSelector=document.getElementById('language');
+    const referenceLabel=document.getElementById('minigun-reference').getAttribute('aria-label');
+    function tr(key,values={}){return (messages[getLanguage()][key]??messages.fr[key]??key).replace(/\{(\w+)\}/g,(_,name)=>String(values[name]??''));}
+    function text(key){return (getLanguage()==='en'?english:french)[key]??key;}
+    function applyLanguage(){
+      document.documentElement.lang=getLanguage();document.title=tr('pageTitle');languageSelector.value=getLanguage();
+      for(const node of textNodes)node.textContent=text(node.dataset.previewText);
+      reference.setAttribute('aria-label',getLanguage()==='en'?english.videoLabel:referenceLabel);
+      volumeOutput.value=`${Math.round(Number(volume.value)*100)} %`;
+      refresh();actionStatus.textContent=action();
+    }
+
+    // Which kill Famille plays today (audio.js's one-line FAMILLE_KILL), asked
+    // of a silent probe engine (built before the page's own): no audio context, no node, its calls caught.
+    const familleClac=(()=>{const probe=new SoundEngine();let id='null';probe.ready=()=>true;probe.volume=1;probe.groan=()=>{};probe.noise=()=>{};probe.clac=clac=>{id=clac;return true;};probe.kill();return id;})();
+    const sound=new SoundEngine();
+    const clacButtons=[...document.querySelectorAll('[data-clac]')],clacKeys={null:'clacThump',bois:'clacBois',pop:'clacPop',tac:'clacTac'};
+    const volume=document.getElementById('volume'),volumeOutput=document.getElementById('volume-output');
+    const audioStatus=document.getElementById('audio-status'),musicStatus=document.getElementById('music-status');
+    const assetStatus=document.getElementById('asset-status'),actionStatus=document.getElementById('action-status');
+    const reference=document.getElementById('minigun-reference');
+    const reloadDurations={pistol:1.25,rifle:1.65,smg:1.5,assault:1.6,rocket:2.8,flamethrower:3,shotgun:2.4,magnum:2.7,minigun:3.4};
+    const reloadKinds={pistol:'reloadPistol',rifle:'reloadRifle',smg:'reloadSmg',assault:'reloadSmg',shotgun:'reloadShotgun',magnum:'reloadMagnum',minigun:'reloadMinigun'};
+    let mode='ambient',playing=false,lastVolume=.55,stepId=0,burstTimer=null,spinTimer=null,burstType=null,actionToken=0;
+    let action=()=>tr('ready');
+    function setAction(value){action=typeof value==='function'?value:()=>tr(value);actionStatus.textContent=action();}
+    function stopReference(){reference.pause();try{reference.currentTime=0;}catch(_){}}
+    function cancelBurst(){if(spinTimer!==null){clearTimeout(spinTimer);spinTimer=null;}if(burstTimer!==null){clearInterval(burstTimer);burstTimer=null;}if(burstType==='comparison'){sound.releaseFire('rifle');sound.releaseFire('smg');}else if(burstType)sound.releaseFire(burstType);burstType=null;}
+    function beginAction(stopEngine=false,pauseReference=true){
+      const token=++actionToken;cancelBurst();sound.releaseFire();sound.releaseReload();sound.releasePump();sound.releaseMelee();
+      if(pauseReference)stopReference();if(stopEngine){sound.stop();playing=false;}
+      return token;
+    }
+    function startBurst(type,interval,windup=0,count=10,token=actionToken){
+      cancelBurst();sound.releaseReload();burstType=type;
+      const begin=()=>{spinTimer=null;if(burstType!==type||token!==actionToken)return;let remaining=count-1;sound.shoot(type,{held:true});burstTimer=setInterval(()=>{if(token!==actionToken){cancelBurst();return;}sound.shoot(type,{held:true});if(--remaining===0)cancelBurst();},interval);};
+      if(windup){sound.startMinigun();spinTimer=setTimeout(begin,windup);}else begin();
+    }
+    function startSustained(type,milliseconds,token=actionToken){
+      cancelBurst();burstType=type;sound.shoot(type,{held:true});
+      spinTimer=setTimeout(()=>{spinTimer=null;if(token===actionToken)cancelBurst();},milliseconds);
+    }
+    function startAssaultDemo(token=actionToken){
+      cancelBurst();burstType='assault';sound.shoot('assault',{held:true});let remaining=53;
+      burstTimer=setInterval(()=>{
+        if(token!==actionToken){cancelBurst();return;}
+        sound.shoot('assault',{held:true});
+        if(--remaining===0){clearInterval(burstTimer);burstTimer=null;}
+      },FIRE_INTERVALS.assault*1000);
+      spinTimer=setTimeout(()=>{spinTimer=null;if(token===actionToken)cancelBurst();},7000);
+    }
+    function snapshot(){return {phase:'wave',wave:mode==='finale'?MAX_WAVES:1,players:Object.keys(reloadDurations).map(weapon=>({weapon})),zombies:mode==='brute'?[{id:'preview-brute',kind:'brute'}]:[]};}
+    async function enable(token){await sound.unlock();if(token!==actionToken)return false;refresh();return sound.ready();}
+    async function prepare(kind,token){
+      setAction('loadingEffect');
+      if(!await enable(token))return null;
+      const local=await sound.prepareEffect(kind);if(token!==actionToken)return null;
+      return local;
+    }
+    function setVolume(value){if(value===0)beginAction(true);sound.setVolume(value);reference.volume=value;reference.muted=value===0;volume.value=String(value);volumeOutput.value=`${Math.round(value*100)} %`;if(value>0)lastVolume=value;refresh();}
+    function selectMode(value){mode=value;playing=true;sound.updateScene(snapshot(),true);refresh();}
+    function themeText(){return text(MUSIC_THEME_CATALOG[sound.musicTheme]??'ambient');}
+    function refresh(){
+      audioStatus.textContent=tr(!sound.ready()?'waiting':sound.volume===0?'muted':'enabled');
+      const voice=sound.music?.[mode];
+      const candidate=mode==='ambient'&&sound.musicTheme!=='original',status=sound.musicThemeStatus();
+      const sourceStatus=sound.volume===0?'paused':candidate?status==='missing'?'candidateMissing':status==='local'?'candidateLocal':'candidateLoading':voice?.key?.startsWith('synth:')?'generatedScore':voice?'localFile':'loading';
+      musicStatus.textContent=!playing?tr('musicStopped'):`${mode==='ambient'?themeText():text(mode)} · ${tr(sourceStatus)}.`;
+      // Public cache summaries only; no inspection of the audio node graph.
+      const files=sound.buffers instanceof Map?[...sound.buffers.values()]:[];
+      assetStatus.textContent=!sound.unlocked?tr('noFiles'):tr('files',{decoded:files.filter(file=>file.buffer).length,requested:files.length});
+      for(const button of document.querySelectorAll('[data-mode]'))button.setAttribute('aria-pressed',String(playing&&button.dataset.mode===mode&&(!button.dataset.theme||button.dataset.theme===sound.musicTheme)));
+      document.getElementById('clac-status').textContent=familleClac==='null'?tr('clacOld'):tr('clacChosen',{name:text(clacKeys[familleClac]??'clacPop')});
+    }
+    document.getElementById('activate').addEventListener('click',async()=>{const token=beginAction();if(await enable(token)){if(!sound.volume)setVolume(lastVolume);selectMode(mode);setAction('listening');}});
+    document.getElementById('mute').addEventListener('click',()=>{setVolume(0);setAction('allMuted');});
+    document.getElementById('resume').addEventListener('click',async()=>{const token=beginAction();if(await enable(token)){setVolume(lastVolume);selectMode(mode);setAction('resumed');}});
+    document.getElementById('stop').addEventListener('click',()=>{beginAction(true);refresh();setAction('stopped');});
+    volume.addEventListener('input',()=>setVolume(Number(volume.value)));
+    for(const button of document.querySelectorAll('[data-mode]'))button.addEventListener('click',async()=>{const token=beginAction();if(await enable(token)){if(button.dataset.theme)sound.setMusicTheme(button.dataset.theme);selectMode(button.dataset.mode);setAction(()=>mode==='ambient'?tr('candidateSelected',{theme:themeText()}):tr('transition',{mode:text(mode).toLowerCase()}));}});
+    for(const button of document.querySelectorAll('[data-effect]'))button.addEventListener('click',async()=>{
+      const token=beginAction(true),effect=button.dataset.effect,local=await prepare(effect,token);if(local===null)return;
+      if(effect==='shotgun'){await sound.prepareEffect('shotgunPump');if(token!==actionToken)return;}
+      if(effect.startsWith('footstep')) {
+        if(!playing)sound.updateScene({phase:'lobby',wave:0,zombies:[]},true);
+        const self={id:`preview-step-${++stepId}`,x:0,z:0,alive:true,grounded:true,outside:effect==='footstepOutdoor'};
+        sound.updateFootsteps(self);self.x=1.05;sound.updateFootsteps(self);
+      } else if(effect==='rifle')startBurst('rifle',90,0,79,token);
+      else if(effect==='smg')startBurst('smg',85);
+      else if(effect==='assault')startAssaultDemo(token);
+      else if(effect==='flamethrower')startSustained(effect,5000,token);
+      else if(['pistol','shotgun','magnum','rocket'].includes(effect)){cancelBurst();sound.releaseReload();sound.shoot(effect);}
+      else if(effect==='shotgunPump')sound.shotgunPump('local',0);
+      else if(effect==='batLight'||effect==='batHeavy')sound.melee(effect==='batHeavy'?'heavy':'light',1,'local','bat');
+      else if(effect==='fireaxeLight'||effect==='fireaxeHeavy')sound.melee(effect==='fireaxeHeavy'?'heavy':'light',1,'local','fireaxe');
+      else if(effect==='katanaLight'||effect==='katanaHeavy')sound.melee(effect==='katanaHeavy'?'heavy':'light');
+      else if(effect==='sniperShot')sound.shoot('sniper');
+      else if(effect==='rocketExplosion')sound.explosion(1,{weapon:'rocket'});
+      else if(effect==='hammerLight'||effect==='hammerHeavy')sound.melee(effect==='hammerHeavy'?'heavy':'light',1,'local','hammer');
+      else if(effect==='chainDemo'){let chainCount=3;sound.chain(2);burstTimer=setInterval(()=>{if(token!==actionToken){cancelBurst();return;}sound.chain(chainCount);if(++chainCount>6)cancelBurst();},700);}
+      else sound[effect]();
+      setAction(()=>`${button.textContent} · ${tr(local?'localFile':'generatedEffect')}.`);refresh();
+    });
+    // A Famille kill as it plays in a game, groan(.09) then the clac (or, for
+    // the old one, the null path of kill(): its soft thud), the pistol first when ticked.
+    for(const button of clacButtons){
+      const id=button.dataset.clac;button.setAttribute('aria-current',String(id===familleClac));
+      for(const badge of document.querySelectorAll(`[data-clac-badge="${id}"]`))badge.hidden=id!==familleClac;
+      button.addEventListener('click',async()=>{
+        const token=beginAction(true),shot=document.getElementById('clac-pistol').checked===true;
+        setAction('loadingEffect');if(!await enable(token))return;
+        await Promise.all([sound.prepareEffect('groan'),shot?sound.prepareEffect('pistol'):null]);if(token!==actionToken)return;
+        if(shot)sound.shoot('pistol');
+        sound.groan(.09);
+        if(id==='null')sound.noise(.12,.1,350);else sound.clac(id);
+        setAction(()=>tr('clacAction',{name:text(clacKeys[id]),shot:shot?tr('clacShot'):''}));refresh();
+      });
+    }
+    document.getElementById('automatic-comparison').addEventListener('click',async()=>{
+      const token=beginAction(true);setAction('loadingEffect');if(!await enable(token))return;
+      const [rifle,smg]=await Promise.all(['rifle','smg'].map(kind=>sound.prepareEffect(kind)));if(token!==actionToken)return;
+      burstType='comparison';sound.shoot('rifle',{held:true});sound.shoot('smg',{held:true});
+      spinTimer=setTimeout(()=>{spinTimer=null;if(token===actionToken)cancelBurst();},7000);
+      setAction(()=>tr('comparisonAction',{rifle:tr(rifle?'localFile':'generatedEffect'),smg:tr(smg?'localFile':'generatedEffect')}));refresh();
+    });
+    document.getElementById('minigun-burst').addEventListener('click',async()=>{
+      const token=beginAction(true),local=await prepare('minigunFire',token);if(local===null)return;
+      let rounds=75;
+      try{const response=await fetch('/world.json');const data=await response.json();const magazine=data.weapons?.minigun?.magazine;if(Number.isSafeInteger(magazine)&&magazine>0&&magazine<=1000)rounds=magazine;}catch(_){ /* A standalone preview can still use the current magazine. */ }
+      if(token!==actionToken)return;
+      startBurst('minigun',FIRE_INTERVALS.minigun*1000,MINIGUN_TIMING.windup*1000,rounds,token);
+      setAction(()=>tr('minigunAction',{rounds,seconds:(rounds*FIRE_INTERVALS.minigun).toFixed(1).replace('.',getLanguage()==='fr'?',':'.'),source:tr(local?'localShot':'generatedShot')}));refresh();
+    });
+    for(const button of document.querySelectorAll('[data-reload]'))button.addEventListener('click',async()=>{
+      const token=beginAction(true),type=button.dataset.reload,kind=reloadKinds[type];
+      const local=kind?await prepare(kind,token):await enable(token)?false:null;if(local===null)return;
+      sound.reload(type,reloadDurations[type]);setAction(()=>`${button.textContent} · ${reloadDurations[type]} s · ${tr(local?'localFile':kind?'generatedEffect':'generatedReload')}.`);refresh();
+    });
+    reference.addEventListener('play',()=>{beginAction(true,false);if(!sound.volume){stopReference();setAction('muted');}else setAction('videoAction');refresh();});
+    reference.addEventListener('error',()=>{setAction('videoUnavailable');});
+    const statusTimer=setInterval(refresh,500);
+    window.addEventListener('pagehide',()=>{beginAction(true);clearInterval(statusTimer);});
+    reference.volume=Number(volume.value);
+    languageSelector.addEventListener('change',()=>{setLanguage(languageSelector.value);applyLanguage();});
+    window.addEventListener('deadwood-language-change',applyLanguage);
+    applyLanguage();
+  </script>
+</body>
+</html>

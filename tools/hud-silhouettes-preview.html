@@ -1,0 +1,117 @@
+<div id="dw-model-hud">
+  <div class="viz-controls">
+    <label class="form-label">Grenades <select class="form-select" id="dh-grenades"><option value="0">0 / 2</option><option value="1" selected>1 / 2</option><option value="2">2 / 2</option></select></label>
+    <label class="form-label">Modèles <select class="form-select" id="dh-style"><option value="frisson" selected>Frisson</option><option value="famille">Famille</option></select></label>
+    <label class="form-label">Arme du premier emplacement <select class="form-select" id="dh-weapon"></select></label>
+  </div>
+  <div class="viz-dotted-background dh-stage">
+    <article class="dh-hud" aria-label="HUD avec les silhouettes des modèles du jeu">
+      <header id="dh-name">MITRAILLEUSE</header>
+      <div class="dh-ammo" id="dh-ammo">
+        <div><small>CHARGÉ</small><strong><span id="dh-loaded">24</span><span class="dh-capacity"> / <b id="dh-capacity">30</b></span></strong></div>
+        <div class="dh-reserve"><small>RÉSERVE</small><b id="dh-reserve">90</b></div>
+      </div>
+      <div class="dh-melee" id="dh-melee" hidden>ARME DE MÊLÉE</div>
+      <div class="dh-magazines" id="dh-magazines" aria-label="Trois chargeurs en réserve"><i></i><i></i><i></i></div>
+      <div class="dh-slots" aria-label="Armes portées">
+        <button type="button" class="dh-slot cursor-interaction" data-slot="0" aria-pressed="true">
+          <span class="dh-key">1</span><span class="dh-silhouette" aria-hidden="true"></span><span class="dh-slot-name">MITRAILLEUSE</span>
+        </button>
+        <button type="button" class="dh-slot cursor-interaction" data-slot="1" aria-pressed="false">
+          <span class="dh-key">2</span><span class="dh-silhouette" aria-hidden="true"></span><span class="dh-slot-name">PISTOLET</span>
+        </button>
+      </div>
+      <div class="dh-grenades" role="img" aria-label="Une grenade disponible sur deux">
+        <span class="dh-key">G</span><span class="dh-grenade-icons" aria-hidden="true"><i></i><i></i></span><span class="dh-grenade-count" id="dh-count">1 / 2</span>
+      </div>
+    </article>
+  </div>
+  <details class="dh-catalogue">
+    <summary>Voir les silhouettes des 14 armes</summary>
+    <div class="dh-gallery" aria-label="Silhouettes extraites des modèles du jeu"></div>
+  </details>
+</div>
+<style>
+#dw-model-hud .dh-stage{padding:24px 10px;display:flex;justify-content:center}
+#dw-model-hud .dh-hud{--gold:#e5aa60;--ink:#efe9d1;--sub:#aab79a;--edge:#354638;box-sizing:border-box;width:360px;max-width:100%;padding:20px 22px 13px;background:#0b1912;color:var(--ink);font:12px/1.4 Consolas,"Courier New",monospace;color-scheme:dark}
+#dw-model-hud .dh-hud header{font-size:12px;letter-spacing:1.3px}
+#dw-model-hud .dh-ammo{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-top:14px}
+#dw-model-hud .dh-hud small{display:block;font-size:11px;letter-spacing:1px;color:var(--sub)}
+#dw-model-hud .dh-ammo strong{font-size:48px;line-height:1.2;font-weight:500;font-variant-numeric:tabular-nums}
+#dw-model-hud .dh-capacity{font-size:22px;color:var(--sub)}
+#dw-model-hud .dh-hud b{font-weight:500}
+#dw-model-hud .dh-reserve{text-align:right;padding-bottom:3px}
+#dw-model-hud .dh-reserve b{font-size:29px;color:var(--ink)}
+#dw-model-hud .dh-magazines{display:flex;justify-content:flex-end;gap:5px;height:26px;align-items:center;margin:5px 0 12px}
+#dw-model-hud .dh-magazines i{width:7px;height:16px;transform:skew(-6deg);border:1px solid var(--sub);background:#adc38f;background-clip:content-box;padding:2px}
+#dw-model-hud .dh-melee{height:107px;box-sizing:border-box;padding-top:34px;color:var(--sub);font-size:12px}
+#dw-model-hud .dh-slots{display:flex;flex-direction:column;gap:6px}
+#dw-model-hud .dh-slot{box-sizing:border-box;display:grid;grid-template-columns:24px minmax(0,1fr);grid-template-rows:40px auto;column-gap:12px;align-items:center;width:100%;padding:8px 12px 9px 8px;border:0;border-left:2px solid transparent;background:#102018;color:#aab79a;font:inherit;text-align:left}
+#dw-model-hud .dh-slot[aria-pressed="true"]{border-left-color:#e5aa60;background:#19291b;color:#e5aa60}
+#dw-model-hud .dh-slot:focus-visible{outline:2px solid #efe9d1;outline-offset:2px}
+#dw-model-hud .dh-key{display:inline-flex;align-items:center;justify-content:center;width:22px;height:24px;box-sizing:border-box;border:1px solid currentColor;border-radius:2px;font-size:12px}
+#dw-model-hud .dh-slot .dh-key{grid-row:1/3}
+#dw-model-hud .dh-silhouette{display:block;width:100%;height:40px;background:currentColor;mask:var(--silhouette) center/contain no-repeat;-webkit-mask:var(--silhouette) center/contain no-repeat}
+#dw-model-hud .dh-slot-name{font-size:11px;letter-spacing:.5px;margin-top:4px}
+#dw-model-hud .dh-grenades{display:flex;gap:14px;align-items:center;margin-top:12px;padding:10px 0 0;border-top:1px solid var(--edge);color:var(--sub)}
+#dw-model-hud .dh-grenade-icons{display:flex;gap:8px;margin-left:3px}
+#dw-model-hud .dh-grenade-icons i{display:block;width:28px;height:42px;background:#8e9b83;mask:var(--silhouette) center/contain no-repeat;-webkit-mask:var(--silhouette) center/contain no-repeat}
+#dw-model-hud .dh-grenade-icons i.available{background:var(--gold)}
+#dw-model-hud .dh-grenade-count{margin-left:auto;font-size:13px;letter-spacing:1px;color:var(--ink)}
+#dw-model-hud .dh-catalogue{margin-top:12px}
+#dw-model-hud .dh-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:12px}
+#dw-model-hud .dh-sample{background:#0b1912;color:#d9ddc3;padding:12px;text-align:center;font:11px/1.4 Consolas,"Courier New",monospace}
+#dw-model-hud .dh-sample .dh-silhouette{height:56px;margin-bottom:8px}
+#dw-model-hud [hidden]{display:none!important}
+@media(max-width:380px){#dw-model-hud .dh-stage{padding:20px 4px}#dw-model-hud .dh-hud{padding:18px 16px 12px}}
+</style>
+<script>
+(() => {
+  const root=document.getElementById('dw-model-hud'),get=id=>root.querySelector('#'+id);
+  const data=__HUD_DATA__;
+  const state={grenades:1,style:'frisson',weapon:'rifle',slot:0};
+  const styles=['frisson','famille'];
+  function restore(saved){
+    const s=saved?.modelContent;if(!s)return;
+    if([0,1,2].includes(s.grenades))state.grenades=s.grenades;
+    if(styles.includes(s.style))state.style=s.style;
+    if(data.weapons[s.weapon])state.weapon=s.weapon;
+    if([0,1].includes(s.slot))state.slot=s.slot;
+  }
+  function mask(node,src){node.style.setProperty('--silhouette','url("'+src+'")');}
+  for(const [id,w]of Object.entries(data.weapons)){
+    const option=document.createElement('option');option.value=id;option.textContent=w.label;get('dh-weapon').append(option);
+    const item=document.createElement('div');item.className='dh-sample';item.dataset.weapon=id;
+    const icon=document.createElement('span');icon.className='dh-silhouette';icon.setAttribute('aria-hidden','true');
+    const label=document.createElement('span');label.textContent=w.label;item.append(icon,label);root.querySelector('.dh-gallery').append(item);
+  }
+  function render(){
+    get('dh-grenades').value=state.grenades;get('dh-style').value=state.style;get('dh-weapon').value=state.weapon;
+    const carried=[state.weapon,state.weapon==='pistol'?'rifle':'pistol'],active=data.weapons[carried[state.slot]];
+    get('dh-name').textContent=active.label.toUpperCase();
+    get('dh-ammo').hidden=active.melee;get('dh-magazines').hidden=active.melee;get('dh-melee').hidden=!active.melee;
+    get('dh-loaded').textContent=Math.max(0,active.magazine-Math.min(6,Math.floor(active.magazine/4)));
+    get('dh-capacity').textContent=active.magazine;get('dh-reserve').textContent=active.reserve;
+    const count=active.magazine?Math.ceil(active.reserve/active.magazine):0;
+    const magazines=get('dh-magazines');magazines.replaceChildren();
+    for(let i=0;i<Math.min(6,count);i++)magazines.append(document.createElement('i'));
+    magazines.setAttribute('aria-label',count+' chargeurs en réserve');
+    root.querySelectorAll('.dh-slot').forEach((node,index)=>{
+      const weapon=data.weapons[carried[index]];
+      node.setAttribute('aria-pressed',String(index===state.slot));node.setAttribute('aria-label','Emplacement '+(index+1)+' : '+weapon.label);
+      node.querySelector('.dh-slot-name').textContent=weapon.label.toUpperCase();mask(node.querySelector('.dh-silhouette'),weapon[state.style]);
+    });
+    root.querySelectorAll('.dh-grenade-icons i').forEach((node,i)=>{
+      node.classList.toggle('available',i<state.grenades);mask(node,i<state.grenades?data.grenade.filled:data.grenade.outline);
+    });
+    get('dh-count').textContent=state.grenades+' / 2';
+    root.querySelector('.dh-grenades').setAttribute('aria-label',state.grenades+' grenade'+(state.grenades>1?'s':'')+' disponible'+(state.grenades>1?'s':'')+' sur deux');
+    root.querySelectorAll('.dh-sample').forEach(node=>mask(node.querySelector('.dh-silhouette'),data.weapons[node.dataset.weapon][state.style]));
+  }
+  function persist(){if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{...state}}).catch(()=>{});}
+  restore(window.openai?.widgetState);render();
+  for(const [id,key]of [['dh-grenades','grenades'],['dh-style','style'],['dh-weapon','weapon']])get(id).addEventListener('change',e=>{state[key]=key==='grenades'?Number(e.target.value):e.target.value;render();persist();});
+  root.querySelectorAll('.dh-slot').forEach(node=>node.addEventListener('click',()=>{state.slot=Number(node.dataset.slot);render();persist();}));
+  window.addEventListener('openai:set_globals',event=>{restore(event.detail?.globals?.widgetState);render();});
+})();
+</script>

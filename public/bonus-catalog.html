@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Deadwood · Les bonus</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#101b17;color:#eee9dc;--gold:#e2bc79;--muted:#b3b9ad}*{box-sizing:border-box}body{margin:0}main{max-width:1200px;margin:auto;padding:36px 24px 60px}a{color:var(--gold)}header{display:flex;gap:22px;align-items:center;justify-content:space-between;flex-wrap:wrap;border-bottom:1px solid #536050;padding-bottom:24px}.eyebrow{font-size:11px;letter-spacing:3px;color:var(--gold)}h1{font:clamp(32px,5vw,54px) Georgia,serif;margin:10px 0}p{line-height:1.6;color:var(--muted);max-width:780px}select,button,input{font:inherit}select{background:#1d2c24;color:inherit;border:1px solid #60705e;padding:8px;border-radius:4px}.controls{position:sticky;top:0;z-index:2;background:#101b17ee;display:flex;gap:20px;align-items:center;flex-wrap:wrap;padding:22px 0;backdrop-filter:blur(6px)}input{accent-color:var(--gold);width:220px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(265px,1fr));gap:16px}.card{background:#1a2921;border:1px solid #4d5d49;border-radius:8px;padding:22px;min-width:0}.icon{width:56px;height:56px;color:var(--gold);margin-bottom:16px}.icon .bonus-silhouette{display:block;width:100%;height:100%;background:currentColor;mask:var(--bonus-silhouette) center/contain no-repeat;-webkit-mask:var(--bonus-silhouette) center/contain no-repeat}.icon .bonus-silhouette>img{display:block;width:100%;height:100%;opacity:0}.kind{color:#adb8a7;text-transform:uppercase;font-size:10px;letter-spacing:2px}h2{font:25px Georgia,serif;margin:8px 0 12px}.effect{color:var(--gold);min-height:48px;font-size:17px;line-height:1.45}.note{font-size:12px;line-height:1.5;color:var(--muted);min-height:36px}details{margin-top:18px;border-top:1px solid #465541;padding-top:12px;font-size:12px}summary{cursor:pointer;color:var(--gold)}table{width:100%;border-collapse:collapse;margin-top:10px}td{padding:8px 4px;border-bottom:1px solid #344633;line-height:1.4}td:first-child{white-space:nowrap;width:34px;color:var(--gold)}tr.selected{background:#30412d}footer{margin-top:30px;font-size:13px;color:var(--muted)}@media(max-width:600px){main{padding:22px 16px}.grid{grid-template-columns:1fr}.controls{gap:12px}}
+.sheet{margin-top:42px;border-top:1px solid #536050;padding-top:26px}.sheet>h2{font:clamp(26px,3.6vw,38px) Georgia,serif;margin:0 0 10px}.sheet>ul{color:var(--muted);line-height:1.6;max-width:820px;padding-left:20px;margin:0 0 22px}.sheet .card h3{font:21px Georgia,serif;margin:0 0 6px}.sheet .card>p{font-size:13px;margin:0 0 12px}.sheet table.malus td:first-child{width:auto;white-space:normal;color:#eee9dc}.sheet table.malus th{font-size:10px;letter-spacing:1px;color:#adb8a7;text-align:left;font-weight:400;padding:0 4px 4px}.sheet .malus-icon{display:inline-block;width:18px;height:18px;vertical-align:-4px;margin-right:6px;color:var(--gold)}.sheet .malus-icon .bonus-silhouette{display:block;width:100%;height:100%;background:currentColor;mask:var(--bonus-silhouette) center/contain no-repeat;-webkit-mask:var(--bonus-silhouette) center/contain no-repeat}.sheet .malus-icon .bonus-silhouette>img{display:block;width:100%;height:100%;opacity:0}
+</style></head><body><main>
+<header><div><a href="/">← Deadwood</a><div class="eyebrow">DEADWOOD · LAST LIGHT</div><h1 id="title">Façonne ton survivant.</h1><p id="intro"></p></div><label><span id="language-label">Langue</span> <select id="language"><option value="fr">Français</option><option value="en">English</option></select></label></header>
+<div class="controls"><label for="level" id="level-label">Niveau des bonus</label><input id="level" type="range" min="1" max="8" value="1"><strong id="level-value">1 / 8</strong><span id="cadence"></span></div>
+<section class="grid" id="bonuses" aria-label="Bonus"></section><section id="sheet" class="sheet" aria-labelledby="sheet-title"><h2 id="sheet-title"></h2><p id="sheet-intro"></p><ul id="sheet-rules"></ul><div id="sheet-stats" class="grid"></div></section><footer id="footnote"></footer>
+</main><script type="module">
+import {SUPPLY_BONUSES} from './weapon-upgrades.js';
+import {CHARACTER_BONUSES,characterBonusDescription} from './character-bonuses.js';
+import {bonusHudCard} from './bonus-hud.js';
+import {bonusIcon} from './bonus-icons.js';
+import {setLanguage,t} from './i18n.js';
+const $=id=>document.getElementById(id);let language='fr';
+const note=kind=>{
+ const en=language==='en';
+ if(kind==='grenadier')return en?'Regenerates one grenade at each interval. Carry 2 initially, 3 at level 3, 4 at level 6 and 5 at level 8. Grenade damage increases up to +50% at level 8. The first grenade also waits for a full interval; no hidden reserve while full. Team pause freezes the countdown. Getting back up or upgrading restarts a full interval.':'Régénère une grenade par intervalle. Réserve de 2 au départ, 3 à N3, 4 à N6 et 5 à N8. Les dégâts des grenades augmentent jusqu’à +50 % à N8. La première attend aussi l’intervalle complet ; aucune réserve cachée quand le stock est plein. La pause collective fige le compte à rebours. Une relève ou un nouveau niveau relance un intervalle complet.';
+ if(kind==='switching')return en?'Level 8: two carried ranged weapons; left/right click. Return to one weapon to use a sniper scope.':'N8 : deux armes à distance portées, clic gauche/droit. Reviens à une seule arme pour la lunette du sniper.';
+ if(kind==='frostaura')return en?'Always active while standing. Obstacles block it; bosses receive half the slowing. Auras do not stack.':'Active en continu tant que tu es debout. Obstacles respectés, demi-effet sur les boss. Les auras ne se cumulent pas.';
+ if(kind==='radar')return en?'Nearby hidden enemies only, within 25 m. Each tier reveals more; visible enemies remain visible.':'Ennemis cachés proches, dans un rayon de 25 m. Chaque palier révèle davantage.';
+ if(kind==='medic')return en?'Shortens manual teammate revives. Revive kits keep their own behaviour.':'Accélère la relève manuelle des coéquipiers. Les kits de relève gardent leur fonctionnement.';
+ if(kind==='toughskin')return en?'Reduces combat damage. Rain resistance is a separate bonus.':'Réduit les dégâts de combat. La protection contre la pluie est un bonus distinct.';
+ if(kind==='stone')return en?'Melee weapons: damage and additional victims at levels 4 and 8.':'Armes de mêlée : dégâts et cibles supplémentaires aux niveaux 4 et 8.';
+ if(kind==='perforating')return en?'Extra pierced targets at levels 3, 6 and 8. Weapon exceptions apply.':'Cibles traversées supplémentaires aux niveaux 3, 6 et 8, selon l’arme.';
+ return en?'Permanent personal bonus; the shown value is the total at this level.':'Bonus personnel permanent ; la valeur affichée est le total à ce niveau.';
+};
+function effect(kind,level){return Object.hasOwn(CHARACTER_BONUSES,kind)?characterBonusDescription(kind,level,language):bonusHudCard(kind,level,kind==='stone'?'katana':'assault',t).effect;}
+function render(){
+ setLanguage(language);document.documentElement.lang=language;const en=language==='en',level=Number($('level').value);
+ document.title=en?'Deadwood · Bonuses':'Deadwood · Les bonus';
+ $('title').textContent=en?'Shape your survivor.':'Façonne ton survivant.';
+ $('intro').textContent=en?'Find the permanent supply crate outside. Each survivor gets one free choice per wave from wave 2 to 18: acquire a new bonus or increase one level, up to level 8.':'Retrouve la caisse d’approvisionnement permanente dehors. Chaque survivant reçoit un choix gratuit par vague, de la vague 2 à la vague 18 : obtenir un nouveau bonus ou gagner un niveau, jusqu’au niveau 8.';
+ $('language-label').textContent=en?'Language':'Langue';$('level-label').textContent=en?'Bonus level':'Niveau des bonus';$('level-value').textContent=level+' / 8';$('cadence').textContent=en?'17 choices per survivor':'17 choix par survivant';
+ $('footnote').textContent=en?'Bonuses apply to humans and companions alike. Carried bonuses can be recovered after an eliminated teammate drops them.':'Les bonus s’appliquent aux humains comme aux compagnons. Ils peuvent être récupérés au sol lorsqu’un coéquipier éliminé les laisse tomber.';
+ $('bonuses').replaceChildren(...Object.entries(SUPPLY_BONUSES).map(([kind,definition])=>{
+  const card=document.createElement('article');card.className='card';card.dataset.bonus=kind;
+  const icon=document.createElement('div');icon.className='icon';icon.innerHTML=bonusIcon(kind);
+  const category=document.createElement('span');category.className='kind';category.textContent=Object.hasOwn(CHARACTER_BONUSES,kind)?(en?'Survivor':'Survivant'):(en?'Weapons':'Armes');
+  const title=document.createElement('h2');title.textContent=definition.label[language];
+  const current=document.createElement('div');current.className='effect';current.textContent=effect(kind,level);
+  const explanation=document.createElement('p');explanation.className='note';explanation.textContent=note(kind);
+  const details=document.createElement('details'),summary=document.createElement('summary'),table=document.createElement('table');summary.textContent=en?'All eight levels':'Les huit niveaux';
+  for(let at=1;at<=8;at++){const row=document.createElement('tr');if(at===level)row.className='selected';const number=document.createElement('td'),value=document.createElement('td');number.textContent='N'+at;value.textContent=effect(kind,at);row.append(number,value);table.append(row);}
+  details.append(summary,table);card.append(icon,category,title,current,explanation,details);return card;
+ }));
+}
+$('level').addEventListener('input',render);$('language').addEventListener('change',()=>{language=$('language').value;render();});render();
+</script>
+<script type="module">
+// The optional character sheet (character-sheet.js): what a plus or a minus
+// point changes at the crate. Text from i18n.js; the first module owns the
+// language and has already applied it when this listener runs.
+import {SHEET_STATS} from './character-sheet.js';
+import {sheetMalusEffect} from './bonus-hud.js';
+import {bonusIcon} from './bonus-icons.js';
+import {t} from './i18n.js';
+const $=id=>document.getElementById(id);
+function renderSheet(){
+ $('sheet-title').textContent=t('sheetCatalog.title');$('sheet-intro').textContent=t('sheetCatalog.intro');
+ $('sheet-rules').replaceChildren(...['plus','minus','reset'].map(key=>{const item=document.createElement('li');item.textContent=t(`sheetCatalog.${key}`);return item;}));
+ $('sheet-stats').replaceChildren(...SHEET_STATS.map(stat=>{
+  const card=document.createElement('article');card.className='card';card.dataset.stat=stat.id;
+  const title=document.createElement('h3');title.textContent=t(`sheet.stat.${stat.id}`);
+  const detail=document.createElement('p');detail.textContent=t(`sheet.statDetail.${stat.id}`);
+  const table=document.createElement('table');table.className='malus';
+  const head=document.createElement('tr');head.append(...['sheetCatalog.bonus','sheetCatalog.minusOne','sheetCatalog.minusTwo'].map(key=>{const cell=document.createElement('th');cell.textContent=t(key);return cell;}));table.append(head);
+  for(const kind of stat.bonuses){
+   const row=document.createElement('tr');row.dataset.bonus=kind;const name=document.createElement('td'),icon=document.createElement('span');
+   icon.className='malus-icon';icon.innerHTML=bonusIcon(kind);name.append(icon,t(`bonus.${kind}`));
+   row.append(name,...[-1,-2].map(level=>{const cell=document.createElement('td');cell.textContent=sheetMalusEffect(kind,level,t);return cell;}));table.append(row);
+  }
+  card.append(title,detail,table);return card;
+ }));
+}
+$('language').addEventListener('change',renderSheet);renderSheet();
+</script></body></html>

@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101916">
+  <title>Deadwood — Last Light</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23101916'/%3E%3Cpath d='M14 30 32 14 50 30v23H14Z' fill='none' stroke='%23edbd77' stroke-width='4'/%3E%3Cpath d='M20 38h24M20 46h24' stroke='%23edbd77' stroke-width='4'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <canvas id="game" aria-label="Vue 3D du refuge" data-i18n-aria-label="scene.view"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div id="vignette" aria-hidden="true"></div>
+  <div id="damage-flash" aria-hidden="true"></div>
+  <header class="masthead">
+    <a class="brand" href="/" aria-label="Deadwood accueil" data-i18n-aria-label="brand.home"><span class="brand-icon">D<span>W</span></span><span>DEADWOOD<small>LAST LIGHT</small></span></a>
+    <div class="server-status"><i id="connection-dot"></i><span id="connection-label" data-i18n="connection.idle">COOPÉRATION · 1–4 JOUEURS</span></div>
+    <button id="sound-toggle" class="icon-button" aria-label="Couper le son" title="Activer / couper le son" data-i18n-aria-label="sound.mute" data-i18n-title="sound.toggle">♫ <span data-i18n="sound.on">SON</span></button>
+  </header>
+  <main id="menu" class="screen">
+    <section class="intro">
+      <div class="eyebrow"><span class="line"></span><span data-i18n="intro.eyebrow">LA FORÊT NE DORT PLUS.</span></div>
+      <h1><span class="title-word" data-i18n="intro.title.first">La dernière</span><br><span class="title-word" data-i18n="intro.title.second">lumière</span><span>.</span></h1>
+      <p><span data-i18n="intro.description.first">Une cabane. Quatre portes. Vingt vagues à tenir.</span><br><span data-i18n="intro.description.second">Restez ensemble. L’extraction vous attend au matin.</span></p>
+      <p class="field-guide" data-i18n="intro.guide">Ouvre un passage dans les barricades. B : parapluie contre la pluie corrosive ; replie-le pour tirer.</p>
+      <p class="field-guide movement-guide" data-i18n="controls.guide">Maj : courir · C maintenu : s’accroupir · Espace : sauter</p>
+      <details class="enemy-guide">
+        <summary data-i18n="enemyGuide.title">Repères des infectés</summary>
+        <div class="enemy-guide-content">
+          <p data-i18n="enemyGuide.note">Marcheurs : PV ci-dessous. Couleur = résistance maximale ; une blessure ne change pas la famille. Rampants bas, cuirassés au torse protégé.</p>
+          <div id="enemy-guide-families" class="enemy-guide-families"></div>
+          <p id="enemy-guide-hulks" class="enemy-guide-hulks"></p>
+          <p id="enemy-guide-raiders" class="enemy-guide-raiders" data-i18n="enemyGuide.raiders">Pillards, à la fin des vagues 5, 10 et 15 : humains armés, bandana rouge et lunettes vertes. Ils tirent par les fenêtres puis forcent les barricades. Baisse-toi sous l’appui, vise la tête, répare.</p>
+        </div>
+      </details>
+      <div class="feature-strip"><span><b>01—04</b> <span data-i18n="intro.survivors">SURVIVANTS</span></span><span><b>20</b> <span data-i18n="intro.waves">VAGUES</span></span><span><b>2</b> <span data-i18n="intro.floors">NIVEAUX</span></span></div>
+      <div class="scene-caption"><span class="coordinates" data-i18n="intro.coordinates">REFUGE 07 / DEADWOOD</span><span>48° 17′ N &nbsp; 121° 42′ W</span></div>
+    </section>
+    <section class="setup-panel">
+      <div class="language-picker"><label for="language-select" data-i18n="language.label">LANGUE</label><select id="language-select" name="language"><option value="fr" lang="fr">Français</option><option value="en" lang="en">English</option></select></div>
+      <div class="panel-top"><span class="eyebrow" data-i18n="setup.eyebrow">AVANT LA TOMBÉE DE LA NUIT</span><span class="edition">v0.1</span></div>
+      <h2 data-i18n="setup.title">Survivre, ensemble.</h2><p class="muted" data-i18n="setup.subtitle">Seul ou à plusieurs, sur le même réseau.</p>
+      <label class="field-label" for="player-name" data-i18n="setup.name">TON NOM</label>
+      <input id="player-name" maxlength="18" placeholder="Survivant" autocomplete="nickname" data-i18n-placeholder="setup.namePlaceholder">
+      <section id="character-picker" class="character-picker" aria-labelledby="character-label">
+        <label id="character-label" class="field-label" for="character-select" data-i18n="sheet.label">PERSONNAGE</label>
+        <select id="character-select" aria-describedby="character-help"></select>
+        <p id="character-help" class="character-help" data-i18n="sheet.help">Facultatif. Un point en plus : cette famille de bonus monte plus vite à la caisse. Un point en moins : un malus de départ, à racheter à la caisse.</p>
+        <div id="character-card" class="character-card"></div>
+        <button id="character-edit" class="outline character-edit" type="button">Personnaliser</button>
+        <p id="character-storage-note" class="character-storage-note" role="status" data-i18n="sheet.storageLost" hidden>Ce navigateur ne garde pas les personnages : ils tiennent jusqu’au rechargement de la page.</p>
+        <section id="character-editor" class="character-editor" aria-labelledby="character-editor-title" hidden>
+          <h3 id="character-editor-title" data-i18n="sheet.editorTitle">Ton personnage</h3>
+          <label class="field-label" for="character-name" data-i18n="sheet.nameLabel">NOM DU PERSONNAGE</label>
+          <input id="character-name" maxlength="24" placeholder="Mon personnage" autocomplete="off" spellcheck="false" data-i18n-placeholder="sheet.namePlaceholder">
+          <div id="character-stats" class="character-stats"></div>
+          <p id="character-moved" class="character-moved" role="status" aria-live="polite"></p>
+          <p id="character-issue" class="character-issue" role="status" aria-live="polite"></p>
+          <div class="character-actions"><button id="character-save" class="primary" type="button" data-i18n="sheet.save">Enregistrer</button><button id="character-cancel" class="outline" type="button" data-i18n="sheet.cancel">Annuler</button><button id="character-delete" class="text-button" type="button" data-i18n="sheet.delete" hidden>Supprimer</button></div>
+        </section>
+      </section>
+      <div class="input-mode-picker"><label class="field-label" for="input-mode-start" data-i18n="input.mode">COMMANDES</label><select id="input-mode-start"><option value="auto" data-i18n="input.auto">Automatique</option><option value="mouse" data-i18n="input.mouse">Clavier et souris</option><option value="gamepad" data-i18n="input.gamepad">Manette Xbox</option></select><small data-i18n="gamepad.startHelp">Manette : appuie sur A pour la réveiller. Les réglages sont dans le menu.</small></div>
+      <div class="music-picker"><label class="field-label" for="music-theme" data-i18n="music.label">MUSIQUE</label><select id="music-theme"><option value="tactical-a" data-i18n="music.tacticalA">Tactical Resolve · A</option><option value="tactical-b" data-i18n="music.tacticalB">Tactical Resolve · B</option><option value="covert-a" data-i18n="music.covertA">Covert Ostinato · A</option><option value="covert-b" data-i18n="music.covertB">Covert Ostinato · B</option><option value="night-a" data-i18n="music.nightA">Night Resolve · A</option><option value="night-b" data-i18n="music.nightB">Night Resolve · B</option></select><small data-i18n="music.note">Choix personnel. Les thèmes des colosses et de la finale restent les mêmes.</small></div>
+      <div class="field-label weapon-label"><span data-i18n="setup.weapon">ARME DE DÉPART</span> <span data-i18n="setup.common">la même pour tous</span></div>
+      <div id="loadout" class="starter-loadout" role="group" aria-label="Équipement de départ commun" data-i18n-aria-label="setup.loadoutLabel">
+        <svg viewBox="0 0 120 42" aria-hidden="true"><path d="M22 12h61v10H56l4 15H44l-6-15H22Z"/><path d="M25 8h51v4H25ZM59 22v7h-8v-4h5v-3Z"/></svg>
+        <div><strong data-i18n="setup.pistol">PISTOLET · ÉQUIPEMENT COMMUN</strong><small data-i18n="setup.pistolDetails">12 cartouches · léger, déplacement +8 %</small></div>
+      </div>
+      <p class="armory-note" data-i18n="setup.armory">Deux armes au choix ; sac à quatre emplacements dès la vague 10 au poste de secours (1 500 pièces). Sans malus avec une ou deux armes, vitesse −10 % avec trois et −15 % avec quatre. Touches 1–4 ou molette. V pose une arme, E la reprend ; tous les emplacements pris, tu échanges celle en main. Pompe dès la vague 2, batte 3, hache 5, masse 7, katana 9. À l’étage : assaut 6, lance-flammes 10, roquettes 16. G : grenade, butin dès la vague 4.</p>
+      <div class="session-tabs" role="group" aria-label="Créer ou rejoindre" data-i18n-aria-label="setup.sessionLabel"><button id="create-tab" class="active" data-i18n="setup.create">CRÉER UN REFUGE</button><button id="join-tab" data-i18n="setup.join">REJOINDRE</button></div>
+      <div id="join-field" hidden><label class="field-label" for="room-code" data-i18n="setup.code">CODE DU REFUGE</label><input id="room-code" maxlength="6" placeholder="EX. A7C3F2" autocomplete="off" spellcheck="false" data-i18n-placeholder="setup.codePlaceholder"></div>
+      <div id="level-picker" class="level-picker" hidden><label class="field-label" for="level-choice" data-i18n="levels.title">DÉCOR</label><select id="level-choice" aria-describedby="level-detail"><option value="cabin" data-i18n="levels.cabin">La cabane</option><option value="supermarket" data-i18n="levels.supermarket">Le Dernier Panier</option></select><small id="level-detail" class="level-detail"></small></div>
+      <div id="ambiance-picker" class="ambiance-picker" role="radiogroup" aria-labelledby="ambiance-title"><span id="ambiance-title" class="field-label" data-i18n="ambiance.title">AMBIANCE</span><div class="ambiance-options"><button id="ambiance-family" type="button" class="ambiance-option selected" data-ambiance="family" aria-pressed="true"><strong data-i18n="ambiance.family">Famille</strong><small data-i18n="ambiance.familyDetail">Le jeu habituel, pour toute la famille.</small></button><button id="ambiance-frisson-leger" type="button" class="ambiance-option" data-ambiance="frisson-leger" aria-pressed="false"><strong data-i18n="ambiance.frissonLeger">Frisson léger (12+)</strong><small data-i18n="ambiance.frissonLegerDetail">Comme Frisson, avec des têtes plus rondes et moitié moins de sang.</small></button><button id="ambiance-frisson" type="button" class="ambiance-option" data-ambiance="frisson" aria-pressed="false"><strong data-i18n="ambiance.frisson">Frisson (15+)</strong><small data-i18n="ambiance.frissonDetail">Zombies plus effrayants, nuit plus sombre, sang en pixels.</small></button></div></div>
+      <label class="family-lock" for="family-lock"><input id="family-lock" type="checkbox" autocomplete="off"><span data-i18n="ambiance.lock">Famille uniquement sur cet ordinateur</span></label><p id="family-lock-note" class="family-lock-note" role="status" data-i18n="ambiance.lockNotKept" hidden>Ce navigateur ne garde pas ce choix : il tient jusqu’au rechargement de la page. Autorise les données du site pour le garder.</p>
+      <button id="connect-button" class="primary"><span data-i18n="setup.open">Ouvrir le refuge</span><span class="arrow">↗</span></button>
+      <button id="load-game-button" class="outline load-game-button" type="button" aria-controls="load-panel" data-i18n="save.loadOpen">Charger une partie</button>
+      <section id="load-panel" class="load-panel" aria-labelledby="load-title" hidden>
+        <h3 id="load-title" data-i18n="save.loadTitle">Reprendre une nuit sauvegardée</h3>
+        <ul id="load-saves" class="load-saves"></ul>
+        <p id="load-empty" class="muted small" data-i18n="save.loadEmpty">Aucune partie gardée dans ce navigateur.</p>
+        <div class="load-actions"><button id="load-file-button" class="outline" type="button" data-i18n="save.loadFile">Ouvrir un fichier…</button><button id="load-cancel" class="text-button" type="button" data-i18n="save.loadCancel">Annuler</button></div>
+        <input id="load-file" type="file" accept=".json,application/json" hidden tabindex="-1">
+        <p id="load-status" class="error" role="alert" hidden></p>
+      </section>
+      <button id="practice-button" class="practice-entry" data-i18n="practice.try">Essayer les armes ↗</button>
+      <p class="practice-note" data-i18n="practice.homeNote">Stand privé : toutes les armes, cibles immobiles et vie illimitée. Aucun achat nécessaire.</p>
+      <a class="weapon-comparison-link" href="/weapon-comparison.html" target="_blank" rel="noopener" data-i18n="practice.compare">Comparer les armes ↗</a>
+      <p id="menu-error" class="error" role="alert" hidden></p>
+      <button id="reload-page" class="text-button" type="button" data-i18n="version.reload" hidden>Recharger la page ↻</button>
+      <p class="setup-note"><span class="tiny-house">⌂</span> <span data-i18n="setup.note.first">Chaque joueur ouvre cette adresse sur son ordinateur.</span><br><span data-i18n="setup.note.second">Un code commun vous réunit dans la même cabane.</span></p>
+    </section>
+    <footer class="menu-footer"><span class="warning-mark">＋</span> <span data-i18n="footer.experience">UNE EXPÉRIENCE DE SURVIE COOPÉRATIVE</span> <span class="footer-right" data-i18n="footer.controls">CLAVIER + SOURIS / MANETTE · CASQUE CONSEILLÉ</span></footer>
+  </main>
+  <section id="lobby" class="overlay-screen" hidden>
+    <div class="dialog lobby-dialog"><div class="eyebrow" data-i18n="lobby.eyebrow">LE REFUGE EST OUVERT</div><h2 data-i18n="lobby.title">Personne ne reste dehors.</h2><p class="muted" data-i18n="lobby.subtitle">Partage le lien et le code avec les autres survivants.</p>
+      <div class="room-ticket"><span data-i18n="setup.code">CODE DU REFUGE</span><strong id="lobby-code">—</strong><button id="copy-link" class="outline" data-i18n="lobby.copy">Copier le lien</button><small id="share-address"></small></div>
+      <p id="lobby-load-status" class="lobby-load-status" role="status" aria-live="polite" hidden></p>
+      <section id="admission-panel" class="admission-panel" aria-labelledby="admission-title" hidden>
+        <h3 id="admission-title" data-i18n="admission.title">Ton équipe est déjà en action.</h3>
+        <p id="admission-status" role="status" aria-live="polite" data-i18n="admission.waiting">Prépare tes commandes avant de rejoindre le refuge.</p>
+        <p class="muted small" data-i18n="admission.help">Confirme quand tu es prêt : tu entreras à la prochaine pause entre deux vagues.</p>
+        <p class="muted small" data-i18n="admission.alone">Pendant une pause entre les vagues, tu peux entrer dès que tu es prêt.</p>
+        <div id="admission-seats" class="admission-seats" hidden><p class="muted small" data-i18n="save.seatsHelp">Une nuit sauvegardée reprend : tu peux reprendre la place d’un survivant, avec ses affaires et son personnage.</p><div id="admission-seat-list" class="admission-seat-list"></div></div>
+        <button id="admission-ready" class="primary" type="button" data-i18n="admission.confirm">Je suis prêt</button>
+      </section>
+      <div class="level-badge"><span class="difficulty-title" data-i18n="levels.title">DÉCOR</span><strong id="lobby-map-name"></strong></div>
+      <ul id="lobby-players" class="lobby-players"></ul><div id="character-choice" class="difficulty-picker character-choice"><label class="difficulty-title" for="character-choice-select" data-i18n="sheet.lobbyLabel">TON PERSONNAGE</label><select id="character-choice-select" aria-describedby="character-choice-detail"></select><small id="character-choice-detail" class="difficulty-detail"></small></div><div class="ambiance-badge"><span class="difficulty-title" data-i18n="ambiance.title">AMBIANCE</span><strong id="ambiance-value"></strong><small id="ambiance-note" class="difficulty-detail" hidden></small></div><div id="difficulty-picker" class="difficulty-picker"><span class="difficulty-title" data-i18n="difficulty.title">DIFFICULTÉ</span><div id="difficulty-options" class="difficulty-options" role="radiogroup"></div><small id="difficulty-detail" class="difficulty-detail"></small></div><details id="advanced-options" class="advanced-options"><summary><span data-i18n="advanced.title">OPTIONS AVANCÉES</span><span id="advanced-summary-detail" class="advanced-summary-detail"></span></summary><div id="friendly-fire-picker" class="difficulty-picker"><span class="difficulty-title" data-i18n="friendlyFire.title">TIR AMI</span><div id="friendly-fire-options" class="difficulty-options friendly-fire-options" role="radiogroup"></div><small id="friendly-fire-detail" class="difficulty-detail"></small></div></details><div id="companions-picker" class="difficulty-picker companions-picker" hidden><span class="difficulty-title" data-i18n="companions.title">COMPAGNONS IA</span><div id="companions-options" class="companions-options" role="radiogroup"></div><small id="companions-detail" class="difficulty-detail"></small><div id="companions-profiles" class="companion-profiles" hidden></div><small id="companions-variation" class="companions-variation" hidden></small></div><p id="companions-notice" class="companions-notice" role="status" hidden></p><button id="start-button" class="primary"><span data-i18n="lobby.start">Lancer la nuit</span> <span>↗</span></button>
+      <p id="lobby-note" class="muted small" data-i18n="lobby.note">Tu peux commencer seul. Les autres peuvent te rejoindre en partie.</p><button id="leave-lobby" class="text-button" data-i18n="lobby.leave">Quitter le refuge</button>
+    </div>
+  </section>
+  <div id="hud" hidden>
+    <div class="hud-team"><div class="eyebrow"><span data-i18n="intro.survivors">SURVIVANTS</span> <button id="hud-room" class="hud-room-button" type="button" aria-label="Partager le code du refuge" data-i18n-aria-label="roomShare.open" title="Partager le refuge depuis le menu" data-i18n-title="roomShare.openTitle"></button></div><div id="team-list"></div><div id="expedition-kit" class="expedition-kit" hidden><kbd>B</kbd><strong id="umbrella-label"></strong><span id="umbrella-remaining"></span><small id="umbrella-hint"></small></div></div>
+    <div class="wave-panel"><span id="phase-label" data-i18n="hud.phase">LA NUIT APPROCHE</span><strong id="wave-number">01/20</strong><div id="wave-details" data-i18n="hud.prepare">Prépare les barricades</div><small id="raid-result" class="raid-result" role="status" hidden></small><small id="combat-tip" data-i18n="hud.tip">TÊTE ×2.2 · ALIGNE LES ZOMBIES POUR LES TRAVERSER</small><div id="expedition-objective" class="expedition-objective" hidden><span id="generator-status"></span><div class="generator-track"><i id="generator-bar"></i></div><strong id="fuel-objective"></strong><span id="fuel-direction"></span></div></div>
+    <div id="breach-alert" class="breach-alert" role="status" hidden><span id="door-status" data-i18n="hud.access">4 ACCÈS</span></div>
+
+    <div id="active-bonus" class="active-bonus" role="status" hidden></div>
+    <aside id="survivor-sheet" class="survivor-sheet" aria-label="Mon survivant" data-i18n-aria-label="survivor.title" hidden></aside>
+    <div id="sniper-scope" class="sniper-scope" aria-hidden="true" hidden><div class="scope-reticle"></div><output id="scope-distance" class="scope-distance" data-i18n-aria-label="sniper.distance">—</output></div>
+    <div class="crosshair" id="crosshair"><i></i><i></i><i></i><i></i><span></span></div><div id="hit-marker" class="hit-marker" hidden>×</div><div id="friendly-callout" class="friendly-callout" role="status" hidden><b class="friendly-callout-icon" aria-hidden="true">☠</b><strong id="friendly-callout-title"></strong><span id="friendly-callout-line"></span></div><div id="score-popups" class="score-popups" aria-hidden="true"></div><div id="damage-numbers" class="damage-numbers" aria-hidden="true"></div><div id="chain-banner" class="chain-banner" hidden><strong></strong><small></small></div><div id="team-chain-feed" class="team-chain-feed" aria-live="polite"></div>
+    <div id="damage-direction" class="damage-direction" aria-hidden="true"><i id="damage-arc-0" hidden></i><i id="damage-arc-1" hidden></i><i id="damage-arc-2" hidden></i><i id="damage-arc-3" hidden></i></div><div id="raid-pointer" class="raid-pointer" aria-hidden="true" hidden>▲</div>
+    <div id="score-panel" class="score-panel"><span class="score-label" data-i18n="hud.scoreLabel">SCORE</span><strong id="score-value">0</strong><div class="kills-line"><strong id="kills-count">0</strong><small id="kills-value" data-i18n="hud.killsLabel">ÉLIMINATIONS</small></div></div>
+    <div id="next-wave" class="next-wave" hidden><kbd id="next-wave-key">N</kbd><span id="next-wave-text" data-i18n="nextWave.call">PRÊT POUR LA VAGUE SUIVANTE</span><small id="next-wave-count"></small></div>
+    <div id="wave-card" class="wave-card" role="status" hidden><strong id="wave-card-title">VAGUE 01 TENUE</strong><div class="wave-card-items"><span class="wave-card-ammo" data-i18n="waveCard.ammo">Munitions pleines</span><span class="wave-card-health" data-i18n="waveCard.health">Santé rétablie</span><span class="wave-card-repair" data-i18n="waveCard.repair">Répare les barricades</span></div><div id="wave-card-stats" class="wave-card-stats"><span id="wave-card-score" class="wave-card-score">+0</span><span id="wave-card-kills">0 éliminations</span></div><div id="wave-card-revives" class="wave-card-revives" hidden></div></div>
+    <div id="wave-banner" class="wave-banner" hidden><span id="banner-kicker" data-i18n="hud.incoming">ILS ARRIVENT</span><strong id="banner-title" data-i18n="hud.wave">VAGUE 01</strong></div>
+    <div id="interaction" class="interaction" hidden><kbd>E</kbd><span id="interaction-text" data-i18n="hud.repair">Réparer la barricade</span><i id="interaction-progress" class="interaction-progress" hidden><b id="interaction-progress-bar"></b></i></div>
+    <div class="vitals"><div class="vital-heading"><span>＋</span><strong id="hp-value">100</strong><small data-i18n="hud.health">VIE</small></div><div class="health-track"><i id="hp-bar"></i></div><div id="armor-row" class="armor-row" hidden><small data-i18n="hud.armor">ARMURE</small><div class="armor-track"><i id="armor-bar"></i></div><strong id="armor-value">0</strong></div><div id="revive-kit" class="revive-kit" hidden><i aria-hidden="true">♥</i><span data-i18n="kit.carried">KIT DE RELÈVE</span><kbd id="revive-kit-key">F</kbd></div><div class="wallet"><strong id="points-value">0</strong><span data-i18n="hud.points">PIÈCES</span></div><span id="personal-score" data-i18n="hud.score">0 ÉLIMINATIONS · SCORE 0</span><small class="loot-guide" data-i18n="hud.loot">PIÈCES D’OR · À DÉPENSER / BOÎTE · MUNITIONS / CROIX VERTE · VIE / GILET · ARMURE</small></div>
+    <div class="weapon-hud" id="weapon-panel">
+      <div id="bonus-tray" class="bonus-tray" aria-label="Bonus" hidden></div>
+      <span id="weapon-name" data-i18n="hud.pistol">PISTOLET</span>
+      <div class="ammo-readout">
+        <div class="loaded-ammo"><small data-i18n="ammo.loaded">DANS L’ARME</small><div><strong id="ammo-value">12</strong><span>/ <b id="magazine-value">12</b></span></div></div>
+        <div class="reserve-ammo"><small data-i18n="ammo.reserve">RÉSERVE</small><strong id="reserve-value">36</strong><small id="ammo-unit" data-i18n="ammo.rounds">CARTOUCHES</small></div>
+      </div>
+      <div id="reserve-magazine-row" class="reserve-magazine-row" data-i18n-title="ammo.explanation" title="La réserve est exprimée en chargeurs pleins et partiels de cette arme.">
+        <div id="reserve-magazines" class="reserve-magazines" aria-hidden="true"></div>
+        <span id="reserve-summary" class="reserve-summary" hidden></span>
+        <span id="capacity-bonus" hidden></span>
+      </div>
+      <div id="secondary-ammo-panel" class="secondary-ammo-panel" hidden><span id="secondary-weapon"></span><strong id="secondary-ammo"></strong><small id="secondary-reload"></small></div>
+      <small id="reload-status" data-i18n="hud.reload">R · RECHARGER</small>
+      <small id="weapon-mobility" class="weapon-mobility" data-i18n="hud.mobility">DÉPLACEMENT +8 %</small>
+      <small id="posture-status" data-i18n="posture.standing">C MAINTENU · S’ACCROUPIR</small>
+      <small id="backpack-status" class="backpack-status" hidden></small><div class="weapon-slots" aria-label="Tes armes" data-i18n-aria-label="hud.slotsLabel"><span id="weapon-slot-1" data-slot="0" class="active" data-i18n="hud.slot1">1 PISTOLET</span><span id="weapon-slot-2" data-slot="1" data-i18n="hud.slot2">2 LIBRE · ARME AU SOL / RÂTELIER</span><span id="weapon-slot-3" data-slot="2" hidden></span><span id="weapon-slot-4" data-slot="3" hidden></span></div>
+      <div id="grenade-stock" class="grenade-stock"><span data-i18n="grenade.label">GRENADES</span><span id="grenade-icons" aria-hidden="true"></span><b id="grenade-count">0/2</b><small data-i18n="grenade.hint">G · LANCER</small></div>
+      <small id="grenadier-timer" class="grenadier-timer" hidden></small>
+    </div>
+    <div class="hud-controls"><span><kbd>ZQSD</kbd> / <kbd>WASD</kbd> <span data-i18n="controls.move">BOUGER</span></span><span><kbd data-i18n="controls.shift">MAJ</kbd> <span data-i18n="controls.sprint">COURIR</span></span><span><kbd>C</kbd> <span data-i18n="controls.crouch">S’ACCROUPIR</span></span><span><kbd data-i18n="controls.space">ESPACE</kbd> <span data-i18n="controls.jump">SAUTER</span></span><span><kbd>1–4</kbd> <span data-i18n="controls.weapons">ARMES</span><span class="controls-wheel"> <span data-i18n="controls.wheel">· MOLETTE</span></span></span><span><kbd>V</kbd> <span data-i18n="controls.drop">POSER L’ARME</span></span><span><kbd>G</kbd> <span data-i18n="controls.grenade">GRENADE</span></span><span><kbd>B</kbd> <span data-i18n="controls.umbrella">PARAPLUIE</span></span><span><kbd>E</kbd> <span data-i18n="controls.interact">AIDER / ACHETER</span></span><span class="sheet-key-hint"><kbd data-i18n="controls.tab">TAB</kbd> <span data-i18n="controls.sheet">FICHE</span></span><span><kbd>P</kbd> <span data-i18n="controls.pause">PAUSE</span></span><span><kbd data-i18n="controls.escape">ÉCHAP</kbd> <span data-i18n="controls.menu">MENU</span></span></div>
+    <div id="pickup-notice" class="pickup-notice" role="status" hidden></div>
+    <div id="toast" class="toast" role="status" hidden></div>
+    <div id="outside-warning" class="outside-warning" role="status" hidden><strong id="outside-title" data-i18n="outside.title">DEHORS · −3 VIE/S</strong><span id="outside-detail" data-i18n="outside.detail">Rentre dans la cabane pour arrêter les dégâts.</span></div>
+    <div id="downed" class="downed-notice" hidden><strong data-i18n="downed.title">À TERRE</strong><i id="revive-progress" class="revive-progress" hidden><b id="revive-progress-bar"></b></i><span><span data-i18n="downed.help">Un coéquipier peut te relever en maintenant E (5 s).</span><br><span data-i18n="downed.return">Tu reviendras à la prochaine vague si l’équipe tient.</span></span></div>
+  </div>
+  <aside id="radar-panel" class="radar-panel" aria-labelledby="radar-title" hidden><strong id="radar-title"></strong><canvas id="radar-map" width="224" height="224"></canvas><span id="radar-battery"></span><small id="radar-legend"></small></aside>
+  <section id="pause" class="overlay-screen" hidden><div class="dialog pause-dialog"><div class="eyebrow" data-i18n="pause.eyebrow">GARDE UNE LUMIÈRE ALLUMÉE</div><h2 id="pause-title" data-i18n="pause.title">Reprendre ton poste.</h2><p id="pause-description" class="muted" data-i18n="pause.description">La partie continue pour l’équipe pendant que le menu est ouvert.</p><p class="muted shelter-note" data-i18n="pause.guide">B : ouvrir / replier le parapluie. Sous la pluie, il protège 100 s et occupe tes mains. E : prendre / rapporter le bidon et réparer le parapluie au générateur.</p><p class="muted controls-guide" data-i18n="controls.guide">Maj : courir · C maintenu : s’accroupir · Espace : sauter</p>
+    <div class="level-badge"><span class="difficulty-title" data-i18n="levels.title">DÉCOR</span><strong id="pause-map-name"></strong></div>
+    <div class="level-badge friendly-fire-badge" id="pause-friendly-fire" hidden><span class="difficulty-title" data-i18n="friendlyFire.title">TIR AMI</span><strong id="pause-friendly-fire-value"></strong></div>
+    <section id="room-share-panel" class="room-share-panel" aria-labelledby="room-share-title" hidden>
+      <div class="room-share-heading"><h3 id="room-share-title" data-i18n="roomShare.title">Inviter un équipier</h3><strong id="pause-room-code" aria-label="Code du refuge" data-i18n-aria-label="setup.code">—</strong></div>
+      <div class="room-share-actions"><button id="copy-room-code" class="outline" type="button" data-i18n="roomShare.copyCode">Copier le code</button><button id="copy-room-link" class="outline" type="button" data-i18n="roomShare.copyLink">Copier l’invitation</button></div>
+      <label for="room-share-address" class="field-label" data-i18n="roomShare.link">LIEN D’INVITATION</label><input id="room-share-address" type="text" readonly spellcheck="false" autocomplete="off" aria-describedby="room-share-help">
+      <p id="room-share-help" data-i18n="roomShare.help">Le lien ouvre directement ce refuge. Tu peux aussi le sélectionner et le copier.</p><p id="room-share-status" role="status" aria-live="polite"></p>
+    </section>
+    <section id="dual-controls" class="dual-controls" hidden><label for="dual-secondary" data-i18n="dual.secondary">Arme secondaire</label><select id="dual-secondary"></select><button id="dual-toggle" class="outline" type="button" data-i18n="dual.toggle">X · DEUX ARMES</button><small data-i18n="dual.hint"></small></section>
+    <a class="weapon-comparison-link" href="/bonus-catalog.html" target="_blank" rel="noopener" data-i18n="bonus.catalog">Bonus · niveaux 1–8 ↗</a>
+    <details class="aim-diagnostic"><summary data-i18n="aim.title">Diagnostic du regard</summary>
+      <label><input id="aim-diagnostic-enable" type="checkbox"> <span data-i18n="aim.enable">Activer le relevé local</span></label>
+      <p data-i18n="aim.help">Facultatif : garde les derniers mouvements de souris et positions de jeu en mémoire, sans envoi ni sauvegarde automatique. Après un saut du regard, F8 fige le relevé. Échap permet ensuite de l’afficher ici. Désactiver efface tout.</p>
+      <p id="aim-diagnostic-status" role="status" data-i18n="aim.off">Relevé désactivé.</p>
+      <div><button id="aim-diagnostic-capture" class="outline" data-i18n="aim.capture" disabled>Figer le relevé · F8</button><button id="aim-diagnostic-report" class="outline" data-i18n="aim.report" disabled>Afficher le relevé</button><button id="aim-diagnostic-clear" class="outline" data-i18n="aim.clear" disabled>Nouveau relevé</button></div>
+      <textarea id="aim-diagnostic-output" readonly hidden aria-label="Relevé local du regard" data-i18n-aria-label="aim.output" spellcheck="false"></textarea>
+    </details>
+    
+    <div id="practice-controls" class="practice-controls" hidden>
+      <p data-i18n="practice.controlsNote">Deux armes au choix, quatre avec « Essayer le sac ». Sans malus avec une ou deux armes, vitesse −10 % avec trois et −15 % avec quatre. Touches 1–4 ou molette. R recharge. Batte, hache, masse et katana : clic gauche léger, clic droit puissant. Sniper : maintiens le clic droit pour la lunette. Choisis ici, puis retourne au stand.</p>
+      <div class="practice-new-weapons"><button id="practice-assault" class="outline" data-i18n="practice.assault">Fusil d’assaut</button><button id="practice-rocket" class="outline" data-i18n="practice.rocket">Lance-roquettes</button><button id="practice-flamethrower" class="outline" data-i18n="practice.flamethrower">Lance-flammes</button><button id="practice-bat" class="outline" data-i18n="practice.bat">Batte en bois</button><button id="practice-fireaxe" class="outline" data-i18n="practice.fireaxe">Hache de pompier</button><button id="practice-katana" class="outline" data-i18n="practice.katana">Katana</button><button id="practice-hammer" class="outline" data-i18n="practice.hammer">Masse à pointes</button><button id="practice-sniper" class="outline" data-i18n="practice.sniper">Fusil à verrou</button></div>
+      <div class="practice-select"><label for="practice-weapon" data-i18n="practice.weapon">TOUTES LES ARMES</label><select id="practice-weapon"></select><button id="practice-equip" class="outline" data-i18n="practice.equip">Équiper</button></div>
+      <div class="practice-actions"><button id="practice-refill" class="outline" data-i18n="practice.refill">Refaire les stocks</button><button id="practice-targets" class="outline" data-i18n="practice.targets">Recréer les cibles</button><button id="practice-radar" class="outline" data-i18n="practice.radar">Essayer le radar</button><button id="practice-backpack" class="outline" data-i18n="practice.backpack">Essayer le sac</button><button id="practice-raiders" class="outline" data-i18n="raid.try">Essayer les pillards</button></div>
+      <p id="practice-status" class="practice-status" role="status"></p>
+      <a class="weapon-comparison-link" href="/weapon-comparison.html" target="_blank" rel="noopener" data-i18n="practice.compare">Comparer les armes ↗</a>
+      <small data-i18n="practice.limits">Les cibles ne ripostent pas. Cet essai ne mesure pas la difficulté d’une vraie vague.</small>
+    </div>
+    <button id="room-pause-button" class="outline room-pause-button" data-i18n="pause.stop" hidden>Mettre en pause · P</button><button id="save-game-button" class="outline save-game-button" type="button" data-i18n="save.button" hidden>Sauvegarder la partie</button><small id="save-game-hint" class="save-game-hint" hidden></small><p id="save-game-status" class="save-game-status" role="status" aria-live="polite" hidden></p><button id="resume-button" class="primary"><span data-i18n="pause.resume">Retour au refuge</span> <span>↗</span></button><button id="survivor-sheet-toggle" class="outline survivor-sheet-toggle" type="button" aria-pressed="false">Fiche du survivant : cachée · Tab</button><div class="settings-row"><label for="volume" data-i18n="pause.volume">VOLUME</label><input id="volume" type="range" min="0" max="1" step="0.05" value="0.55"></div><div class="settings-row"><label for="music-volume" data-i18n="pause.musicVolume">VOLUME DE LA MUSIQUE</label><input id="music-volume" type="range" min="0" max="1" step="0.05" value="1"></div><div class="music-picker"><label class="field-label" for="pause-music-theme" data-i18n="music.label">MUSIQUE</label><select id="pause-music-theme"><option value="tactical-a" data-i18n="music.tacticalA">Tactical Resolve · A</option><option value="tactical-b" data-i18n="music.tacticalB">Tactical Resolve · B</option><option value="covert-a" data-i18n="music.covertA">Covert Ostinato · A</option><option value="covert-b" data-i18n="music.covertB">Covert Ostinato · B</option><option value="night-a" data-i18n="music.nightA">Night Resolve · A</option><option value="night-b" data-i18n="music.nightB">Night Resolve · B</option></select><small data-i18n="music.note">Choix personnel. Les thèmes des colosses et de la finale restent les mêmes.</small></div><div class="settings-row"><label for="sensitivity" data-i18n="pause.sensitivity">SENSIBILITÉ</label><input id="sensitivity" type="range" min="0.0006" max="0.004" step="0.0001" value="0.0018"></div>
+    <div class="mouse-look-setting"><label class="controller-check" for="raw-mouse"><input id="raw-mouse" type="checkbox" checked aria-describedby="raw-mouse-help raw-mouse-status"><span data-i18n="mouse.raw">Mouvement brut de la souris</span></label>
+      <p id="raw-mouse-help" data-i18n="mouse.rawHelp">Recommandé : la vue suit directement la souris, sans le recentrage du curseur qui pouvait faire sauter le regard. La vitesse et l’accélération du pointeur réglées dans Windows ne s’appliquent plus : ajuste la sensibilité si besoin. Décoche-le si la visée reste figée (bureau à distance, tablette graphique) ou pour retrouver l’ancien ressenti. Mémorisé dans ce navigateur ; s’applique à la prochaine capture de la souris.</p>
+      <p id="raw-mouse-status" role="status" aria-live="polite"></p></div>
+    <details class="camera-settings"><summary data-i18n="camera.title">Confort de la caméra</summary>
+      <p data-i18n="camera.help">0 ms : immédiat. Plus la valeur est haute, plus la caméra est amortie. Réglage personnel, mémorisé dans ce navigateur ; la vitesse du jeu et la visée souris restent identiques.</p>
+      <div class="camera-setting"><label for="camera-height-smoothing" data-i18n="camera.height">Lissage vertical</label><output id="camera-height-smoothing-value" for="camera-height-smoothing">45 ms</output><input id="camera-height-smoothing" type="range" min="0" max="150" step="1" value="45"></div>
+      <div class="camera-setting"><label for="camera-recoil-smoothing" data-i18n="camera.recoil">Lissage du recul</label><output id="camera-recoil-smoothing-value" for="camera-recoil-smoothing">31 ms</output><input id="camera-recoil-smoothing" type="range" min="0" max="100" step="1" value="31"></div>
+      <button id="camera-smoothing-reset" class="text-button" data-i18n="camera.reset">Réglages conseillés · 45 / 31 ms</button>
+    </details>
+    <details class="camera-settings feedback-settings"><summary data-i18n="feedback.title">Sensations de combat</summary>
+      <p data-i18n="feedback.help">Secousses de la caméra près des explosions, nombres à l’impact et pièces qui s’envolent vers la bourse. Réglage personnel, mémorisé dans ce navigateur.</p>
+      <div class="camera-setting"><label for="feedback-shake" data-i18n="feedback.shake">Secousses de caméra</label><output id="feedback-shake-value" for="feedback-shake">100 %</output><input id="feedback-shake" type="range" min="0" max="100" step="5" value="100"></div>
+      <div class="camera-setting feedback-toggle"><label for="feedback-impact-numbers" data-i18n="feedback.impactNumbers">Nombres à l’impact</label><input id="feedback-impact-numbers" type="checkbox" checked></div>
+      <div class="camera-setting feedback-toggle"><label for="feedback-coin-popups" data-i18n="feedback.coinPopups">Pièces qui s’envolent</label><input id="feedback-coin-popups" type="checkbox" checked></div>
+      <p data-i18n="feedback.impactHelp">Ton score, ce sont les dégâts que tu infliges : chaque coup montre ses points là où il touche. Les plombs d’un tir et les coups simultanés font un seul nombre.</p>
+    </details>
+    <details class="camera-settings"><summary data-i18n="graphics.title">Qualité graphique</summary>
+      <p data-i18n="graphics.help">Auto choisit selon ta carte graphique et ajuste la netteté pendant la partie. Réglage personnel, mémorisé dans ce navigateur.</p>
+      <div class="camera-setting"><label for="graphics-quality" data-i18n="graphics.label">Niveau de qualité</label><select id="graphics-quality"><option value="auto" data-i18n="graphics.auto">Auto (recommandé)</option><option value="low" data-i18n="graphics.low">Basse</option><option value="medium" data-i18n="graphics.medium">Moyenne</option><option value="high" data-i18n="graphics.high">Haute</option></select></div>
+      <p id="graphics-quality-status" role="status"></p>
+    </details>
+    <details id="gamepad-settings" class="gamepad-settings"><summary data-i18n="gamepad.title">Commandes et manette Xbox</summary>
+      <p id="gamepad-status" role="status" aria-live="polite" data-i18n="gamepad.notConnected">Manette non détectée. Branche-la, puis appuie sur A.</p>
+      <div class="controller-setting"><label for="input-mode" data-i18n="input.mode">COMMANDES</label><select id="input-mode"><option value="auto" data-i18n="input.auto">Automatique</option><option value="mouse" data-i18n="input.mouse">Clavier et souris</option><option value="gamepad" data-i18n="input.gamepad">Manette Xbox</option></select></div>
+      <div class="camera-setting"><label for="gamepad-sensitivity" data-i18n="gamepad.sensitivity">Vitesse du regard</label><output id="gamepad-sensitivity-value" for="gamepad-sensitivity">240 °/s</output><input id="gamepad-sensitivity" type="range" min="120" max="360" step="10" value="240"></div>
+      <div class="camera-setting"><label for="gamepad-deadzone" data-i18n="gamepad.deadzone">Zone neutre des sticks</label><output id="gamepad-deadzone-value" for="gamepad-deadzone">16 %</output><input id="gamepad-deadzone" type="range" min="0.05" max="0.35" step="0.01" value="0.16"></div>
+      <p data-i18n="gamepad.deadzoneHelp">Augmente la zone neutre si le regard bouge alors que tu ne touches pas aux sticks.</p>
+      <div class="controller-setting"><label for="gamepad-aim-assist" data-i18n="gamepad.aimAssist">Aide à la visée</label><select id="gamepad-aim-assist" aria-describedby="gamepad-aim-assist-help"><option value="off" data-i18n="gamepad.assistOff">Désactivée</option><option value="light" data-i18n="gamepad.assistLight">Légère</option><option value="normal" selected data-i18n="gamepad.assistNormal">Normale</option><option value="strong" data-i18n="gamepad.assistStrong">Forte</option></select></div>
+      <p id="gamepad-aim-assist-help" data-i18n="gamepad.aimAssistHelp">Légère reprend l’ancienne aide normale ; Normale est renforcée ; Forte accompagne davantage. Pendant tes mouvements au stick, l’aide ralentit le regard et suit légèrement les ennemis visibles. Aucun effet sur la souris, ni visée automatique de la tête.</p>
+      <div class="controller-setting"><label for="gamepad-rumble" data-i18n="gamepad.rumble">Vibrations au tir</label><select id="gamepad-rumble" aria-describedby="gamepad-rumble-help"><option value="off" data-i18n="gamepad.rumbleOff">Désactivées</option><option value="light" data-i18n="gamepad.rumbleLight">Légères</option><option value="normal" selected data-i18n="gamepad.rumbleNormal">Normales</option><option value="strong" data-i18n="gamepad.rumbleStrong">Fortes</option></select></div>
+      <p id="gamepad-rumble-help" data-i18n="gamepad.rumbleHelp">La manette vibre au recul de chaque tir, plus fort pour le fusil à pompe ou le lance-roquettes. Selon le navigateur, la gâchette droite vibre aussi.</p>
+      <label class="controller-check" for="gamepad-invert-y"><input id="gamepad-invert-y" type="checkbox"><span data-i18n="gamepad.invertY">Inverser le regard vertical</span></label>
+      <p data-i18n="gamepad.settingsHelp">Réglages personnels, mémorisés dans ce navigateur. Automatique permet de passer de la souris à la manette.</p>
+      <dl class="controller-legend" aria-label="Commandes Xbox" data-i18n-aria-label="gamepad.legendTitle">
+        <div><dt><kbd>LS</kbd></dt><dd data-i18n="gamepad.move">Se déplacer</dd></div><div><dt><kbd>RS</kbd></dt><dd data-i18n="gamepad.look">Regarder</dd></div>
+        <div><dt><kbd>RT</kbd></dt><dd data-i18n="gamepad.fire">Tirer / coup léger</dd></div><div><dt><kbd>LT</kbd></dt><dd data-i18n="gamepad.aim">Lunette / coup lourd</dd></div>
+        <div><dt><kbd>A</kbd></dt><dd data-i18n="gamepad.jump">Sauter</dd></div><div><dt><kbd>X</kbd></dt><dd data-i18n="gamepad.reload">Recharger</dd></div>
+        <div><dt><kbd>Y</kbd></dt><dd data-i18n="gamepad.cycle">Arme suivante</dd></div><div><dt><kbd>RB</kbd></dt><dd data-i18n="gamepad.interact">Interagir / réanimer</dd></div>
+        <div><dt><kbd>LB</kbd></dt><dd data-i18n="gamepad.grenade">Lancer une grenade</dd></div><div><dt><kbd>L3</kbd></dt><dd data-i18n="gamepad.sprint">Maintenir pour courir</dd></div>
+        <div><dt><kbd>R3</kbd></dt><dd data-i18n="gamepad.crouch">Accroupi / debout</dd></div><div><dt><kbd>B</kbd></dt><dd data-i18n="gamepad.umbrella">Ouvrir / replier le parapluie</dd></div>
+        <div><dt><kbd>↑</kbd></dt><dd data-i18n="gamepad.radar">Poser le radar</dd></div><div><dt><kbd>↓</kbd></dt><dd data-i18n="gamepad.drop">Poser l’arme</dd></div>
+        <div><dt><kbd>← →</kbd></dt><dd data-i18n="gamepad.weapons">Changer d’arme</dd></div><div><dt><kbd>Start</kbd></dt><dd data-i18n="gamepad.menu">Ouvrir / fermer le menu</dd></div><div><dt><kbd>⧉</kbd></dt><dd data-i18n="gamepad.nextWave">Prêt pour la vague suivante</dd></div>
+      </dl>
+      <p data-i18n="gamepad.menuHelp">Dans les menus : croix directionnelle pour choisir, A pour valider, B pour revenir.</p>
+      <p data-i18n="gamepad.paddles">Les palettes arrière reprennent souvent un bouton existant. Configure-les dans Accessoires Xbox si elles ne sont pas reconnues séparément.</p>
+    </details>
+    <button id="leave-game" class="text-button" data-i18n="pause.leave">Quitter la partie</button></div></section>
+  <section id="supply-menu" class="overlay-screen" role="dialog" aria-modal="true" aria-labelledby="supply-title" hidden><div class="dialog supply-dialog"><div class="eyebrow" id="supply-kicker"></div><h2 id="supply-title"></h2><p id="supply-note" class="muted"></p><p id="supply-expiry" class="supply-expiry"></p><div id="supply-options" class="supply-options"></div><p class="muted small" data-i18n="supply.live">La partie continue. Ton parapluie reste ouvert si tu l’avais ouvert.</p><button id="supply-return" class="outline" data-i18n="supply.return">Retour au refuge ↗</button></div></section>
+  <section id="gameover" class="overlay-screen" hidden><div class="dialog"><div id="gameover-eyebrow" class="eyebrow" data-i18n="results.eyebrow">LA LUMIÈRE S’EST ÉTEINTE</div><h2 id="gameover-title" data-i18n="results.title">Jusqu’au dernier.</h2><p id="gameover-result" class="muted"></p><ul id="results-list" class="lobby-players"></ul><div id="character-choice-results" class="difficulty-picker character-choice"><label class="difficulty-title" for="character-choice-select-results" data-i18n="sheet.lobbyLabel">TON PERSONNAGE</label><select id="character-choice-select-results" aria-describedby="character-choice-detail-results"></select><small id="character-choice-detail-results" class="difficulty-detail"></small></div><div class="ambiance-badge"><span class="difficulty-title" data-i18n="ambiance.title">AMBIANCE</span><strong id="ambiance-value-results"></strong><small id="ambiance-note-results" class="difficulty-detail" hidden></small></div><div id="difficulty-picker-results" class="difficulty-picker"><span class="difficulty-title" data-i18n="difficulty.title">DIFFICULTÉ</span><div id="difficulty-options-results" class="difficulty-options" role="radiogroup"></div><small id="difficulty-detail-results" class="difficulty-detail"></small></div><details id="advanced-options-results" class="advanced-options"><summary><span data-i18n="advanced.title">OPTIONS AVANCÉES</span><span id="advanced-summary-detail-results" class="advanced-summary-detail"></span></summary><div id="friendly-fire-picker-results" class="difficulty-picker"><span class="difficulty-title" data-i18n="friendlyFire.title">TIR AMI</span><div id="friendly-fire-options-results" class="difficulty-options friendly-fire-options" role="radiogroup"></div><small id="friendly-fire-detail-results" class="difficulty-detail"></small></div></details><div id="companions-picker-results" class="difficulty-picker companions-picker" hidden><span class="difficulty-title" data-i18n="companions.title">COMPAGNONS IA</span><div id="companions-options-results" class="companions-options" role="radiogroup"></div><small id="companions-detail-results" class="difficulty-detail"></small><div id="companions-profiles-results" class="companion-profiles" hidden></div><small id="companions-variation-results" class="companions-variation" hidden></small></div><p id="companions-notice-results" class="companions-notice" role="status" hidden></p><button id="restart-button" class="primary"><span data-i18n="results.restart">Une nouvelle nuit</span> <span>↗</span></button><p id="results-wait" class="muted small" hidden></p><button id="leave-over" class="text-button" data-i18n="lobby.leave">Quitter le refuge</button></div></section>
+  <div id="boot-error" class="boot-error" hidden><strong data-i18n="boot.title">Le refuge n’a pas pu s’afficher.</strong><p id="boot-error-detail"></p><button onclick="location.reload()" class="outline" data-i18n="boot.retry">Réessayer</button></div>
+  <script type="module">
+    import { getLanguage, setLanguage, t, translateDom } from '/i18n.js';
+    translateDom();
+    document.getElementById('language-select').value = getLanguage();
+    document.getElementById('language-select').addEventListener('change', event => { setLanguage(event.target.value); });
+    import('/client.js').catch(error => {
+      document.getElementById('boot-error').hidden = false;
+      const renderError = () => { document.getElementById('boot-error-detail').textContent = t('boot.detail', { error: error.message }); };
+      renderError(); window.addEventListener('deadwood-language-change', renderError);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,2984 @@
+{
+  "generatedAt": "2026-10-10T09:44:49.129Z",
+  "date": "2026-10-10",
+  "head": "8bf7075cbb0f612dc5068244869d1abd5de6b0e9",
+  "sources": {
+    "simulation.mjs": "538646d10a1216f2ace4b6c875a4c43fca9297a07c4436c64675c57a1296e9cf",
+    "public/weapon-scenarios.js": "5f97c3c11c3b054c24254cfab02f7f8004047e595c2c6277dbba2ccfd41d3390",
+    "public/rules.js": "b244bc4c2ed80c921285b56d5ab9ae68cd540ce34bf042903bbb5de8d43fa7db",
+    "public/enemies.js": "9385fc3bbaa994c018637f23072426d8ade5d14540cbb4ac1cc7b8b14b07e252",
+    "public/movement.js": "7c7ac543447aee9c185f86f25309e5003e53a03d975ba25311c03cf092d3411a",
+    "public/minigun.js": "6f060e66bd137819add76588ea2dcbe7e3034c362dac08df36df2e28b366bec7"
+  },
+  "node": "v24.19.0",
+  "baselineElapsedMs": 1437.1569,
+  "elapsedMs": 12832.5318,
+  "command": "node validation/weapon-scenarios-report.mjs",
+  "report": {
+    "scenarios": [
+      {
+        "distance": 0,
+        "label": "contact"
+      },
+      {
+        "distance": 4,
+        "label": "4 m"
+      },
+      {
+        "distance": 12,
+        "label": "12 m"
+      }
+    ],
+    "rows": [
+      {
+        "id": "pistol",
+        "cells": [
+          {
+            "distance": 0,
+            "rawDps": 75.48387096774191,
+            "targetsPerShot": 1.0000000000000002,
+            "intersectionsPerShot": 1.0000000000000002,
+            "damagePerShot": 25.161290322580616,
+            "contactDps": 75.48387096774191,
+            "burnDps": 0,
+            "minDps": 75.48387096774188,
+            "maxDps": 75.48387096774188,
+            "standardError": 5.1046897063649485e-15,
+            "cycleTime": 4,
+            "shotsPerCycle": 12,
+            "shotsPerSecond": 3,
+            "firstDamageAt": 0,
+            "reloadTime": 1.25,
+            "preparationTime": 0,
+            "ammoPerSecond": 3,
+            "samples": 32,
+            "shotsPerSample": 48
+          },
+          {
+            "distance": 4,
+            "rawDps": 75.48387096774191,
+            "targetsPerShot": 1.0000000000000002,
+            "intersectionsPerShot": 1.0000000000000002,
+            "damagePerShot": 25.161290322580616,
+            "contactDps": 75.48387096774191,
+            "burnDps": 0,
+            "minDps": 75.48387096774188,
+            "maxDps": 75.48387096774188,
+            "standardError": 5.1046897063649485e-15,
+            "cycleTime": 4,
+            "shotsPerCycle": 12,
+            "shotsPerSecond": 3,
+            "firstDamageAt": 0,
+            "reloadTime": 1.25,
+            "preparationTime": 0,
+            "ammoPerSecond": 3,
+            "samples": 32,
+            "shotsPerSample": 48
+          },
+          {
+            "distance": 12,
+            "rawDps": 65.61046469956169,
+            "targetsPerShot": 1.0000000000000002,
+            "intersectionsPerShot": 1.0000000000000002,
+            "damagePerShot": 21.870154899853894,
+            "contactDps": 65.61046469956169,
+            "burnDps": 0,
+            "minDps": 65.60993260963036,
+            "maxDps": 65.61108978686408,
+            "standardError": 0.00003927494705742828,
+            "cycleTime": 4,
+            "shotsPerCycle": 12,
+            "shotsPerSecond": 3,
+            "firstDamageAt": 0,
+            "reloadTime": 1.25,
+            "preparationTime": 0,
+            "ammoPerSecond": 3,
+            "samples": 32,
+            "shotsPerSample": 48
+          }
+        ]
+      },
+      {
+        "id": "rifle",
+        "cells": [
+          {
+            "distance": 0,
+            "rawDps": 437.8521126760569,
+            "targetsPerShot": 3,
+            "intersectionsPerShot": 3,
+            "damagePerShot": 62.17500000000001,
+            "contactDps": 437.8521126760569,
+            "burnDps": 0,
+            "minDps": 437.8521126760567,
+            "maxDps": 437.8521126760567,
+            "standardError": 3.062813823818969e-14,
+            "cycleTime": 4.26,
+            "shotsPerCycle": 30,
+            "shotsPerSecond": 7.042253521126761,
+            "firstDamageAt": 0,
+            "reloadTime": 1.65,
+            "preparationTime": 0,
+            "ammoPerSecond": 7.042253521126761,
+            "samples": 32,
+            "shotsPerSample": 48
+          },
+          {
+            "distance": 4,
+            "rawDps": 437.8443160392004,
+            "targetsPerShot": 3,
+            "intersectionsPerShot": 3,
+            "damagePerShot": 62.17389287756639,
+            "contactDps": 437.8443160392004,
+            "burnDps": 0,
+            "minDps": 437.6026202966487,
+            "maxDps": 437.8521126760567,
+            "standardError": 0.007796636856500782,
+            "cycleTime": 4.26,
+            "shotsPerCycle": 30,
+            "shotsPerSecond": 7.042253521126761,
+            "firstDamageAt": 0,
+            "reloadTime": 1.65,
+            "preparationTime": 0,
+            "ammoPerSecond": 7.042253521126761,
+            "samples": 32,
+            "shotsPerSample": 48
+          },
+          {
+            "distance": 12,
+            "rawDps": 437.722139244022,
+            "targetsPerShot": 3,
+            "intersectionsPerShot": 3,
+            "damagePerShot": 62.156543772651055,
+            "contactDps": 437.722139244022,
+            "burnDps": 0,
+            "minDps": 435.19609577620497,
+            "maxDps": 437.8521126760567,
+            "standardError": 0.09404258315124818,
+            "cycleTime": 4.26,
+            "shotsPerCycle": 30,
+            "shotsPerSecond": 7.042253521126761,
+            "firstDamageAt": 0,
+            "reloadTime": 1.65,
+            "preparationTime": 0,
+            "ammoPerSecond": 7.042253521126761,
+            "samples": 32,
+            "shotsPerSample": 48
+          }
+        ]
+      },
+      {
+        "id": "shotgun",
+        "cells": [
+          {
+            "distance": 0,
+            "rawDps": 263.27700073184496,
+            "targetsPerShot": 2.705729166666667,
+            "intersectionsPerShot": 17.970703125,
+            "damagePerShot": 274.79536951386297,
+            "contactDps": 263.27700073184496,
+            "burnDps": 0,
+            "minDps": 252.19270441759642,
+            "maxDps": 263.63455867746575,
+            "standardError": 0.3575579456209164,
+            "cycleTime": 8.35,
+            "shotsPerCycle": 8,
+            "shotsPerSecond": 0.9580838323353293,
+            "firstDamageAt": 0,
+            "reloadTime": 2.4,
+            "preparationTime": 0,
+            "ammoPerSecond": 0.9580838323353293,
+            "samples": 32,
+            "shotsPerSample": 48
+          },
+          {
+            "distance": 4,
+            "rawDps": 260.8589588350845,
+            "targetsPerShot": 5.164062499999999,
+            "intersectionsPerShot": 17.925130208333336,
+            "damagePerShot": 272.2715382841194,
+            "contactDps": 260.8589588350845,
+            "burnDps": 0,
+            "minDps": 250.64985042925935,
+            "maxDps": 263.5886422465361,
+            "standardError": 0.5882879521111356,
+            "cycleTime": 8.35,
+            "shotsPerCycle": 8,
+            "shotsPerSecond": 0.9580838323353293,
+            "firstDamageAt": 0,
+            "reloadTime": 2.4,
+            "preparationTime": 0,
+            "ammoPerSecond": 0.9580838323353293,
+            "samples": 32,
+            "shotsPerSample": 48
+          },
+          {
+            "distance": 12,
+            "rawDps": 111.8821959442666,
+            "targetsPerShot": 7.623697916666667,
+            "intersectionsPerShot": 12.662760416666666,
+            "damagePerShot": 116.77704201682826,
+            "contactDps": 111.8821959442666,
+            "burnDps": 0,
+            "minDps": 100.4484800549591,
+            "maxDps": 125.55732281841958,
+            "standardError": 1.11166544380683,
+            "cycleTime": 8.35,
+            "shotsPerCycle": 8,
+            "shotsPerSecond": 0.9580838323353293,
+            "firstDamageAt": 0,
+            "reloadTime": 2.4,
+            "preparationTime": 0,
+            "ammoPerSecond": 0.9580838323353293,
+            "samples": 32,
+            "shotsPerSample": 48
+          }
+        ]
+      },
+      {
+        "id": "smg",
+        "cells": [
+          {
+            "distance": 0,
+            "rawDps": 269.7244828244532,
+            "targetsPerShot": 1.994791666666667,
+            "intersectionsPerShot": 1.994791666666667,
+            "damagePerShot": 32.468084619993554,
+            "contactDps": 269.7244828244532,
+            "burnDps": 0,
+            "minDps": 243.932839775117,
+            "maxDps": 270.5564713099157,
+            "standardError": 0.8319884854624596,
+            "cycleTime": 4.815,
+            "shotsPerCycle": 40,
+            "shotsPerSecond": 8.307372793354102,
+            "firstDamageAt": 0,
+            "reloadTime": 1.5,
+            "preparationTime": 0,
+            "ammoPerSecond": 8.307372793354102,
+            "samples": 32,
+            "shotsPerSample": 48
+          },
+          {
+            "distance": 4,
+            "rawDps": 268.7858057161107,
+            "targetsPerShot": 1.994791666666667,
+            "intersectionsPerShot": 1.994791666666667,
+            "damagePerShot": 32.35509136307683,
+            "contactDps": 268.7858057161107,
+            "burnDps": 0,
+            "minDps": 243.932839775117,
+            "maxDps": 270.5564713099157,
+            "standardError": 0.9358976272517194,
+            "cycleTime": 4.815,
+            "shotsPerCycle": 40,
+            "shotsPerSecond": 8.307372793354102,
+            "firstDamageAt": 0,
+            "reloadTime": 1.5,
+            "preparationTime": 0,
+            "ammoPerSecond": 8.307372793354102,
+            "samples": 32,
+            "shotsPerSample": 48
+          },
+          {
+            "distance": 12,
+            "rawDps": 203.5631186135211,
+            "targetsPerShot": 1.9908854166666672,
+            "intersectionsPerShot": 1.9908854166666672,
+            "damagePerShot": 24.503910403102616,
+            "contactDps": 203.5631186135211,
+            "burnDps": 0,
+            "minDps": 191.24372570026938,
+            "maxDps": 207.31286004010045,
+            "standardError": 0.5813077016587119,
+            "cycleTime": 4.815,
+            "shotsPerCycle": 40,
+            "shotsPerSecond": 8.307372793354102,
+            "firstDamageAt": 0,
+            "reloadTime": 1.5,
+            "preparationTime": 0,
+            "ammoPerSecond": 8.307372793354102,
+            "samples": 32,
+            "shotsPerSample": 48
+          }
+        ]
+      },
+      {
+        "id": "minigun",
+        "cells": [
+          {
+            "distance": 0,
+            "rawDps": 538.3701574599809,
+            "targetsPerShot": 3.992187500000001,
+            "intersectionsPerShot": 3.992187500000001,
+            "damagePerShot": 60.79993644914718,
+            "contactDps": 538.3701574599809,
+            "burnDps": 0,
+            "minDps": 497.98342910836993,
+            "maxDps": 539.6751002664101,
+            "standardError": 1.3027993444030028,
+            "cycleTime": 8.47,
+            "shotsPerCycle": 75,
+            "shotsPerSecond": 8.854781582054308,
+            "firstDamageAt": 1,
+            "reloadTime": 3.4,
+            "preparationTime": 1,
+            "ammoPerSecond": 8.854781582054308,
+            "samples": 32,
+            "shotsPerSample": 48
+          },
+          {
+            "distance": 4,
+            "rawDps": 537.9861072483342,
+            "targetsPerShot": 3.992187500000001,
+            "intersectionsPerShot": 3.992187500000001,
+            "damagePerShot": 60.75656437857856,
+            "contactDps": 537.9861072483342,
+            "burnDps": 0,
+            "minDps": 497.98342910836993,
+            "maxDps": 539.6751002664101,
+            "standardError": 1.3231232723691781,
+            "cycleTime": 8.47,
+            "shotsPerCycle": 75,
+            "shotsPerSecond": 8.854781582054308,
+            "firstDamageAt": 1,
+            "reloadTime": 3.4,
+            "preparationTime": 1,
+            "ammoPerSecond": 8.854781582054308,
+            "samples": 32,
+            "shotsPerSample": 48
+          },
+          {
+            "distance": 12,
+            "rawDps": 521.9405877627842,
+            "targetsPerShot": 3.983723958333334,
+            "intersectionsPerShot": 3.983723958333334,
+            "damagePerShot": 58.94449037801043,
+            "contactDps": 521.9405877627842,
+            "burnDps": 0,
+            "minDps": 491.6173019235463,
+            "maxDps": 528.2204453922069,
+            "standardError": 1.509756112367776,
+            "cycleTime": 8.47,
+            "shotsPerCycle": 75,
+            "shotsPerSecond": 8.854781582054308,
+            "firstDamageAt": 1,
+            "reloadTime": 3.4,
+            "preparationTime": 1,
+            "ammoPerSecond": 8.854781582054308,
+            "samples": 32,
+            "shotsPerSample": 48
+          }
+        ]
+      },
+      {
+        "id": "magnum",
+        "cells": [
+          {
+            "distance": 0,
+            "rawDps": 387.09677419354796,
+            "targetsPerShot": 1.0000000000000002,
+            "intersectionsPerShot": 1.0000000000000002,
+            "damagePerShot": 399.99999999999994,
+            "contactDps": 387.09677419354796,
+            "burnDps": 0,
+            "minDps": 387.09677419354813,
+            "maxDps": 387.09677419354813,
+            "standardError": 3.062813823818969e-14,
+            "cycleTime": 6.2,
+            "shotsPerCycle": 6,
+            "shotsPerSecond": 0.9677419354838709,
+            "firstDamageAt": 0,
+            "reloadTime": 2.7,
+            "preparationTime": 0,
+            "ammoPerSecond": 0.9677419354838709,
+            "magnumKillsPerSecond": 0.9677419354838699,
+            "samples": 32,
+            "shotsPerSample": 48
+          },
+          {
+            "distance": 4,
+            "rawDps": 387.09677419354796,
+            "targetsPerShot": 1.0000000000000002,
+            "intersectionsPerShot": 1.0000000000000002,
+            "damagePerShot": 399.99999999999994,
+            "contactDps": 387.09677419354796,
+            "burnDps": 0,
+            "minDps": 387.09677419354813,
+            "maxDps": 387.09677419354813,
+            "standardError": 3.062813823818969e-14,
+            "cycleTime": 6.2,
+            "shotsPerCycle": 6,
+            "shotsPerSecond": 0.9677419354838709,
+            "firstDamageAt": 0,
+            "reloadTime": 2.7,
+            "preparationTime": 0,
+            "ammoPerSecond": 0.9677419354838709,
+            "magnumKillsPerSecond": 0.9677419354838699,
+            "samples": 32,
+            "shotsPerSample": 48
+          },
+          {
+            "distance": 12,
+            "rawDps": 387.09677419354796,
+            "targetsPerShot": 1.0000000000000002,
+            "intersectionsPerShot": 1.0000000000000002,
+            "damagePerShot": 399.99999999999994,
+            "contactDps": 387.09677419354796,
+            "burnDps": 0,
+            "minDps": 387.09677419354813,
+            "maxDps": 387.09677419354813,
+            "standardError": 3.062813823818969e-14,
+            "cycleTime": 6.2,
+            "shotsPerCycle": 6,
+            "shotsPerSecond": 0.9677419354838709,
+            "firstDamageAt": 0,
+            "reloadTime": 2.7,
+            "preparationTime": 0,
+            "ammoPerSecond": 0.9677419354838709,
+            "magnumKillsPerSecond": 0.9677419354838699,
+            "samples": 32,
+            "shotsPerSample": 48
+          }
+        ]
+      },
+      {
+        "id": "assault",
+        "cells": [
+          {
+            "distance": 0,
+            "rawDps": 351.3725490196078,
+            "targetsPerShot": 2.0000000000000004,
+            "intersectionsPerShot": 2.0000000000000004,
+            "damagePerShot": 67.19999999999999,
+            "contactDps": 351.3725490196078,
+            "burnDps": 0,
+            "minDps": 351.37254901960773,
+            "maxDps": 351.37254901960773,
+            "standardError": 1.0209379412729897e-14,
+            "cycleTime": 4.59,
+            "shotsPerCycle": 24,
+            "shotsPerSecond": 5.228758169934641,
+            "firstDamageAt": 0,
+            "reloadTime": 1.6,
+            "preparationTime": 0,
+            "ammoPerSecond": 5.228758169934641,
+            "samples": 32,
+            "shotsPerSample": 48
+          },
+          {
+            "distance": 4,
+            "rawDps": 351.362091863816,
+            "targetsPerShot": 2.0000000000000004,
+            "intersectionsPerShot": 2.0000000000000004,
+            "damagePerShot": 67.19800006895481,
+            "contactDps": 351.362091863816,
+            "burnDps": 0,
+            "minDps": 351.03792003426963,
+            "maxDps": 351.37254901960773,
+            "standardError": 0.010457155791815602,
+            "cycleTime": 4.59,
+            "shotsPerCycle": 24,
+            "shotsPerSecond": 5.228758169934641,
+            "firstDamageAt": 0,
+            "reloadTime": 1.6,
+            "preparationTime": 0,
+            "ammoPerSecond": 5.228758169934641,
+            "samples": 32,
+            "shotsPerSample": 48
+          },
+          {
+            "distance": 12,
+            "rawDps": 351.21740779573355,
+            "targetsPerShot": 2.0000000000000004,
+            "intersectionsPerShot": 2.0000000000000004,
+            "damagePerShot": 67.17032924093404,
+            "contactDps": 351.21740779573355,
+            "burnDps": 0,
+            "minDps": 347.7058183983419,
+            "maxDps": 351.37254901960773,
+            "standardError": 0.12031111790774879,
+            "cycleTime": 4.59,
+            "shotsPerCycle": 24,
+            "shotsPerSecond": 5.228758169934641,
+            "firstDamageAt": 0,
+            "reloadTime": 1.6,
+            "preparationTime": 0,
+            "ammoPerSecond": 5.228758169934641,
+            "samples": 32,
+            "shotsPerSample": 48
+          }
+        ]
+      },
+      {
+        "id": "rocket",
+        "cells": [
+          {
+            "distance": 0,
+            "rawDps": 7615.159878685188,
+            "targetsPerShot": 53.4375,
+            "intersectionsPerShot": 53.4375,
+            "damagePerShot": 21322.447660318532,
+            "contactDps": 7615.159878685188,
+            "burnDps": 0,
+            "minDps": 7200.965265054325,
+            "maxDps": 7953.256644926895,
+            "standardError": 34.04339240392966,
+            "cycleTime": 2.8,
+            "shotsPerCycle": 1,
+            "shotsPerSecond": 0.35714285714285715,
+            "firstDamageAt": 0,
+            "reloadTime": 2.8,
+            "preparationTime": 0,
+            "ammoPerSecond": 0.35714285714285715,
+            "samples": 32,
+            "shotsPerSample": 1
+          },
+          {
+            "distance": 4,
+            "rawDps": 3976.200711401098,
+            "targetsPerShot": 29.15625,
+            "intersectionsPerShot": 29.15625,
+            "damagePerShot": 11133.361991923073,
+            "contactDps": 3976.200711401098,
+            "burnDps": 0,
+            "minDps": 3565.5865252443773,
+            "maxDps": 4343.169725318673,
+            "standardError": 31.55397238823873,
+            "cycleTime": 2.8,
+            "shotsPerCycle": 1,
+            "shotsPerSecond": 0.35714285714285715,
+            "firstDamageAt": 0,
+            "reloadTime": 2.8,
+            "preparationTime": 0,
+            "ammoPerSecond": 0.35714285714285715,
+            "samples": 32,
+            "shotsPerSample": 1
+          },
+          {
+            "distance": 12,
+            "rawDps": 3634.7224140497815,
+            "targetsPerShot": 26.1875,
+            "intersectionsPerShot": 26.1875,
+            "damagePerShot": 10177.222759339389,
+            "contactDps": 3634.7224140497815,
+            "burnDps": 0,
+            "minDps": 3183.893125849537,
+            "maxDps": 4087.5270526136055,
+            "standardError": 42.629037731017895,
+            "cycleTime": 2.8,
+            "shotsPerCycle": 1,
+            "shotsPerSecond": 0.35714285714285715,
+            "firstDamageAt": 0,
+            "reloadTime": 2.8,
+            "preparationTime": 0,
+            "ammoPerSecond": 0.35714285714285715,
+            "samples": 32,
+            "shotsPerSample": 1
+          }
+        ]
+      },
+      {
+        "id": "flamethrower",
+        "cells": [
+          {
+            "distance": 0,
+            "rawDps": 420.98756067961153,
+            "targetsPerShot": 9.84375,
+            "intersectionsPerShot": 9.84375,
+            "damagePerShot": 12.3046875,
+            "contactDps": 76.45631067961165,
+            "burnDps": 344.53125,
+            "minDps": 342.13592233009706,
+            "maxDps": 470.4368932038835,
+            "standardError": 6.105623259431417,
+            "cycleTime": 12.875,
+            "shotsPerCycle": 80,
+            "shotsPerSecond": 6.213592233009709,
+            "firstDamageAt": 0,
+            "reloadTime": 3,
+            "preparationTime": 0,
+            "ammoPerSecond": 6.213592233009709,
+            "burnCoverage": 1,
+            "samples": 32,
+            "shotsPerSample": 1
+          },
+          {
+            "distance": 4,
+            "rawDps": 84.19751213592231,
+            "targetsPerShot": 1.96875,
+            "intersectionsPerShot": 1.96875,
+            "damagePerShot": 2.4609375,
+            "contactDps": 15.291262135922334,
+            "burnDps": 68.90625,
+            "minDps": 42.76699029126213,
+            "maxDps": 171.06796116504853,
+            "standardError": 6.217833993726355,
+            "cycleTime": 12.875,
+            "shotsPerCycle": 80,
+            "shotsPerSecond": 6.213592233009709,
+            "firstDamageAt": 0,
+            "reloadTime": 3,
+            "preparationTime": 0,
+            "ammoPerSecond": 6.213592233009709,
+            "burnCoverage": 1,
+            "samples": 32,
+            "shotsPerSample": 1
+          },
+          {
+            "distance": 12,
+            "rawDps": 0,
+            "targetsPerShot": 0,
+            "intersectionsPerShot": 0,
+            "damagePerShot": 0,
+            "contactDps": 0,
+            "burnDps": 0,
+            "minDps": 0,
+            "maxDps": 0,
+            "standardError": 0,
+            "cycleTime": 12.875,
+            "shotsPerCycle": 80,
+            "shotsPerSecond": 6.213592233009709,
+            "firstDamageAt": 0,
+            "reloadTime": 3,
+            "preparationTime": 0,
+            "ammoPerSecond": 6.213592233009709,
+            "burnCoverage": 1,
+            "samples": 32,
+            "shotsPerSample": 1
+          }
+        ]
+      },
+      {
+        "id": "katana",
+        "mode": "light",
+        "cells": [
+          {
+            "distance": 0,
+            "rawDps": 378.40909090909065,
+            "targetsPerShot": 3,
+            "intersectionsPerShot": 3,
+            "damagePerShot": 208.125,
+            "contactDps": 378.40909090909065,
+            "burnDps": 0,
+            "minDps": 378.4090909090909,
+            "maxDps": 378.4090909090909,
+            "standardError": 4.083751765091959e-14,
+            "cycleTime": 0.55,
+            "shotsPerCycle": 1,
+            "shotsPerSecond": 1.8181818181818181,
+            "firstDamageAt": 0.16,
+            "reloadTime": 0,
+            "preparationTime": 0.16,
+            "ammoPerSecond": 0,
+            "samples": 32,
+            "shotsPerSample": 1
+          },
+          {
+            "distance": 4,
+            "rawDps": 0,
+            "targetsPerShot": 0,
+            "intersectionsPerShot": 0,
+            "damagePerShot": 0,
+            "contactDps": 0,
+            "burnDps": 0,
+            "minDps": 0,
+            "maxDps": 0,
+            "standardError": 0,
+            "cycleTime": 0.55,
+            "shotsPerCycle": 1,
+            "shotsPerSecond": 1.8181818181818181,
+            "firstDamageAt": 0.16,
+            "reloadTime": 0,
+            "preparationTime": 0.16,
+            "ammoPerSecond": 0,
+            "samples": 32,
+            "shotsPerSample": 1
+          },
+          {
+            "distance": 12,
+            "rawDps": 0,
+            "targetsPerShot": 0,
+            "intersectionsPerShot": 0,
+            "damagePerShot": 0,
+            "contactDps": 0,
+            "burnDps": 0,
+            "minDps": 0,
+            "maxDps": 0,
+            "standardError": 0,
+            "cycleTime": 0.55,
+            "shotsPerCycle": 1,
+            "shotsPerSecond": 1.8181818181818181,
+            "firstDamageAt": 0.16,
+            "reloadTime": 0,
+            "preparationTime": 0.16,
+            "ammoPerSecond": 0,
+            "samples": 32,
+            "shotsPerSample": 1
+          }
+        ]
+      },
+      {
+        "id": "katana",
+        "mode": "heavy",
+        "cells": [
+          {
+            "distance": 0,
+            "rawDps": 323.75,
+            "targetsPerShot": 3,
+            "intersectionsPerShot": 3,
+            "damagePerShot": 485.625,
+            "contactDps": 323.75,
+            "burnDps": 0,
+            "minDps": 323.75,
+            "maxDps": 323.75,
+            "standardError": 0,
+            "cycleTime": 1.5,
+            "shotsPerCycle": 1,
+            "shotsPerSecond": 0.6666666666666666,
+            "firstDamageAt": 0.7,
+            "reloadTime": 0,
+            "preparationTime": 0.7,
+            "ammoPerSecond": 0,
+            "samples": 32,
+            "shotsPerSample": 1
+          },
+          {
+            "distance": 4,
+            "rawDps": 0,
+            "targetsPerShot": 0,
+            "intersectionsPerShot": 0,
+            "damagePerShot": 0,
+            "contactDps": 0,
+            "burnDps": 0,
+            "minDps": 0,
+            "maxDps": 0,
+            "standardError": 0,
+            "cycleTime": 1.5,
+            "shotsPerCycle": 1,
+            "shotsPerSecond": 0.6666666666666666,
+            "firstDamageAt": 0.7,
+            "reloadTime": 0,
+            "preparationTime": 0.7,
+            "ammoPerSecond": 0,
+            "samples": 32,
+            "shotsPerSample": 1
+          },
+          {
+            "distance": 12,
+            "rawDps": 0,
+            "targetsPerShot": 0,
+            "intersectionsPerShot": 0,
+            "damagePerShot": 0,
+            "contactDps": 0,
+            "burnDps": 0,
+            "minDps": 0,
+            "maxDps": 0,
+            "standardError": 0,
+            "cycleTime": 1.5,
+            "shotsPerCycle": 1,
+            "shotsPerSecond": 0.6666666666666666,
+            "firstDamageAt": 0.7,
+            "reloadTime": 0,
+            "preparationTime": 0.7,
+            "ammoPerSecond": 0,
+            "samples": 32,
+            "shotsPerSample": 1
+          }
+        ]
+      }
+    ],
+    "assumptions": {
+      "metric": "raw-body-damage-per-second",
+      "damageClippedAtHp": false,
+      "targetHp": 400,
+      "hpUse": "Magnum one-shot conversion only; all other targets are immortal damage meters",
+      "replenishedAmmo": true,
+      "infiniteField": true,
+      "stationaryTargets": true,
+      "aim": "fixed frontal horizontal, crouched",
+      "headshotMultiplier": 1,
+      "eyeHeight": 0.88,
+      "playerRadius": 0.25,
+      "bodyHeight": 1.82,
+      "bodyHalfWidth": 0.32,
+      "distanceDefinition": "free gap from player skin to nearest body surface; first ray hit is distance + playerRadius",
+      "packing": "square lattice, random rotation and phase, one aimed first body, local overlaps removed",
+      "spacing": 0.96,
+      "nominalDensity": 1.0850694444444444,
+      "samples": 32,
+      "shotsPerSample": 48,
+      "seed": 104729,
+      "targetsPerShotDefinition": "unique bodies hit per trigger; pellet intersections separately reported",
+      "burn": "one shared non-stacking burn, periodic union of live intervals including reload",
+      "cycle": "R immediately after final shot: (magazine-1)*interval + max(reloadTime,interval) + minigun spin-up; melee windup is inside its duration",
+      "environment": "open flat ground, no walls, cover, recoil, pushback, armour, enemies moving, deaths or player danger",
+      "convergence": "infinite periodic field truncated only outside maximum range + blast radius + body half diagonal",
+      "limitations": "raw throughput is neither kills/s nor survivability; no overkill deduction, tactical sweep, frame/network latency, stock or pickup scarcity"
+    }
+  },
+  "repeatSeeds": [
+    {
+      "seed": 17,
+      "rows": [
+        {
+          "id": "pistol",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 75.48387096774191,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 75.48387096774188,
+              "maxDps": 75.48387096774188,
+              "standardError": 5.1046897063649485e-15
+            },
+            {
+              "distance": 4,
+              "rawDps": 75.48387096774191,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 75.48387096774188,
+              "maxDps": 75.48387096774188,
+              "standardError": 5.1046897063649485e-15
+            },
+            {
+              "distance": 12,
+              "rawDps": 65.61051754546793,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 65.61006678738744,
+              "maxDps": 65.61098989992641,
+              "standardError": 0.00004089204974854114
+            }
+          ]
+        },
+        {
+          "id": "rifle",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 437.8521126760569,
+              "targetsPerShot": 3,
+              "minDps": 437.8521126760567,
+              "maxDps": 437.8521126760567,
+              "standardError": 3.062813823818969e-14
+            },
+            {
+              "distance": 4,
+              "rawDps": 437.8521126760569,
+              "targetsPerShot": 3,
+              "minDps": 437.8521126760567,
+              "maxDps": 437.8521126760567,
+              "standardError": 3.062813823818969e-14
+            },
+            {
+              "distance": 12,
+              "rawDps": 437.6950907394852,
+              "targetsPerShot": 3,
+              "minDps": 433.7284587935646,
+              "maxDps": 437.8521126760567,
+              "standardError": 0.13101426820325784
+            }
+          ]
+        },
+        {
+          "id": "shotgun",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 263.288019947988,
+              "targetsPerShot": 2.736979166666667,
+              "minDps": 253.20949165951157,
+              "maxDps": 263.63455867746575,
+              "standardError": 0.32577496978928644
+            },
+            {
+              "distance": 4,
+              "rawDps": 260.84550851160486,
+              "targetsPerShot": 5.179036458333335,
+              "minDps": 248.55798560328878,
+              "maxDps": 263.54516065172237,
+              "standardError": 0.6382373630022781
+            },
+            {
+              "distance": 12,
+              "rawDps": 110.85753385019552,
+              "targetsPerShot": 7.615234375000003,
+              "minDps": 97.64778446617991,
+              "maxDps": 119.99173290661356,
+              "standardError": 1.0276835912412783
+            }
+          ]
+        },
+        {
+          "id": "smg",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 270.4781869728674,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 268.44998379583325,
+              "maxDps": 270.5564713099157,
+              "standardError": 0.06659996272775667
+            },
+            {
+              "distance": 4,
+              "rawDps": 269.75893451268007,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 260.10116805630184,
+              "maxDps": 270.5564713099157,
+              "standardError": 0.34026981773494835
+            },
+            {
+              "distance": 12,
+              "rawDps": 204.0801958885154,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 199.02621319667458,
+              "maxDps": 206.63904574354672,
+              "standardError": 0.3607707638502278
+            }
+          ]
+        },
+        {
+          "id": "minigun",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 539.6588146369169,
+              "targetsPerShot": 4.000000000000001,
+              "minDps": 539.1539601226317,
+              "maxDps": 539.6751002664101,
+              "standardError": 0.0162856294930762
+            },
+            {
+              "distance": 4,
+              "rawDps": 539.5438138167087,
+              "targetsPerShot": 4.000000000000001,
+              "minDps": 536.6903651189499,
+              "maxDps": 539.6751002664101,
+              "standardError": 0.09668730450246776
+            },
+            {
+              "distance": 12,
+              "rawDps": 524.2353098014819,
+              "targetsPerShot": 4.000000000000001,
+              "minDps": 514.1755829484516,
+              "maxDps": 528.7449632133108,
+              "standardError": 0.5005980842992439
+            }
+          ]
+        },
+        {
+          "id": "magnum",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 387.09677419354796,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 387.09677419354813,
+              "maxDps": 387.09677419354813,
+              "standardError": 3.062813823818969e-14,
+              "magnumKillsPerSecond": 0.9677419354838699
+            },
+            {
+              "distance": 4,
+              "rawDps": 387.09677419354796,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 387.09677419354813,
+              "maxDps": 387.09677419354813,
+              "standardError": 3.062813823818969e-14,
+              "magnumKillsPerSecond": 0.9677419354838699
+            },
+            {
+              "distance": 12,
+              "rawDps": 387.09677419354796,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 387.09677419354813,
+              "maxDps": 387.09677419354813,
+              "standardError": 3.062813823818969e-14,
+              "magnumKillsPerSecond": 0.9677419354838699
+            }
+          ]
+        },
+        {
+          "id": "assault",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 351.3725490196078,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 351.37254901960773,
+              "maxDps": 351.37254901960773,
+              "standardError": 1.0209379412729897e-14
+            },
+            {
+              "distance": 4,
+              "rawDps": 351.3725490196078,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 351.37254901960773,
+              "maxDps": 351.37254901960773,
+              "standardError": 1.0209379412729897e-14
+            },
+            {
+              "distance": 12,
+              "rawDps": 351.11393365862824,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 343.8895758227854,
+              "maxDps": 351.37254901960773,
+              "standardError": 0.2343553901388861
+            }
+          ]
+        },
+        {
+          "id": "rocket",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 7624.051873088769,
+              "targetsPerShot": 53.21875,
+              "minDps": 7205.684258100781,
+              "maxDps": 7945.88535818928,
+              "standardError": 29.578120790836845
+            },
+            {
+              "distance": 4,
+              "rawDps": 3996.2292686690025,
+              "targetsPerShot": 29.15625,
+              "minDps": 3608.8638344074025,
+              "maxDps": 4340.16445856015,
+              "standardError": 33.90037588430192
+            },
+            {
+              "distance": 12,
+              "rawDps": 3615.7206371677257,
+              "targetsPerShot": 26.125,
+              "minDps": 3214.7457431622615,
+              "maxDps": 4063.4888341720944,
+              "standardError": 35.068329206132056
+            }
+          ]
+        },
+        {
+          "id": "flamethrower",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 424.99696601941736,
+              "targetsPerShot": 9.9375,
+              "minDps": 342.13592233009706,
+              "maxDps": 513.2038834951456,
+              "standardError": 7.903009498426219
+            },
+            {
+              "distance": 4,
+              "rawDps": 76.17870145631066,
+              "targetsPerShot": 1.78125,
+              "minDps": 42.76699029126213,
+              "maxDps": 171.06796116504853,
+              "standardError": 5.991311308777135
+            },
+            {
+              "distance": 12,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            }
+          ]
+        },
+        {
+          "id": "katana",
+          "mode": "light",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 378.40909090909065,
+              "targetsPerShot": 3,
+              "minDps": 378.4090909090909,
+              "maxDps": 378.4090909090909,
+              "standardError": 4.083751765091959e-14
+            },
+            {
+              "distance": 4,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            },
+            {
+              "distance": 12,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            }
+          ]
+        },
+        {
+          "id": "katana",
+          "mode": "heavy",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 323.75,
+              "targetsPerShot": 3,
+              "minDps": 323.75,
+              "maxDps": 323.75,
+              "standardError": 0
+            },
+            {
+              "distance": 4,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            },
+            {
+              "distance": 12,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 31,
+      "rows": [
+        {
+          "id": "pistol",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 75.48387096774191,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 75.48387096774188,
+              "maxDps": 75.48387096774188,
+              "standardError": 5.1046897063649485e-15
+            },
+            {
+              "distance": 4,
+              "rawDps": 75.48387096774191,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 75.48387096774188,
+              "maxDps": 75.48387096774188,
+              "standardError": 5.1046897063649485e-15
+            },
+            {
+              "distance": 12,
+              "rawDps": 65.61047965784093,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 65.60992445261876,
+              "maxDps": 65.61088574172416,
+              "standardError": 0.00004430232924937709
+            }
+          ]
+        },
+        {
+          "id": "rifle",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 437.8521126760569,
+              "targetsPerShot": 3,
+              "minDps": 437.8521126760567,
+              "maxDps": 437.8521126760567,
+              "standardError": 3.062813823818969e-14
+            },
+            {
+              "distance": 4,
+              "rawDps": 437.8521126760569,
+              "targetsPerShot": 3,
+              "minDps": 437.8521126760567,
+              "maxDps": 437.8521126760567,
+              "standardError": 3.062813823818969e-14
+            },
+            {
+              "distance": 12,
+              "rawDps": 437.8457902926658,
+              "targetsPerShot": 3,
+              "minDps": 437.6974219119124,
+              "maxDps": 437.8521126760567,
+              "standardError": 0.005011911231831638
+            }
+          ]
+        },
+        {
+          "id": "shotgun",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 263.1395143469739,
+              "targetsPerShot": 2.895182291666667,
+              "minDps": 253.22350508052747,
+              "maxDps": 263.63455867746575,
+              "standardError": 0.34965225571475933
+            },
+            {
+              "distance": 4,
+              "rawDps": 260.8377198913745,
+              "targetsPerShot": 5.189453124999999,
+              "minDps": 250.4014811543619,
+              "maxDps": 263.3244415306406,
+              "standardError": 0.5819305149048286
+            },
+            {
+              "distance": 12,
+              "rawDps": 111.191425854707,
+              "targetsPerShot": 7.627604166666667,
+              "minDps": 98.5476675467943,
+              "maxDps": 121.24679692040726,
+              "standardError": 0.8479002616717604
+            }
+          ]
+        },
+        {
+          "id": "smg",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 270.1906316854386,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 260.71606017587385,
+              "maxDps": 270.5564713099157,
+              "standardError": 0.31114142793205757
+            },
+            {
+              "distance": 4,
+              "rawDps": 269.080309238922,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 254.17404726836872,
+              "maxDps": 270.5564713099157,
+              "standardError": 0.5693521241004768
+            },
+            {
+              "distance": 12,
+              "rawDps": 204.34849327333274,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 200.44191943509972,
+              "maxDps": 206.96699255657646,
+              "standardError": 0.28802700979350576
+            }
+          ]
+        },
+        {
+          "id": "minigun",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 539.3922668405598,
+              "targetsPerShot": 4.000000000000001,
+              "minDps": 530.6244306392074,
+              "maxDps": 539.6751002664101,
+              "standardError": 0.2828334258500859
+            },
+            {
+              "distance": 4,
+              "rawDps": 539.108837370037,
+              "targetsPerShot": 4.000000000000001,
+              "minDps": 523.1061662171836,
+              "maxDps": 539.6751002664101,
+              "standardError": 0.5180141231331505
+            },
+            {
+              "distance": 12,
+              "rawDps": 523.9572166521468,
+              "targetsPerShot": 4.000000000000001,
+              "minDps": 512.8613091197402,
+              "maxDps": 528.3140735614503,
+              "standardError": 0.6505574063274824
+            }
+          ]
+        },
+        {
+          "id": "magnum",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 387.09677419354796,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 387.09677419354813,
+              "maxDps": 387.09677419354813,
+              "standardError": 3.062813823818969e-14,
+              "magnumKillsPerSecond": 0.9677419354838699
+            },
+            {
+              "distance": 4,
+              "rawDps": 387.09677419354796,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 387.09677419354813,
+              "maxDps": 387.09677419354813,
+              "standardError": 3.062813823818969e-14,
+              "magnumKillsPerSecond": 0.9677419354838699
+            },
+            {
+              "distance": 12,
+              "rawDps": 387.09677419354796,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 387.09677419354813,
+              "maxDps": 387.09677419354813,
+              "standardError": 3.062813823818969e-14,
+              "magnumKillsPerSecond": 0.9677419354838699
+            }
+          ]
+        },
+        {
+          "id": "assault",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 351.3725490196078,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 351.37254901960773,
+              "maxDps": 351.37254901960773,
+              "standardError": 1.0209379412729897e-14
+            },
+            {
+              "distance": 4,
+              "rawDps": 351.3725490196078,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 351.37254901960773,
+              "maxDps": 351.37254901960773,
+              "standardError": 1.0209379412729897e-14
+            },
+            {
+              "distance": 12,
+              "rawDps": 351.34274757408974,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 350.8716841903332,
+              "maxDps": 351.37254901960773,
+              "standardError": 0.020758222262252633
+            }
+          ]
+        },
+        {
+          "id": "rocket",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 7600.472770508572,
+              "targetsPerShot": 53.21875,
+              "minDps": 7234.025641972675,
+              "maxDps": 7947.282811617964,
+              "standardError": 28.488508469835338
+            },
+            {
+              "distance": 4,
+              "rawDps": 3989.0724695205386,
+              "targetsPerShot": 29.3125,
+              "minDps": 3677.1545515328635,
+              "maxDps": 4333.811776532689,
+              "standardError": 32.781136041856016
+            },
+            {
+              "distance": 12,
+              "rawDps": 3665.117929154826,
+              "targetsPerShot": 26.15625,
+              "minDps": 3223.0815017190534,
+              "maxDps": 3969.54655520361,
+              "standardError": 33.92563552752937
+            }
+          ]
+        },
+        {
+          "id": "flamethrower",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 424.99696601941736,
+              "targetsPerShot": 9.9375,
+              "minDps": 342.13592233009706,
+              "maxDps": 513.2038834951456,
+              "standardError": 7.421758336085847
+            },
+            {
+              "distance": 4,
+              "rawDps": 77.5151699029126,
+              "targetsPerShot": 1.8125,
+              "minDps": 42.76699029126213,
+              "maxDps": 171.06796116504853,
+              "standardError": 5.899243628096125
+            },
+            {
+              "distance": 12,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            }
+          ]
+        },
+        {
+          "id": "katana",
+          "mode": "light",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 378.40909090909065,
+              "targetsPerShot": 3,
+              "minDps": 378.4090909090909,
+              "maxDps": 378.4090909090909,
+              "standardError": 4.083751765091959e-14
+            },
+            {
+              "distance": 4,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            },
+            {
+              "distance": 12,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            }
+          ]
+        },
+        {
+          "id": "katana",
+          "mode": "heavy",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 323.75,
+              "targetsPerShot": 3,
+              "minDps": 323.75,
+              "maxDps": 323.75,
+              "standardError": 0
+            },
+            {
+              "distance": 4,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            },
+            {
+              "distance": 12,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 71,
+      "rows": [
+        {
+          "id": "pistol",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 75.48387096774191,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 75.48387096774188,
+              "maxDps": 75.48387096774188,
+              "standardError": 5.1046897063649485e-15
+            },
+            {
+              "distance": 4,
+              "rawDps": 75.48387096774191,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 75.48387096774188,
+              "maxDps": 75.48387096774188,
+              "standardError": 5.1046897063649485e-15
+            },
+            {
+              "distance": 12,
+              "rawDps": 65.61046096827606,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 65.60995623663854,
+              "maxDps": 65.61080486813535,
+              "standardError": 0.000039610490300345986
+            }
+          ]
+        },
+        {
+          "id": "rifle",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 437.8521126760569,
+              "targetsPerShot": 3,
+              "minDps": 437.8521126760567,
+              "maxDps": 437.8521126760567,
+              "standardError": 3.062813823818969e-14
+            },
+            {
+              "distance": 4,
+              "rawDps": 437.8521126760569,
+              "targetsPerShot": 3,
+              "minDps": 437.8521126760567,
+              "maxDps": 437.8521126760567,
+              "standardError": 3.062813823818969e-14
+            },
+            {
+              "distance": 12,
+              "rawDps": 437.8521126760569,
+              "targetsPerShot": 3,
+              "minDps": 437.8521126760567,
+              "maxDps": 437.8521126760567,
+              "standardError": 3.062813823818969e-14
+            }
+          ]
+        },
+        {
+          "id": "shotgun",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 263.30200536844245,
+              "targetsPerShot": 2.7213541666666665,
+              "minDps": 255.65573763323982,
+              "maxDps": 263.63455867746575,
+              "standardError": 0.2543117808174642
+            },
+            {
+              "distance": 4,
+              "rawDps": 260.96659461805564,
+              "targetsPerShot": 5.190755208333333,
+              "minDps": 246.33146450369512,
+              "maxDps": 263.5672700026466,
+              "standardError": 0.6377521641769923
+            },
+            {
+              "distance": 12,
+              "rawDps": 112.55394767158135,
+              "targetsPerShot": 7.638671875,
+              "minDps": 97.75763609431382,
+              "maxDps": 120.64575084540407,
+              "standardError": 0.9627708064943958
+            }
+          ]
+        },
+        {
+          "id": "smg",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 270.5564713099157,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 270.5564713099157,
+              "maxDps": 270.5564713099157,
+              "standardError": 0
+            },
+            {
+              "distance": 4,
+              "rawDps": 269.7250258481302,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 265.14853856674364,
+              "maxDps": 270.5564713099157,
+              "standardError": 0.23897010461580892
+            },
+            {
+              "distance": 12,
+              "rawDps": 204.38087575144252,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 199.8771351813482,
+              "maxDps": 206.88402825578495,
+              "standardError": 0.2822481618022569
+            }
+          ]
+        },
+        {
+          "id": "minigun",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 539.6751002664099,
+              "targetsPerShot": 4.000000000000001,
+              "minDps": 539.6751002664101,
+              "maxDps": 539.6751002664101,
+              "standardError": 4.083751765091959e-14
+            },
+            {
+              "distance": 4,
+              "rawDps": 539.6636488341271,
+              "targetsPerShot": 4.000000000000001,
+              "minDps": 539.3086544333581,
+              "maxDps": 539.6751002664101,
+              "standardError": 0.011451432282875372
+            },
+            {
+              "distance": 12,
+              "rawDps": 524.4086889826181,
+              "targetsPerShot": 4.000000000000001,
+              "minDps": 516.3139155913839,
+              "maxDps": 527.4290404512659,
+              "standardError": 0.4353514698202749
+            }
+          ]
+        },
+        {
+          "id": "magnum",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 387.09677419354796,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 387.09677419354813,
+              "maxDps": 387.09677419354813,
+              "standardError": 3.062813823818969e-14,
+              "magnumKillsPerSecond": 0.9677419354838699
+            },
+            {
+              "distance": 4,
+              "rawDps": 387.09677419354796,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 387.09677419354813,
+              "maxDps": 387.09677419354813,
+              "standardError": 3.062813823818969e-14,
+              "magnumKillsPerSecond": 0.9677419354838699
+            },
+            {
+              "distance": 12,
+              "rawDps": 387.09677419354796,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 387.09677419354813,
+              "maxDps": 387.09677419354813,
+              "standardError": 3.062813823818969e-14,
+              "magnumKillsPerSecond": 0.9677419354838699
+            }
+          ]
+        },
+        {
+          "id": "assault",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 351.3725490196078,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 351.37254901960773,
+              "maxDps": 351.37254901960773,
+              "standardError": 1.0209379412729897e-14
+            },
+            {
+              "distance": 4,
+              "rawDps": 351.3725490196078,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 351.37254901960773,
+              "maxDps": 351.37254901960773,
+              "standardError": 1.0209379412729897e-14
+            },
+            {
+              "distance": 12,
+              "rawDps": 351.37198582571114,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 351.3545268149136,
+              "maxDps": 351.37254901960773,
+              "standardError": 0.0005631938966921267
+            }
+          ]
+        },
+        {
+          "id": "rocket",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 7577.249891616312,
+              "targetsPerShot": 53,
+              "minDps": 7442.250445965479,
+              "maxDps": 7711.990687702627,
+              "standardError": 21.683701746953098
+            },
+            {
+              "distance": 4,
+              "rawDps": 3993.6779770141957,
+              "targetsPerShot": 29.34375,
+              "minDps": 3669.099047828196,
+              "maxDps": 4295.405672219308,
+              "standardError": 27.050805932079843
+            },
+            {
+              "distance": 12,
+              "rawDps": 3666.6877527832585,
+              "targetsPerShot": 26.125,
+              "minDps": 3245.7901328833314,
+              "maxDps": 3904.63887375648,
+              "standardError": 28.008730926074193
+            }
+          ]
+        },
+        {
+          "id": "flamethrower",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 418.31462378640765,
+              "targetsPerShot": 9.78125,
+              "minDps": 342.13592233009706,
+              "maxDps": 513.2038834951456,
+              "standardError": 7.855477666190916
+            },
+            {
+              "distance": 4,
+              "rawDps": 81.52457524271843,
+              "targetsPerShot": 1.90625,
+              "minDps": 42.76699029126213,
+              "maxDps": 171.06796116504853,
+              "standardError": 6.180656775596694
+            },
+            {
+              "distance": 12,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            }
+          ]
+        },
+        {
+          "id": "katana",
+          "mode": "light",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 378.40909090909065,
+              "targetsPerShot": 3,
+              "minDps": 378.4090909090909,
+              "maxDps": 378.4090909090909,
+              "standardError": 4.083751765091959e-14
+            },
+            {
+              "distance": 4,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            },
+            {
+              "distance": 12,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            }
+          ]
+        },
+        {
+          "id": "katana",
+          "mode": "heavy",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 323.75,
+              "targetsPerShot": 3,
+              "minDps": 323.75,
+              "maxDps": 323.75,
+              "standardError": 0
+            },
+            {
+              "distance": 4,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            },
+            {
+              "distance": 12,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "densitySensitivity": [
+    {
+      "spacing": 1.25,
+      "nominalDensity": 0.64,
+      "rows": [
+        {
+          "id": "pistol",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 75.48387096774191,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 75.48387096774188,
+              "maxDps": 75.48387096774188,
+              "standardError": 5.1046897063649485e-15
+            },
+            {
+              "distance": 4,
+              "rawDps": 75.48387096774191,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 75.48387096774188,
+              "maxDps": 75.48387096774188,
+              "standardError": 5.1046897063649485e-15
+            },
+            {
+              "distance": 12,
+              "rawDps": 65.61046469956169,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 65.60993260963036,
+              "maxDps": 65.61108978686408,
+              "standardError": 0.00003927494705742828
+            }
+          ]
+        },
+        {
+          "id": "rifle",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 437.5941192843658,
+              "targetsPerShot": 3,
+              "minDps": 432.38200146739456,
+              "maxDps": 437.8521126760567,
+              "standardError": 0.18931161350465517
+            },
+            {
+              "distance": 4,
+              "rawDps": 437.39367713232383,
+              "targetsPerShot": 3,
+              "minDps": 425.96785260205155,
+              "maxDps": 437.8521126760567,
+              "standardError": 0.3787053696422232
+            },
+            {
+              "distance": 12,
+              "rawDps": 436.9149242110383,
+              "targetsPerShot": 3,
+              "minDps": 422.6053466271211,
+              "maxDps": 437.8521126760567,
+              "standardError": 0.596830597621926
+            }
+          ]
+        },
+        {
+          "id": "shotgun",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 261.71853648061267,
+              "targetsPerShot": 3,
+              "minDps": 240.83468063761606,
+              "maxDps": 263.63455867746575,
+              "standardError": 1.0786919092009852
+            },
+            {
+              "distance": 4,
+              "rawDps": 255.1188144050896,
+              "targetsPerShot": 5.447916666666666,
+              "minDps": 238.18312006215646,
+              "maxDps": 260.9946216971739,
+              "standardError": 1.2223960083015746
+            },
+            {
+              "distance": 12,
+              "rawDps": 100.88748484247567,
+              "targetsPerShot": 7.472005208333335,
+              "minDps": 81.93320639612706,
+              "maxDps": 113.62057205172714,
+              "standardError": 1.2599753073139006
+            }
+          ]
+        },
+        {
+          "id": "smg",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 267.95070502623673,
+              "targetsPerShot": 1.9843750000000004,
+              "minDps": 228.67017754132078,
+              "maxDps": 270.5564713099157,
+              "standardError": 1.5727076391285373
+            },
+            {
+              "distance": 4,
+              "rawDps": 265.7787860865876,
+              "targetsPerShot": 1.9817708333333337,
+              "minDps": 228.67017754132078,
+              "maxDps": 270.5564713099157,
+              "standardError": 1.8237332597474636
+            },
+            {
+              "distance": 12,
+              "rawDps": 200.78204610766963,
+              "targetsPerShot": 1.9759114583333337,
+              "minDps": 178.0566702199258,
+              "maxDps": 206.71633831021168,
+              "standardError": 1.1803911541190375
+            }
+          ]
+        },
+        {
+          "id": "minigun",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 533.5347207064863,
+              "targetsPerShot": 3.9602864583333344,
+              "minDps": 451.51231055500773,
+              "maxDps": 539.6751002664101,
+              "standardError": 3.688485134000965
+            },
+            {
+              "distance": 4,
+              "rawDps": 531.7701582502272,
+              "targetsPerShot": 3.9498697916666674,
+              "minDps": 451.51231055500773,
+              "maxDps": 539.6751002664101,
+              "standardError": 4.236137486687788
+            },
+            {
+              "distance": 12,
+              "rawDps": 511.39174547247615,
+              "targetsPerShot": 3.9453125000000013,
+              "minDps": 446.079022397579,
+              "maxDps": 523.7633515085774,
+              "standardError": 3.7833927407307844
+            }
+          ]
+        },
+        {
+          "id": "magnum",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 387.09677419354796,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 387.09677419354813,
+              "maxDps": 387.09677419354813,
+              "standardError": 3.062813823818969e-14,
+              "magnumKillsPerSecond": 0.9677419354838699
+            },
+            {
+              "distance": 4,
+              "rawDps": 387.09677419354796,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 387.09677419354813,
+              "maxDps": 387.09677419354813,
+              "standardError": 3.062813823818969e-14,
+              "magnumKillsPerSecond": 0.9677419354838699
+            },
+            {
+              "distance": 12,
+              "rawDps": 387.09677419354796,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 387.09677419354813,
+              "maxDps": 387.09677419354813,
+              "standardError": 3.062813823818969e-14,
+              "magnumKillsPerSecond": 0.9677419354838699
+            }
+          ]
+        },
+        {
+          "id": "assault",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 351.1822674329798,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 348.02362985324925,
+              "maxDps": 351.37254901960773,
+              "standardError": 0.13306534503135936
+            },
+            {
+              "distance": 4,
+              "rawDps": 350.8800543342168,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 338.96163825345405,
+              "maxDps": 351.37254901960773,
+              "standardError": 0.39843991779001325
+            },
+            {
+              "distance": 12,
+              "rawDps": 350.3461548532925,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 334.28776563002924,
+              "maxDps": 351.37254901960773,
+              "standardError": 0.6533291524491244
+            }
+          ]
+        },
+        {
+          "id": "rocket",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 4570.5278101189115,
+              "targetsPerShot": 31.59375,
+              "minDps": 4412.343193970598,
+              "maxDps": 4802.1171638166925,
+              "standardError": 22.72149604486922
+            },
+            {
+              "distance": 4,
+              "rawDps": 2454.6204065419347,
+              "targetsPerShot": 17.8125,
+              "minDps": 2124.8570747063295,
+              "maxDps": 2689.3881715525604,
+              "standardError": 25.196546848049213
+            },
+            {
+              "distance": 12,
+              "rawDps": 2274.4702460487383,
+              "targetsPerShot": 16.09375,
+              "minDps": 2033.337291391108,
+              "maxDps": 2563.274525097978,
+              "standardError": 24.00631338209114
+            }
+          ]
+        },
+        {
+          "id": "flamethrower",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 260.6113470873786,
+              "targetsPerShot": 6.09375,
+              "minDps": 171.06796116504853,
+              "maxDps": 342.13592233009706,
+              "standardError": 7.018768529960382
+            },
+            {
+              "distance": 4,
+              "rawDps": 65.48695388349513,
+              "targetsPerShot": 1.53125,
+              "minDps": 42.76699029126213,
+              "maxDps": 128.3009708737864,
+              "standardError": 4.6976131518452675
+            },
+            {
+              "distance": 12,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            }
+          ]
+        },
+        {
+          "id": "katana",
+          "mode": "light",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 365.9446022727271,
+              "targetsPerShot": 2.875,
+              "minDps": 163.63636363636363,
+              "maxDps": 378.4090909090909,
+              "standardError": 7.653037065954516
+            },
+            {
+              "distance": 4,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            },
+            {
+              "distance": 12,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            }
+          ]
+        },
+        {
+          "id": "katana",
+          "mode": "heavy",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 315.546875,
+              "targetsPerShot": 2.90625,
+              "minDps": 140,
+              "maxDps": 323.75,
+              "standardError": 6.173916312076819
+            },
+            {
+              "distance": 4,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            },
+            {
+              "distance": 12,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "spacing": 1.6,
+      "nominalDensity": 0.39062499999999994,
+      "rows": [
+        {
+          "id": "pistol",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 75.48387096774191,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 75.48387096774188,
+              "maxDps": 75.48387096774188,
+              "standardError": 5.1046897063649485e-15
+            },
+            {
+              "distance": 4,
+              "rawDps": 75.48387096774191,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 75.48387096774188,
+              "maxDps": 75.48387096774188,
+              "standardError": 5.1046897063649485e-15
+            },
+            {
+              "distance": 12,
+              "rawDps": 65.61046469956169,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 65.60993260963036,
+              "maxDps": 65.61108978686408,
+              "standardError": 0.00003927494705742828
+            }
+          ]
+        },
+        {
+          "id": "rifle",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 436.35640652612256,
+              "targetsPerShot": 3,
+              "minDps": 409.1184289916804,
+              "maxDps": 437.8521126760567,
+              "standardError": 1.0181916749161106
+            },
+            {
+              "distance": 4,
+              "rawDps": 436.35640652612256,
+              "targetsPerShot": 3,
+              "minDps": 409.1184289916804,
+              "maxDps": 437.8521126760567,
+              "standardError": 1.0181916749161106
+            },
+            {
+              "distance": 12,
+              "rawDps": 435.1141739199459,
+              "targetsPerShot": 3,
+              "minDps": 406.6158089121572,
+              "maxDps": 437.8521126760567,
+              "standardError": 1.3634071165839212
+            }
+          ]
+        },
+        {
+          "id": "shotgun",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 260.01053643869545,
+              "targetsPerShot": 3.0644531250000004,
+              "minDps": 226.51294291142568,
+              "maxDps": 263.63455867746575,
+              "standardError": 1.8490550569029935
+            },
+            {
+              "distance": 4,
+              "rawDps": 244.20190167017134,
+              "targetsPerShot": 5.615885416666666,
+              "minDps": 219.102092974928,
+              "maxDps": 257.7771811747775,
+              "standardError": 2.0261905873854995
+            },
+            {
+              "distance": 12,
+              "rawDps": 88.25453198496031,
+              "targetsPerShot": 7.221354166666667,
+              "minDps": 59.29420605667476,
+              "maxDps": 108.00454269552856,
+              "standardError": 1.7053888481113442
+            }
+          ]
+        },
+        {
+          "id": "smg",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 265.41472268714347,
+              "targetsPerShot": 1.967447916666667,
+              "minDps": 203.58925059782973,
+              "maxDps": 270.5564713099157,
+              "standardError": 2.8777140596251027
+            },
+            {
+              "distance": 4,
+              "rawDps": 261.6402009673441,
+              "targetsPerShot": 1.967447916666667,
+              "minDps": 203.58925059782973,
+              "maxDps": 270.5564713099157,
+              "standardError": 2.7449907186073035
+            },
+            {
+              "distance": 12,
+              "rawDps": 196.43740795582056,
+              "targetsPerShot": 1.9609375000000004,
+              "minDps": 164.40196369488712,
+              "maxDps": 204.72641027722491,
+              "standardError": 1.507408041362585
+            }
+          ]
+        },
+        {
+          "id": "minigun",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 526.3914229570104,
+              "targetsPerShot": 3.914062500000001,
+              "minDps": 372.598824510963,
+              "maxDps": 539.6751002664101,
+              "standardError": 7.207250129358195
+            },
+            {
+              "distance": 4,
+              "rawDps": 523.0235480129,
+              "targetsPerShot": 3.914062500000001,
+              "minDps": 372.598824510963,
+              "maxDps": 539.6751002664101,
+              "standardError": 7.027048698902555
+            },
+            {
+              "distance": 12,
+              "rawDps": 495.04643787454154,
+              "targetsPerShot": 3.893229166666668,
+              "minDps": 371.7766467420579,
+              "maxDps": 515.915340116843,
+              "standardError": 5.896571681910283
+            }
+          ]
+        },
+        {
+          "id": "magnum",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 387.09677419354796,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 387.09677419354813,
+              "maxDps": 387.09677419354813,
+              "standardError": 3.062813823818969e-14,
+              "magnumKillsPerSecond": 0.9677419354838699
+            },
+            {
+              "distance": 4,
+              "rawDps": 387.09677419354796,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 387.09677419354813,
+              "maxDps": 387.09677419354813,
+              "standardError": 3.062813823818969e-14,
+              "magnumKillsPerSecond": 0.9677419354838699
+            },
+            {
+              "distance": 12,
+              "rawDps": 387.09677419354796,
+              "targetsPerShot": 1.0000000000000002,
+              "minDps": 387.09677419354813,
+              "maxDps": 387.09677419354813,
+              "standardError": 3.062813823818969e-14,
+              "magnumKillsPerSecond": 0.9677419354838699
+            }
+          ]
+        },
+        {
+          "id": "assault",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 349.914421899819,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 323.0753194667022,
+              "maxDps": 351.37254901960773,
+              "standardError": 1.0259469296505275
+            },
+            {
+              "distance": 4,
+              "rawDps": 349.914421899819,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 323.0753194667022,
+              "maxDps": 351.37254901960773,
+              "standardError": 1.0259469296505275
+            },
+            {
+              "distance": 12,
+              "rawDps": 348.90118509401367,
+              "targetsPerShot": 2.0000000000000004,
+              "minDps": 319.0350722059748,
+              "maxDps": 351.37254901960773,
+              "standardError": 1.406515020590262
+            }
+          ]
+        },
+        {
+          "id": "rocket",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 2868.469503659119,
+              "targetsPerShot": 19.5625,
+              "minDps": 2563.23634108557,
+              "maxDps": 3098.65523569872,
+              "standardError": 24.217205514988745
+            },
+            {
+              "distance": 4,
+              "rawDps": 1582.1211957990668,
+              "targetsPerShot": 11.09375,
+              "minDps": 1295.695195744739,
+              "maxDps": 1875.924132360996,
+              "standardError": 27.966051653004758
+            },
+            {
+              "distance": 12,
+              "rawDps": 1468.6075878956326,
+              "targetsPerShot": 10.0625,
+              "minDps": 1271.4721418400707,
+              "maxDps": 1751.3907626812147,
+              "standardError": 23.85506665387495
+            }
+          ]
+        },
+        {
+          "id": "flamethrower",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 169.73149271844656,
+              "targetsPerShot": 3.96875,
+              "minDps": 85.53398058252426,
+              "maxDps": 256.6019417475728,
+              "standardError": 7.051528421056809
+            },
+            {
+              "distance": 4,
+              "rawDps": 53.458737864077655,
+              "targetsPerShot": 1.25,
+              "minDps": 42.76699029126213,
+              "maxDps": 128.3009708737864,
+              "standardError": 3.840589104019144
+            },
+            {
+              "distance": 12,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            }
+          ]
+        },
+        {
+          "id": "katana",
+          "mode": "light",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 313.2102272727272,
+              "targetsPerShot": 2.34375,
+              "minDps": 163.63636363636363,
+              "maxDps": 378.4090909090909,
+              "standardError": 13.759311597974659
+            },
+            {
+              "distance": 4,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            },
+            {
+              "distance": 12,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            }
+          ]
+        },
+        {
+          "id": "katana",
+          "mode": "heavy",
+          "cells": [
+            {
+              "distance": 0,
+              "rawDps": 265.5078125,
+              "targetsPerShot": 2.3125,
+              "minDps": 140,
+              "maxDps": 323.75,
+              "standardError": 11.652312934376596
+            },
+            {
+              "distance": 4,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            },
+            {
+              "distance": 12,
+              "rawDps": 0,
+              "targetsPerShot": 0,
+              "minDps": 0,
+              "maxDps": 0,
+              "standardError": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "shotConvergence": [
+    {
+      "id": "pistol",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 75.48387096774191,
+          "doubledShots": 75.48387096774191,
+          "relativeDifference": 0
+        },
+        {
+          "distance": 4,
+          "baseline": 75.48387096774191,
+          "doubledShots": 75.48387096774191,
+          "relativeDifference": 0
+        },
+        {
+          "distance": 12,
+          "baseline": 65.61046469956169,
+          "doubledShots": 65.6104979086761,
+          "relativeDifference": 5.061557566774107e-7
+        }
+      ]
+    },
+    {
+      "id": "rifle",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 437.8521126760569,
+          "doubledShots": 437.8521126760553,
+          "relativeDifference": -3.635053210946078e-15
+        },
+        {
+          "distance": 4,
+          "baseline": 437.8443160392004,
+          "doubledShots": 437.8455182861787,
+          "relativeDifference": 0.000002745832101104157
+        },
+        {
+          "distance": 12,
+          "baseline": 437.722139244022,
+          "doubledShots": 437.7488458016897,
+          "relativeDifference": 0.00006101258143766342
+        }
+      ]
+    },
+    {
+      "id": "shotgun",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 263.27700073184496,
+          "doubledShots": 263.26299892941597,
+          "relativeDifference": -0.000053182778556696604
+        },
+        {
+          "distance": 4,
+          "baseline": 260.8589588350845,
+          "doubledShots": 260.7628042963401,
+          "relativeDifference": -0.0003686073852850159
+        },
+        {
+          "distance": 12,
+          "baseline": 111.8821959442666,
+          "doubledShots": 111.04504626421273,
+          "relativeDifference": -0.007482420889118856
+        }
+      ]
+    },
+    {
+      "id": "smg",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 269.7244828244532,
+          "doubledShots": 269.6984138346014,
+          "relativeDifference": -0.00009665043965910477
+        },
+        {
+          "distance": 4,
+          "baseline": 268.7858057161107,
+          "doubledShots": 268.77669914960677,
+          "relativeDifference": -0.00003388038471625698
+        },
+        {
+          "distance": 12,
+          "baseline": 203.5631186135211,
+          "doubledShots": 203.5495913147986,
+          "relativeDifference": -0.00006645260111289926
+        }
+      ]
+    },
+    {
+      "id": "minigun",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 538.3701574599809,
+          "doubledShots": 538.0644297615479,
+          "relativeDifference": -0.000567876384299218
+        },
+        {
+          "distance": 4,
+          "baseline": 537.9861072483342,
+          "doubledShots": 537.6510000510671,
+          "relativeDifference": -0.0006228919162636207
+        },
+        {
+          "distance": 12,
+          "baseline": 521.9405877627842,
+          "doubledShots": 521.2024471165957,
+          "relativeDifference": -0.001414223502625722
+        }
+      ]
+    },
+    {
+      "id": "magnum",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 387.09677419354796,
+          "doubledShots": 387.09677419354904,
+          "relativeDifference": 2.79006447575133e-15
+        },
+        {
+          "distance": 4,
+          "baseline": 387.09677419354796,
+          "doubledShots": 387.09677419354904,
+          "relativeDifference": 2.79006447575133e-15
+        },
+        {
+          "distance": 12,
+          "baseline": 387.09677419354796,
+          "doubledShots": 387.09677419354904,
+          "relativeDifference": 2.79006447575133e-15
+        }
+      ]
+    },
+    {
+      "id": "assault",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 351.3725490196078,
+          "doubledShots": 351.37254901960847,
+          "relativeDifference": 1.9413042602017025e-15
+        },
+        {
+          "distance": 4,
+          "baseline": 351.362091863816,
+          "doubledShots": 351.36414588672903,
+          "relativeDifference": 0.000005845886510299944
+        },
+        {
+          "distance": 12,
+          "baseline": 351.21740779573355,
+          "doubledShots": 351.19158091449316,
+          "relativeDifference": -0.00007353531079932128
+        }
+      ]
+    },
+    {
+      "id": "rocket",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 7615.159878685188,
+          "doubledShots": 7615.159878685188,
+          "relativeDifference": 0
+        },
+        {
+          "distance": 4,
+          "baseline": 3976.200711401098,
+          "doubledShots": 3976.200711401098,
+          "relativeDifference": 0
+        },
+        {
+          "distance": 12,
+          "baseline": 3634.7224140497815,
+          "doubledShots": 3634.7224140497815,
+          "relativeDifference": 0
+        }
+      ]
+    },
+    {
+      "id": "flamethrower",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 420.98756067961153,
+          "doubledShots": 420.98756067961153,
+          "relativeDifference": 0
+        },
+        {
+          "distance": 4,
+          "baseline": 84.19751213592231,
+          "doubledShots": 84.19751213592231,
+          "relativeDifference": 0
+        },
+        {
+          "distance": 12,
+          "baseline": 0,
+          "doubledShots": 0,
+          "relativeDifference": 0
+        }
+      ]
+    },
+    {
+      "id": "katana",
+      "mode": "light",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 378.40909090909065,
+          "doubledShots": 378.40909090909065,
+          "relativeDifference": 0
+        },
+        {
+          "distance": 4,
+          "baseline": 0,
+          "doubledShots": 0,
+          "relativeDifference": 0
+        },
+        {
+          "distance": 12,
+          "baseline": 0,
+          "doubledShots": 0,
+          "relativeDifference": 0
+        }
+      ]
+    },
+    {
+      "id": "katana",
+      "mode": "heavy",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 323.75,
+          "doubledShots": 323.75,
+          "relativeDifference": 0
+        },
+        {
+          "distance": 4,
+          "baseline": 0,
+          "doubledShots": 0,
+          "relativeDifference": 0
+        },
+        {
+          "distance": 12,
+          "baseline": 0,
+          "doubledShots": 0,
+          "relativeDifference": 0
+        }
+      ]
+    }
+  ],
+  "packingConvergence": [
+    {
+      "id": "pistol",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 75.48387096774191,
+          "doubledPhases": 75.48387096774186,
+          "relativeDifference": -5.647903797067465e-16
+        },
+        {
+          "distance": 4,
+          "baseline": 75.48387096774191,
+          "doubledPhases": 75.48387096774186,
+          "relativeDifference": -5.647903797067465e-16
+        },
+        {
+          "distance": 12,
+          "baseline": 65.61046469956169,
+          "doubledPhases": 65.61045673213432,
+          "relativeDifference": -1.2143531373323105e-7
+        }
+      ]
+    },
+    {
+      "id": "rifle",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 437.8521126760569,
+          "doubledPhases": 437.85211267605695,
+          "relativeDifference": 1.2982332896235993e-16
+        },
+        {
+          "distance": 4,
+          "baseline": 437.8443160392004,
+          "doubledPhases": 437.8333250197151,
+          "relativeDifference": -0.0000251025743230264
+        },
+        {
+          "distance": 12,
+          "baseline": 437.722139244022,
+          "doubledPhases": 437.7048292617298,
+          "relativeDifference": -0.00003954559465989004
+        }
+      ]
+    },
+    {
+      "id": "shotgun",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 263.27700073184496,
+          "doubledPhases": 262.8466646791153,
+          "relativeDifference": -0.0016345372042884262
+        },
+        {
+          "distance": 4,
+          "baseline": 260.8589588350845,
+          "doubledPhases": 260.46148531628995,
+          "relativeDifference": -0.0015237104394248946
+        },
+        {
+          "distance": 12,
+          "baseline": 111.8821959442666,
+          "doubledPhases": 111.3872462943037,
+          "relativeDifference": -0.004423846401883825
+        }
+      ]
+    },
+    {
+      "id": "smg",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 269.7244828244532,
+          "doubledPhases": 269.6893157679502,
+          "relativeDifference": -0.00013038140303314543
+        },
+        {
+          "distance": 4,
+          "baseline": 268.7858057161107,
+          "doubledPhases": 268.6415982131349,
+          "relativeDifference": -0.0005365145774405727
+        },
+        {
+          "distance": 12,
+          "baseline": 203.5631186135211,
+          "doubledPhases": 203.6720072544159,
+          "relativeDifference": 0.0005349134049253221
+        }
+      ]
+    },
+    {
+      "id": "minigun",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 538.3701574599809,
+          "doubledPhases": 538.2453134936457,
+          "relativeDifference": -0.00023189243423935553
+        },
+        {
+          "distance": 4,
+          "baseline": 537.9861072483342,
+          "doubledPhases": 537.8578932131419,
+          "relativeDifference": -0.0002383222047276821
+        },
+        {
+          "distance": 12,
+          "baseline": 521.9405877627842,
+          "doubledPhases": 522.0203925392218,
+          "relativeDifference": 0.00015290011604522112
+        }
+      ]
+    },
+    {
+      "id": "magnum",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 387.09677419354796,
+          "doubledPhases": 387.0967741935483,
+          "relativeDifference": 8.810729923425252e-16
+        },
+        {
+          "distance": 4,
+          "baseline": 387.09677419354796,
+          "doubledPhases": 387.0967741935483,
+          "relativeDifference": 8.810729923425252e-16
+        },
+        {
+          "distance": 12,
+          "baseline": 387.09677419354796,
+          "doubledPhases": 387.0967741935483,
+          "relativeDifference": 8.810729923425252e-16
+        }
+      ]
+    },
+    {
+      "id": "assault",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 351.3725490196078,
+          "doubledPhases": 351.3725490196081,
+          "relativeDifference": 8.088767750840427e-16
+        },
+        {
+          "distance": 4,
+          "baseline": 351.362091863816,
+          "doubledPhases": 351.3442268896199,
+          "relativeDifference": -0.00005084491073384446
+        },
+        {
+          "distance": 12,
+          "baseline": 351.21740779573355,
+          "doubledPhases": 351.203235537647,
+          "relativeDifference": -0.00004035180993872812
+        }
+      ]
+    },
+    {
+      "id": "rocket",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 7615.159878685188,
+          "doubledPhases": 7611.306235703556,
+          "relativeDifference": -0.0005060488608280643
+        },
+        {
+          "distance": 4,
+          "baseline": 3976.200711401098,
+          "doubledPhases": 3978.748887934747,
+          "relativeDifference": 0.0006408571192954394
+        },
+        {
+          "distance": 12,
+          "baseline": 3634.7224140497815,
+          "doubledPhases": 3642.8228120596723,
+          "relativeDifference": 0.0022286153073421064
+        }
+      ]
+    },
+    {
+      "id": "flamethrower",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 420.98756067961153,
+          "doubledPhases": 423.6604975728157,
+          "relativeDifference": 0.006349206349207023
+        },
+        {
+          "distance": 4,
+          "baseline": 84.19751213592231,
+          "doubledPhases": 83.52927791262134,
+          "relativeDifference": -0.007936507936507934
+        },
+        {
+          "distance": 12,
+          "baseline": 0,
+          "doubledPhases": 0,
+          "relativeDifference": 0
+        }
+      ]
+    },
+    {
+      "id": "katana",
+      "mode": "light",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 378.40909090909065,
+          "doubledPhases": 378.40909090909093,
+          "relativeDifference": 7.510842131758422e-16
+        },
+        {
+          "distance": 4,
+          "baseline": 0,
+          "doubledPhases": 0,
+          "relativeDifference": 0
+        },
+        {
+          "distance": 12,
+          "baseline": 0,
+          "doubledPhases": 0,
+          "relativeDifference": 0
+        }
+      ]
+    },
+    {
+      "id": "katana",
+      "mode": "heavy",
+      "cells": [
+        {
+          "distance": 0,
+          "baseline": 323.75,
+          "doubledPhases": 323.75,
+          "relativeDifference": 0
+        },
+        {
+          "distance": 4,
+          "baseline": 0,
+          "doubledPhases": 0,
+          "relativeDifference": 0
+        },
+        {
+          "distance": 12,
+          "baseline": 0,
+          "doubledPhases": 0,
+          "relativeDifference": 0
+        }
+      ]
+    }
+  ]
+}

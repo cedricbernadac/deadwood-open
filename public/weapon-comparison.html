@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101916">
+  <title>Deadwood — Arsenal</title>
+  <link rel="stylesheet" href="/weapon-comparison.css">
+  <script type="module" src="/weapon-comparison.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="/" aria-label="Deadwood"><span class="brand-mark" aria-hidden="true">D<span>W</span></span><span>DEADWOOD<small>LAST LIGHT</small></span></a>
+    <nav aria-label="Navigation">
+      <a href="/" data-copy="back">Retour au jeu</a>
+      <label><span data-copy="language">Langue</span><select id="language-select" aria-label="Langue"><option value="fr">FR</option><option value="en">EN</option></select></label>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div><p class="eyebrow" data-copy="eyebrow">LE BON OUTIL, AU BON MOMENT</p><h1 data-copy="title">L’arsenal du refuge.</h1><p class="intro" data-copy="intro">Compare les armes avant de choisir tes deux emplacements.</p></div>
+      <a class="button primary" href="/?practice=1" data-copy="try">Essayer les armes ↗</a>
+    </section>
+    <div class="guide-strip"><span data-copy="slots">2 armes au choix</span><span id="headshot-guide"></span><span data-copy="source">Valeurs actuelles du serveur</span></div>
+    <p class="history-entry"><a class="button primary" href="/weapon-damage-history.html" data-copy="historyLink">Dégâts avant / maintenant · une courbe par arme ↗</a></p>
+    <p id="load-status" class="status" role="status" aria-live="polite"></p>
+    <section id="comparison" hidden aria-labelledby="comparison-title">
+      <div class="section-heading"><div><p class="eyebrow" data-copy="comparisonEyebrow">PUISSANCE / MANIEMENT</p><h2 id="comparison-title" data-copy="comparisonTitle">Les chiffres, côte à côte.</h2></div><label class="distance-control" for="distance"><span data-copy="distance">Distance de tir</span><output id="distance-output" for="distance">3 m</output><input id="distance" type="range" min="0" max="90" step="1" value="3"></label></div>
+      <p class="table-note" data-copy="tableNote">Dégâts sur une cible sans armure. Cadence et DPS théoriques, hors rechargement ; le total du pompe suppose que les 9 plombs touchent. Fais varier la distance pour comparer la puissance restante.</p>
+      <section class="trajectory-panel" aria-labelledby="chart-heading">
+        <div><p class="eyebrow" data-copy="chartWeapon">Arme de la courbe</p><h3 id="chart-heading" data-copy="chartTitle">La puissance avec la distance.</h3><p data-copy="chartIntro"></p></div>
+        <div class="curve-controls">
+          <label for="curve-weapon"><span data-copy="chartWeapon">Arme sélectionnée</span><select id="curve-weapon"></select></label>
+          <label class="overlay-control" for="overlay-curves"><input id="overlay-curves" type="checkbox"><span data-copy="chartOverlay">Superposer toutes les armes à balles</span></label>
+          <label for="shotgun-unit"><span data-copy="shotgunUnit">Pompe · unité de la courbe</span><select id="shotgun-unit"><option value="pellet" data-copy="perPellet">Par plomb</option><option value="shell" data-copy="allPellets">9 plombs théoriques</option></select></label>
+        </div>
+        <div id="falloff-chart" role="img"></div><ul id="curve-legend" class="curve-legend" aria-label="Armes affichées"></ul>
+        <p id="curve-value" class="curve-value"></p><p id="physics-note" class="physics-note"></p>
+        <details class="physics-details"><summary data-copy="physicsDetails">Comprendre les paramètres</summary><p data-copy="physicsFormula"></p><dl id="physics-profile"></dl></details>
+      </section>
+      <section class="trajectory-panel blast-panel" aria-labelledby="blast-heading">
+        <div><p class="eyebrow" data-copy="blastWeapon">Charge explosive</p><h3 id="blast-heading" data-copy="blastTitle">Les dégâts autour de l’explosion.</h3><p data-copy="blastIntro"></p></div>
+        <div class="curve-controls blast-controls"><label for="blast-weapon"><span data-copy="blastWeapon">Charge explosive</span><select id="blast-weapon"><option value="rocket" data-copy="rocketOption">Roquette</option><option value="grenade" data-copy="grenadeOption">Grenade</option></select></label><label class="distance-control" for="blast-distance"><span data-copy="blastDistance">Distance au centre de l’explosion</span><output id="blast-distance-output" for="blast-distance">0 m</output><input id="blast-distance" type="range" min="0" max="4" step="0.1" value="0"></label></div>
+        <div id="blast-chart" role="img"></div><p id="blast-value" class="curve-value"></p>
+        <a class="area-history-link" href="/weapon-damage-history.html#history-rocket" data-copy="areaHistoryLink">Comparer avant / maintenant : explosions et flammes ↗</a>
+      </section>
+      <div class="scenario-guide">
+        <div><p class="eyebrow" data-copy="sustainedEyebrow">LES DEUX DÉBITS</p><h3 data-copy="sustainedTitle">Pendant l’attaque et sur la durée.</h3><p data-copy="sustainedIntro">Deux séries à contact, 4 m et 12 m : moyenne avec recharges et préparation, puis débit actif sans ces temps. Les armes blanches gardent leur cycle complet.</p></div>
+        <p class="scenario-legend"><span data-copy="sustainedLegend">Moyenne · avec recharges et préparation</span><span class="active-legend" data-copy="activeLegend">Actif · sans recharge ni préparation</span></p>
+        <p id="efficiency-formula" data-copy="efficiencyFormula">Indice : 50 % de chaque série ; 25 % contact, 50 % à 4 m, 25 % à 12 m. Armes blanches : moyenne des deux attaques.</p>
+        <p data-copy="scenarioApproximation"></p>
+        <p id="scenario-status" role="status" aria-live="polite"></p>
+        <details><summary data-copy="scenarioMethod">Hypothèses de visée et de calcul</summary><p id="scenario-assumptions"></p><p data-copy="activeMethod"></p><p data-copy="scenarioLimit">Débit potentiel, sans plafonner les dégâts aux PV restants : les tirs excessifs ne sont pas déduits. Ce n’est ni un nombre de zombies tués, ni une preuve qu’on peut financer les munitions en partie. Le Magnum indique aussi ses éliminations par seconde.</p><p data-copy="scenarioSupply">La réserve est renouvelée après chaque chargeur pour mesurer une longue durée. Dans le jeu, les stocks et les boîtes restent limités. Les prix et les vagues de disponibilité sont inchangés.</p></details>
+      </div>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Comparatif des armes" id="table-region">
+        <table><caption class="sr-only" data-copy="comparisonTitle">Les chiffres, côte à côte.</caption><thead><tr><th scope="col" data-copy="weapon">Arme</th><th scope="col" data-copy="damage">Dégâts corps / tête</th><th scope="col" data-copy="cadence">Cadence / DPS</th><th scope="col" data-copy="stock">Chargeur + réserve</th><th scope="col" data-copy="reload">Recharge</th><th scope="col" data-copy="range">Portée</th><th scope="col" class="flight-column" data-copy="flightSpeed">Vitesse de balle</th><th scope="col" id="flight-header" class="flight-column" data-copy="flight">Vol / chute</th><th scope="col" data-copy="penetration">Traversée</th><th scope="col" data-copy="movement">Vitesse</th><th scope="col" id="purchase-header" data-copy="purchase">Achat</th><th scope="col" class="scenario-column" data-copy="sustainedContact">PV/s moyens · contact</th><th scope="col" class="scenario-column" data-copy="sustainedFour">PV/s moyens · 4 m</th><th scope="col" class="scenario-column" data-copy="sustainedTwelve">PV/s moyens · 12 m</th><th scope="col" class="scenario-column active-column" data-copy="activeContact">PV/s actifs · contact</th><th scope="col" class="scenario-column active-column" data-copy="activeFour">PV/s actifs · 4 m</th><th scope="col" class="scenario-column active-column" data-copy="activeTwelve">PV/s actifs · 12 m</th><th scope="col" class="efficiency-column" id="efficiency-header" aria-sort="none"><button id="efficiency-sort" type="button" aria-describedby="efficiency-formula"><span data-copy="efficiencyColumn">Dégâts pondérés · PV/s</span> <span id="efficiency-arrow" aria-hidden="true">↕</span></button></th></tr></thead><tbody id="weapon-rows"></tbody></table>
+      </div>
+      <p class="table-note" data-copy="penetrationNote">La traversée compte le premier zombie : « 3 cibles » = le premier + deux derrière. Le pourcentage indique les dégâts conservés à chaque corps traversé. Murs et planches arrêtent les tirs.</p>
+      <div class="role-grid">
+        <article><span class="card-number">01 / 03</span><h3 data-copy="rolesTitle">Assaut, SMG ou mitrailleuse ?</h3><p data-copy="roles">Dans Deadwood, l’assaut privilégie la précision et les dégâts par cartouche, avec une cadence plus lente et un chargeur plus petit. Le SMG est rapide et mobile ; la mitrailleuse tire plus vite que l’assaut et traverse trois cibles. Leurs noms ne définissent pas un calibre réel : ce sont les réglages actuels du jeu.</p></article>
+        <article><span class="card-number">02 / 03</span><h3 data-copy="rocketTitle">La roquette explose à l’impact.</h3><p id="rocket-note"></p></article>
+        <article><span class="card-number">03 / 03</span><h3 data-copy="flameTitle">Arroser, puis laisser brûler.</h3><p id="flame-note"></p><a class="area-history-link" href="/weapon-damage-history.html#history-flamethrower" data-copy="flameHistoryLink">Voir le jet et la brûlure selon la distance ↗</a></article>
+      </div>
+      <article id="melee-card" class="melee-card" hidden><h3 data-copy="meleeTitle">Les armes de mêlée : rapide ou puissant.</h3><div id="melee-note"></div></article>
+      <details class="advanced"><summary data-copy="advanced">Munitions et précision · voir les détails</summary><p class="table-note" data-copy="ammoNote">Une boîte possède une charge partagée entre les deux armes portées. Ces quantités sont des maximums par arme pour une boîte entièrement disponible : elles ne s’ajoutent pas automatiquement. Une boîte partiellement ramassée reste au sol.</p><div class="table-scroll" tabindex="0" role="region" id="ammo-region" aria-label="Munitions et précision"><table><thead><tr><th scope="col" data-copy="weapon">Arme</th><th scope="col" data-copy="normalBox">Boîte normale</th><th scope="col" data-copy="specialBox">Boîte spéciale</th><th scope="col" data-copy="totalStock">Stock maximum</th><th scope="col" data-copy="spread">Dispersion par axe</th><th scope="col" data-copy="farDamage">Dégâts au loin</th></tr></thead><tbody id="ammo-rows"></tbody></table></div><p class="table-note" data-copy="precisionNote">Dispersion : écart angulaire aléatoire maximal de chaque côté de la visée (plus petit = plus précis). Le pompe distribue ses plombs dans un disque ; le lance-flammes couvre un cône. Ce tableau ne mesure pas ta précision en partie.</p></details>
+      <footer class="footnotes"><p id="armor-note"></p><p id="minigun-note"></p><p data-copy="magnumNote">Un seul Magnum doré pour toute la salle. Ses dégâts suivent la même loi physique que les autres balles, y compris contre le boss. Ses munitions restent rares et ses dégâts ne profitent pas des bonus.</p><p data-copy="sourceNote">Calculé à partir de /world.json et des règles partagées du jeu. Les PV des familles restent fixes ; le mélange d’ennemis évolue avec les vagues. Aucune valeur n’est une promesse de réussite en partie.</p></footer>
+    </section>
+    <noscript>Active JavaScript pour charger les valeurs du serveur. Enable JavaScript to load the server’s weapon values.</noscript>
+  </main>
+</body>
+</html>

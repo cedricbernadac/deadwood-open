@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Deadwood · Frisson · écoute des sons</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;padding:32px 18px;background:#141a1d;color:#e8e7d9;font:15px system-ui,sans-serif}
+    main{max-width:820px;margin:auto}h1{font-size:28px;margin:0 0 10px}h2{font-size:18px;margin:0 0 6px}p{line-height:1.55;color:#b9c2bf}
+    section{margin:18px 0;padding:20px;border:1px solid #5a5f63;border-radius:9px;background:#1d2427}
+    .buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}button{font:inherit;color:#f3ead1;padding:10px 14px;background:#38434a;border:1px solid #7f8c8f;border-radius:5px;cursor:pointer}
+    button:hover{background:#4a5860}button:focus-visible{outline:3px solid #e6c577;outline-offset:3px}button[aria-pressed=true]{background:#6f3b33;border-color:#e09a7a}
+    button.chosen{border:2px solid #e6c577}.badge{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:9px;background:#e6c577;color:#1b1b14;font-size:12px;font-weight:700}
+    .primary{background:#aa874b;color:#101d16;font-weight:700}.primary:hover{background:#c9a863}
+    .status{display:grid;gap:7px;margin-top:16px;padding:14px;background:#12181a;border-radius:5px;color:#dcc78d;font-size:14px}
+    label{display:block;margin:16px 0 8px}input[type=range]{width:100%;accent-color:#d8bb7b}output{font-variant-numeric:tabular-nums}
+    .inline{display:flex;align-items:center;gap:8px;margin:12px 0 0}.inline input{width:auto}
+    .note{font-size:13px;color:#a9b3b0;margin:8px 0 0}dl{margin:12px 0 0;font-size:13px;color:#b9c2bf}dt{font-weight:700;color:#e8e7d9;margin-top:8px}dd{margin:2px 0 0;line-height:1.5}
+    code,pre{font:13px ui-monospace,Consolas,monospace;color:#f0d9a0}pre{margin:10px 0 0;padding:12px;background:#12181a;border-radius:5px;overflow-x:auto}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Frisson (15+) · écoute des sons</h1>
+    <p>Propositions synthétisées dans le code le 13 octobre 2026, et le 14 octobre 2026 pour la mélodie des séries et « Tintement fêlé » : <strong>personne ne les a encore écoutées</strong>. Compare chacune au son Famille actuel, puis choisis à l’oreille. Rien ne joue sans un clic, et cette page ne change rien au jeu ni aux fichiers.</p>
+    <p>Nouveau (14 octobre 2026) : la section « Élimination », le craquement à chaque élimination. Ton choix « Giclée + os qui casse » y reste marqué « choisi » ; quatre craquements sont proposés pour comparer, avec « Sur fond de tirs » et « Rafale ».</p>
+    <p class="note">Le choix vit dans la table <code>CHOSEN</code> de <code>sounds.js</code>, à côté de cette page (dossier <code>public/frisson</code>), une ligne par son : le nom entre parenthèses d’une proposition, ou <code>null</code> pour garder le son Famille. Le bouton encadré avec « choisi » montre ce que le mode Frisson joue aujourd’hui. Pour la mélodie des séries (« Trois notes mineures »), ce « choisi » est un défaut <strong>provisoire</strong>, posé le 14 octobre par la consigne du chantier et non par ton oreille : il ne remplace qu’un son de synthèse Famille, jamais une de tes prises ; les autres « choisi » sont tes choix à l’oreille du 14 octobre. Les niveaux ont été alignés par mesure (pas à l’oreille) sur les sons Famille.</p>
+    <section>
+      <h2>Lecture et volume</h2>
+      <div class="buttons">
+        <button id="activate" class="primary" type="button">Activer le son</button>
+        <button id="mute" type="button">Couper le son</button>
+        <button id="resume" type="button">Reprendre</button>
+        <button id="stop" type="button">Tout arrêter</button>
+      </div>
+      <label for="volume">Volume général : <output id="volume-output">55 %</output></label>
+      <input id="volume" type="range" min="0" max="1" step=".01" value=".55">
+      <label class="inline" for="repeat"><input id="repeat" type="checkbox"> Répéter 4 fois (pour entendre les variantes et la cadence)</label>
+      <div class="status" aria-live="polite">
+        <span id="audio-status">Le son attend une activation.</span>
+        <span id="take-status">Prise de grognement : pas encore demandée.</span>
+        <span id="action-status">Prêt pour l’écoute.</span>
+      </div>
+    </section>
+    <div id="slots"></div>
+    <section>
+      <h2>Table CHOSEN actuelle</h2>
+      <pre id="chosen"></pre>
+    </section>
+  </main>
+  <script type="module">
+    import { SoundEngine } from '../audio.js';
+    import { CANDIDATES, CHOSEN, KILL_LAG, SLOTS, createSounds, heartbeatLevel } from './sounds.js';
+
+    const SLOT_TEXT={
+      chain:{title:'La petite mélodie des séries (DOUBLÉ, TRIPLÉ…)',famille:'Famille : arpège de do majeur (synthèse, jamais écouté).',note:'En partie, elle joue à chaque série annoncée : souvent, en pleine horde. Une nouvelle série coupe la précédente.'},
+      hit:{title:'Impact de balle sur un zombie',famille:'Famille : bruit sourd sous 780 Hz et petit coup grave (synthèse).',note:'Joue à chaque balle qui touche, jusqu’à 18 fois par seconde au minigun.',repeat:.11},
+      headshot:{title:'Tir à la tête (s’ajoute à l’impact)',famille:'Famille : « tink » aigu (synthèse).',note:'En partie, l’impact joue en même temps ; ici chaque son est seul.',repeat:.3},
+      kill:{title:'Élimination : le craquement qui confirme',famille:'Famille : grognement de mort (un extrait de la prise, pas toujours : il attend 0,8 s entre deux grognements), puis le petit bruit d’élimination Famille : le « clac » provisoire à choisir sur audio-preview.html, ou l’ancien petit choc sourd, presque inaudible sous les tirs.',note:`Ne joue que pour tes propres éliminations, ${Math.round(KILL_LAG*1000)} ms après le coup. Chaque proposition garde le grognement de mort. Un tir à la tête garde le même craquement : le « fêlé » du tir à la tête le marque.`,repeat:.45},
+      groan:{title:'Grognement d’un zombie proche',famille:'Famille : un des deux extraits de la prise ElevenLabs « CREAMnstr » (extraits choisis par l’agent).',note:'Le grognement choisi parle aussi dans chaque élimination.',repeat:1.5},
+      ambience:{title:'Fond sonore (s’ajoute : Famille n’en a pas)',famille:'Famille : aucun, la musique seule.',note:'En partie, il joue de la vague à l’entracte, sous la musique, et s’arrête en pause, en sourdine ou en quittant.'},
+      heartbeat:{title:'Battement de cœur à faible vie (s’ajoute : Famille n’en a pas)',famille:'Famille : aucun.',note:'En partie, il démarre sous 35 PV et accélère jusqu’à 5 PV ou à terre.'},
+    };
+    // The chain's counts: one per rung (2 to 6, then 8, 15, 30 and 75 kills).
+    const CHAIN_COUNTS=[2,3,4,5,6,8,15,30,75],RAFALE=[2,3,4,5,6];
+    const sound=new SoundEngine(),bank=createSounds(sound);
+    const $=id=>document.getElementById(id);
+    const volume=$('volume'),volumeOutput=$('volume-output'),repeat=$('repeat');
+    let lastVolume=.55,token=0,timers=[],wantBed=null,wantHeart=null,ticker=null,withMusic=false;
+    const heartControls={hp:20,downed:false};
+    let chainSource=CHOSEN.chain,chainCount=2;
+    // The kill « Rafale » and « Sur fond de tirs » play: the last kill button clicked.
+    let killWith=CHOSEN.kill;
+    // The guns « Sur fond de tirs » plays under a kill, the pistol first (his most common case).
+    const GUNFIRE=[['pistol','Pistolet'],['shotgun','Fusil à pompe : deux d’un coup'],['assault','Fusil d’assaut'],['magnum','Magnum']];
+
+    function setAction(text){$('action-status').textContent=text;}
+    function clearTimers(){for(const timer of timers)clearTimeout(timer);timers=[];}
+    async function enable(){await sound.unlock();refresh();return sound.ready();}
+    function refresh(){
+      $('audio-status').textContent=!sound.ready()?'Le son attend une activation.':sound.volume===0?'Son coupé.':'Audio activé.';
+      const take=sound.buffers.get?.(sound.catalog.effects.groan?.[0]?.src);
+      $('take-status').textContent=!sound.unlocked?'Prise de grognement : pas encore demandée.':take?.buffer?'Prise de grognement : chargée.':take?.settled?'Prise de grognement : absente (« Grognement grave » la remplace dans « Prise actuelle, plus grave »).':'Prise de grognement : chargement à la première écoute.';
+      const state=bank.state();
+      for(const button of document.querySelectorAll('[data-toggle]'))button.setAttribute('aria-pressed',String(state[button.dataset.toggle]===button.dataset.id||button.dataset.toggle==='heartbeat'&&wantHeart===button.dataset.id&&sound.volume>0));
+      $('music').setAttribute('aria-pressed',String(withMusic));
+      for(const button of document.querySelectorAll('[data-chain]'))button.setAttribute('aria-pressed',String(button.dataset.chain===String(chainSource)));
+      for(const button of document.querySelectorAll('[data-count]'))button.setAttribute('aria-pressed',String(Number(button.dataset.count)===chainCount));
+      $('kill-with').textContent=`Avec : ${killWith===null?'Famille (null)':`${label('kill',killWith)} (${killWith})`}`;
+    }
+    function setVolume(value){
+      sound.setVolume(value);volume.value=String(value);volumeOutput.value=`${Math.round(value*100)} %`;if(value>0)lastVolume=value;
+      if(value>0)restore();refresh();
+    }
+    // Muting or the music switch stops every source: bring back what was on.
+    function restore(){if(wantBed)bank.ambience(wantBed,true);}
+    function startMusic(on){
+      withMusic=on;
+      if(on)sound.updateScene({phase:'wave',wave:1,players:[],zombies:[]},true);else sound.updateScene(null,false);
+      restore();
+    }
+    async function play(slot,id){
+      const mine=++token;clearTimers();
+      if(!await enable()||mine!==token)return;
+      if(!sound.volume)setVolume(lastVolume);
+      if(slot==='kill')killWith=id;
+      if(slot==='groan'||slot==='kill'){await sound.prepareEffect('groan');if(mine!==token)return;}
+      const once=()=>{if(id===null)sound.famille(slot);else bank.play(slot,id);refresh();};
+      once();
+      if(repeat.checked)for(let i=1;i<4;i++)timers.push(setTimeout(()=>{if(mine===token)once();},i*SLOT_TEXT[slot].repeat*1000));
+      setAction(`${SLOT_TEXT[slot].title} · ${id===null?'Famille':label(slot,id)}${repeat.checked?' · 4 fois':''}.`);
+    }
+    // The jingle at these counts, `spacing` s apart: Famille's through famille(),
+    // a candidate's through the bank, which cuts the one still ringing.
+    async function playChain(counts,spacing,what){
+      const mine=++token;clearTimers();
+      if(!await enable()||mine!==token)return;
+      if(!sound.volume)setVolume(lastVolume);
+      const once=count=>{chainCount=count;if(chainSource===null)sound.famille('chain',count);else bank.chain(chainSource,count);refresh();};
+      counts.forEach((count,i)=>{if(!i)once(count);else timers.push(setTimeout(()=>{if(mine===token)once(count);},i*spacing*1000));});
+      setAction(`${SLOT_TEXT.chain.title} · ${chainSource===null?'Famille':label('chain',chainSource)} · ${what}.`);
+    }
+    function label(slot,id){return CANDIDATES[slot].find(candidate=>candidate.id===id)?.label??id;}
+    // A kill with the current choice (Famille's, or a candidate through the
+    // bank's kill player, KILL_LAG later), and the jingle as the game plays it.
+    function killNow(){if(killWith===null)sound.famille('kill');else bank.kill(killWith);}
+    function chainNow(count){if(CHOSEN.chain===null)sound.famille('chain',count);else bank.chain(CHOSEN.chain,count);}
+    // Six kills .15 s apart, as in a horde, the jingle after kills 2 to 6 when ticked (the game's order).
+    async function killRafale(){
+      const mine=++token;clearTimers();
+      if(!await enable()||mine!==token)return;
+      if(!sound.volume)setVolume(lastVolume);
+      await sound.prepareEffect('groan');if(mine!==token)return;
+      const withChain=$('kill-chain').checked,once=count=>{killNow();if(withChain&&count>=2)chainNow(count);refresh();};
+      for(let count=1;count<=6;count++){if(count===1)once(count);else timers.push(setTimeout(()=>{if(mine===token)once(count);},(count-1)*150));}
+      setAction(`${SLOT_TEXT.kill.title} · ${killWith===null?'Famille':label('kill',killWith)} · rafale de six, 0,15 s entre deux${withChain?', avec la mélodie des séries':''}.`);
+    }
+    // One kill over a gunshot, in the client's order: the kill, the shot, the
+    // hit, then the head shot when ticked (the shotgun kills two at once).
+    async function killOverGunfire(gun,name){
+      const mine=++token;clearTimers();
+      if(!await enable()||mine!==token)return;
+      if(!sound.volume)setVolume(lastVolume);
+      await Promise.all([sound.prepareEffect(gun),sound.prepareEffect('groan'),gun==='shotgun'?sound.prepareEffect('shotgunPump'):null]);if(mine!==token)return;
+      const head=$('kill-head').checked;
+      killNow();if(gun==='shotgun')killNow();
+      if(gun==='assault')sound.singleShot('assault');else sound.shoot(gun);
+      sound.hit();
+      if(head){if(CHOSEN.headshot===null)sound.famille('headshot');else bank.play('headshot',CHOSEN.headshot);}
+      refresh();setAction(`${SLOT_TEXT.kill.title} · ${killWith===null?'Famille':label('kill',killWith)} · sur fond de tirs : ${name}${head?', tir à la tête':''}.`);
+    }
+    // The kill section's own controls, built inside build().
+    function killControls(section){
+      const current=document.createElement('p'),rafale=document.createElement('div'),gunfire=document.createElement('div'),hint=document.createElement('p'),title=document.createElement('p');
+      current.className=hint.className=title.className='note';current.id='kill-with';rafale.className=gunfire.className='buttons';
+      const burst=document.createElement('button');burst.type='button';burst.textContent='Rafale (six éliminations, 0,15 s)';burst.addEventListener('click',()=>killRafale());
+      const chainBox=document.createElement('label');chainBox.className='inline';chainBox.innerHTML='<input id="kill-chain" type="checkbox" checked> avec la mélodie des séries';
+      rafale.append(burst,chainBox);
+      title.textContent='Sur fond de tirs :';
+      for(const [gun,name] of GUNFIRE){const button=document.createElement('button');button.type='button';button.textContent=name;button.addEventListener('click',()=>killOverGunfire(gun,name));gunfire.append(button);}
+      const headBox=document.createElement('label');headBox.className='inline';headBox.innerHTML='<input id="kill-head" type="checkbox"> Tir à la tête (ajoute le son du tir à la tête ; l’élimination reste la même)';
+      hint.textContent='Clique une proposition (ou Famille) : elle joue seule et devient celle de « Rafale » et de « Sur fond de tirs ». En partie, elle joue toujours sur un coup de feu : « Sur fond de tirs » la fait entendre comme en jeu, le pistolet d’abord (le cas le plus courant, et le plus difficile pour le craquement). Les quatre nouveaux craquements viennent en premier ; « Giclée + os qui casse » reste ton choix.';
+      section.append(current,hint,rafale,title,gunfire,headBox);
+    }
+    async function toggleBed(id){
+      if(!await enable())return;
+      if(!sound.volume)setVolume(lastVolume);
+      wantBed=wantBed===id?null:id;
+      bank.ambience(wantBed??id,wantBed!==null);
+      setAction(wantBed?`Fond sonore · ${label('ambience',id)} · fondu d’entrée de 3 s.`:'Fond sonore arrêté.');refresh();
+    }
+    function beat(){
+      if(!wantHeart)return;
+      const level=heartbeatLevel({alive:true,downed:heartControls.downed,hp:heartControls.hp});
+      bank.heartbeat(wantHeart,level);
+      const made=CANDIDATES.heartbeat.find(candidate=>candidate.id===wantHeart);
+      $('heart-level').value=level>0?`niveau ${level.toFixed(2)} · ${Math.round(made.bpm[0]+(made.bpm[1]-made.bpm[0])*level)} battements/min`:'au-dessus de 35 PV : silence';
+    }
+    async function toggleHeart(id){
+      if(!await enable())return;
+      if(!sound.volume)setVolume(lastVolume);
+      wantHeart=wantHeart===id?null:id;
+      if(wantHeart){bank.heartbeat(null,0);if(ticker===null)ticker=setInterval(beat,50);beat();}
+      else{bank.heartbeat(id,0);clearInterval(ticker);ticker=null;$('heart-level').value='';}
+      setAction(wantHeart?`Battement · ${label('heartbeat',id)}.`:'Battement arrêté.');refresh();
+    }
+    function stopAll(){
+      token++;clearTimers();wantBed=null;wantHeart=null;if(ticker!==null){clearInterval(ticker);ticker=null;}
+      bank.stop();sound.stop();withMusic=false;$('heart-level').value='';refresh();
+    }
+
+    function chosenBadge(slot,id){return CHOSEN[slot]===id?'<span class="badge">choisi</span>':'';}
+    // The jingle: pick Famille or a proposal (it plays at once), then a count,
+    // the whole ladder or a horde's burst.
+    function chainSection(text){
+      const section=document.createElement('section'),heading=document.createElement('h2'),famille=document.createElement('p');
+      heading.textContent=text.title;famille.className='note';famille.textContent=`${text.famille} ${text.note}`;section.append(heading,famille);
+      const sources=document.createElement('div'),counts=document.createElement('div'),runs=document.createElement('div'),details=document.createElement('dl');
+      sources.className=counts.className=runs.className='buttons';
+      for(const id of [null,...CANDIDATES.chain.map(candidate=>candidate.id)]){
+        const button=document.createElement('button');button.type='button';button.dataset.chain=String(id);button.setAttribute('aria-pressed','false');
+        if(id===null)button.innerHTML=`Famille (null)${chosenBadge('chain',null)}`;else{button.textContent=`${label('chain',id)} (${id})`;button.insertAdjacentHTML('beforeend',chosenBadge('chain',id));}
+        if(CHOSEN.chain===id)button.classList.add('chosen');
+        button.addEventListener('click',()=>{chainSource=id;playChain([chainCount],0,`${chainCount} éliminations`);});
+        sources.append(button);
+      }
+      for(const count of CHAIN_COUNTS){
+        const button=document.createElement('button');button.type='button';button.dataset.count=String(count);button.textContent=String(count);button.setAttribute('aria-pressed','false');
+        button.addEventListener('click',()=>playChain([count],0,`${count} éliminations`));counts.append(button);
+      }
+      const ladder=document.createElement('button'),burst=document.createElement('button');
+      ladder.type=burst.type='button';ladder.textContent='Échelle complète';burst.textContent='Rafale';
+      ladder.addEventListener('click',()=>playChain(CHAIN_COUNTS,1.4,'échelle complète, 1,4 s entre deux'));
+      burst.addEventListener('click',()=>playChain(RAFALE,.4,'rafale de 2 à 6, 0,4 s entre deux, comme en pleine horde'));
+      runs.append(ladder,burst);
+      const hint=document.createElement('p');hint.className='note';hint.textContent='Choisis une mélodie (Famille ou une proposition) : elle joue aussitôt. Puis « Rafale » (2 à 6 éliminations, 0,4 s entre deux) : c’est ce que tu entendras le plus, en pleine horde. Puis « Échelle complète », pour vérifier qu’elle grandit avec la série, ou un nombre précis : 2 à 6, puis les paliers 8, 15, 30 et 75. Pour l’entendre comme en partie, lance d’abord « Avec la musique du jeu », plus bas dans « Fond sonore ».';
+      for(const candidate of CANDIDATES.chain){const term=document.createElement('dt');term.textContent=`${candidate.label} (${candidate.id})`;const description=document.createElement('dd');description.textContent=candidate.about;details.append(term,description);}
+      section.append(sources,hint,counts,runs,details);
+      return section;
+    }
+    function build(){
+      const root=$('slots');
+      for(const slot of SLOTS){
+        if(slot==='chain'){root.append(chainSection(SLOT_TEXT.chain));continue;}
+        const text=SLOT_TEXT[slot],section=document.createElement('section'),oneShot=!['ambience','heartbeat'].includes(slot);
+        const heading=document.createElement('h2');heading.textContent=text.title;section.append(heading);
+        const famille=document.createElement('p');famille.className='note';famille.textContent=`${text.famille} ${text.note}`;section.append(famille);
+        const row=document.createElement('div');row.className='buttons';
+        if(oneShot){
+          const button=document.createElement('button');button.type='button';button.innerHTML=`Famille (null)${chosenBadge(slot,null)}`;
+          if(CHOSEN[slot]===null)button.classList.add('chosen');
+          button.addEventListener('click',()=>play(slot,null));row.append(button);
+        }
+        const details=document.createElement('dl');
+        for(const candidate of CANDIDATES[slot]){
+          const button=document.createElement('button');button.type='button';
+          button.textContent=`${candidate.label} (${candidate.id})`;button.insertAdjacentHTML('beforeend',chosenBadge(slot,candidate.id));
+          if(CHOSEN[slot]===candidate.id)button.classList.add('chosen');
+          if(oneShot)button.addEventListener('click',()=>play(slot,candidate.id));
+          else{button.dataset.toggle=slot;button.dataset.id=candidate.id;button.setAttribute('aria-pressed','false');button.addEventListener('click',()=>slot==='ambience'?toggleBed(candidate.id):toggleHeart(candidate.id));}
+          row.append(button);
+          const term=document.createElement('dt');term.textContent=`${candidate.label} (${candidate.id})`;
+          const description=document.createElement('dd');description.textContent=candidate.about;details.append(term,description);
+        }
+        if(!oneShot&&CHOSEN[slot]===null){const none=document.createElement('p');none.className='note';none.innerHTML=`Aujourd’hui : aucun (null)${chosenBadge(slot,null)}`;section.append(none);}
+        section.append(row);
+        if(slot==='kill')killControls(section);
+        if(slot==='ambience'){
+          const extra=document.createElement('div');extra.className='buttons';
+          extra.innerHTML='<button id="creak" type="button">Un craquement maintenant</button><button id="music" type="button" aria-pressed="false">Avec la musique du jeu</button>';
+          section.append(extra);
+        }
+        if(slot==='heartbeat'){
+          const controls=document.createElement('div');
+          controls.innerHTML='<label for="hp">Points de vie : <output id="hp-output">20</output></label><input id="hp" type="range" min="1" max="40" step="1" value="20"><label class="inline" for="downed"><input id="downed" type="checkbox"> À terre</label><p class="note"><output id="heart-level"></output></p>';
+          section.append(controls);
+        }
+        section.append(details);root.append(section);
+      }
+      $('creak').addEventListener('click',async()=>{if(!await enable())return;if(!sound.volume)setVolume(lastVolume);bank.creak(wantBed??CHOSEN.ambience??CANDIDATES.ambience[0].id);setAction('Un craquement de cabane.');});
+      $('music').addEventListener('click',async()=>{if(!await enable())return;if(!sound.volume)setVolume(lastVolume);startMusic(!withMusic);setAction(withMusic?'Musique d’ambiance du jeu en fond (thème original).':'Musique arrêtée.');refresh();});
+      $('hp').addEventListener('input',event=>{heartControls.hp=Number(event.target.value);$('hp-output').value=String(heartControls.hp);beat();});
+      $('downed').addEventListener('change',event=>{heartControls.downed=event.target.checked;beat();});
+      $('chosen').textContent=`export const CHOSEN = {\n${SLOTS.map(slot=>`  ${slot}: ${CHOSEN[slot]===null?'null':`'${CHOSEN[slot]}'`},`).join('\n')}\n};`;
+    }
+
+    build();
+    $('activate').addEventListener('click',async()=>{if(await enable()){if(!sound.volume)setVolume(lastVolume);setAction('Écoute activée.');}});
+    $('mute').addEventListener('click',()=>{token++;clearTimers();setVolume(0);setAction('Tous les sons sont coupés.');});
+    $('resume').addEventListener('click',async()=>{if(await enable()){setVolume(lastVolume);setAction('Lecture reprise.');}});
+    $('stop').addEventListener('click',()=>{stopAll();setAction('Lecture arrêtée, sources libérées.');});
+    volume.addEventListener('input',()=>setVolume(Number(volume.value)));
+    const statusTimer=setInterval(refresh,400);
+    window.addEventListener('pagehide',()=>{stopAll();clearInterval(statusTimer);});
+    refresh();
+  </script>
+</body>
+</html>

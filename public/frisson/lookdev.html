@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Deadwood · têtes et marques Frisson</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0d1417;color:#e6e4cc;font:13px system-ui,sans-serif}
+main{position:relative;width:100%;height:100%}canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}canvas.dragging{cursor:grabbing}
+header{position:absolute;left:16px;top:12px;max-width:min(560px,calc(100% - 32px));pointer-events:none}
+h1{margin:0;font-size:14px;letter-spacing:.14em;color:#ffb769}header p{margin:4px 0 0;color:#cfd4c4}
+#panel{position:absolute;right:12px;top:12px;display:grid;gap:8px;width:min(340px,calc(100% - 24px));padding:10px;background:#0b1113d9;border:1px solid #33413c}
+#panel fieldset{margin:0;padding:0;border:0;display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+#panel legend{float:left;width:100%;margin-bottom:4px;color:#9fb0a4;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+button{background:#1f2b2a;color:#e6e4cc;border:1px solid #4d5c55;padding:5px 9px;cursor:pointer;font:inherit}button.active{border-color:#ffb769;color:#ffb769}
+button:disabled{opacity:.45;cursor:default}
+#status{margin:0;white-space:pre-wrap;color:#cfe8d8;font:12px ui-monospace,monospace}#status.error{color:#ff9d8a}
+#stats{position:absolute;left:16px;bottom:12px;margin:0;padding:6px 8px;background:#0009;color:#cfe8d8;font:12px ui-monospace,monospace;white-space:pre}
+#labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+#labels span{position:absolute;transform:translate(-50%,-100%);padding:1px 5px;background:#000a;color:#f2e7c9;font:11px system-ui;white-space:nowrap}
+@media (max-width:640px){#panel{top:auto;bottom:44px}header p{display:none}}
+</style></head>
+<body><main id="view">
+<header><h1>DEADWOOD · TÊTES ET MARQUES FRISSON</h1><p id="caption">Glisser pour tourner, molette pour approcher, clic sur un zombie pour voir sa tête de près. Aucun son sur cette page.</p></header>
+<div id="labels"></div>
+<section id="panel" aria-label="Réglages">
+  <fieldset id="heads"><legend>Têtes</legend></fieldset>
+  <fieldset id="sources"><legend>Modèles (GLB)</legend></fieldset>
+  <fieldset id="markers"><legend>Marques</legend></fieldset>
+  <fieldset id="moods"><legend>Ambiance de la nuit</legend></fieldset>
+  <fieldset id="views"><legend>Vue</legend></fieldset>
+  <fieldset id="motion"><legend>Animation</legend></fieldset>
+  <p id="status" role="status"></p>
+</section>
+<pre id="stats"></pre>
+</main>
+<script type="module" src="./lookdev.js"></script>
+</body></html>

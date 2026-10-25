@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101916">
+  <title>Deadwood — Dégâts avant / maintenant</title>
+  <link rel="stylesheet" href="/weapon-comparison.css">
+  <link rel="stylesheet" href="/weapon-damage-history.css">
+  <script type="module" src="/weapon-damage-history-view.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="/" aria-label="Deadwood"><span class="brand-mark" aria-hidden="true">D<span>W</span></span><span>DEADWOOD<small>LAST LIGHT</small></span></a>
+    <nav aria-label="Navigation"><a href="/weapon-comparison.html" data-copy="back">Comparatif complet ↗</a><label><span data-copy="language">Langue</span><select id="language-select" aria-label="Langue"><option value="fr">FR</option><option value="en">EN</option></select></label></nav>
+  </header>
+  <main class="history-main">
+    <section class="hero history-hero">
+      <div><p class="eyebrow" data-copy="eyebrow">LES DÉGÂTS, ARME PAR ARME</p><h1 data-copy="title">Avant / maintenant.</h1><p class="intro" data-copy="intro">L’ancien Refuge face aux nouveaux réglages. Deux courbes par arme, pour voir ce qui change avec la distance.</p></div>
+      <a class="button primary" href="/?practice=1" data-copy="play">Essayer au stand ↗</a>
+    </section>
+    <div class="history-legend" aria-label="Légende"><span class="before"><i></i><b data-copy="beforeLegend">Avant · version habituelle</b></span><span class="current"><i></i><b data-copy="currentLegend">Maintenant · nouveaux réglages</b></span></div>
+    <p id="load-status" class="status" role="status">Chargement des profils…</p>
+    <button id="history-retry" class="button primary" hidden data-copy="retry">Réessayer</button>
+    <section id="history-content" hidden>
+      <div class="history-toolbar">
+        <label for="history-range"><span data-copy="zoom">Distance affichée · armes à balles</span><select id="history-range"><option value="20" data-copy="near">Proximité · 0–20 m</option><option value="30" selected data-copy="calibrationRange">Raccord · 0–30 m</option><option value="100">0–100 m</option><option value="250">0–250 m</option><option value="650" data-copy="full">Toutes les portées · 0–650 m</option></select></label>
+        <label class="distance-control" for="history-distance"><span data-copy="readDistance">Lire les dégâts à</span><output id="history-distance-output" for="history-distance">10 m</output><input id="history-distance" type="range" min="0" max="30" step="1" value="10"></label>
+        <label for="history-shotgun-unit"><span data-copy="shotgun">Fusil à pompe</span><select id="history-shotgun-unit"><option value="pellet" data-copy="pellet">Par plomb</option><option value="shell" data-copy="shell">Total théorique des 9 plombs</option></select></label>
+        <label for="history-melee"><span data-copy="melee">Armes de mêlée</span><select id="history-melee"><option value="light" data-copy="light">Coup rapide</option><option value="heavy" data-copy="heavy">Coup puissant</option></select></label>
+      </div>
+      <p class="history-help" data-copy="help">Dégâts au corps, sans armure ni bonus, sur la première cible. Chaque graphique possède sa propre échelle verticale. Clique ou déplace le pointeur sur une courbe pour lire une distance.</p>
+      <p class="history-help history-mean-help" data-copy="meanHelp">Deux repères fixes : égaler les dégâts à 10 m ne garantit pas la même moyenne de 0 à 30 m. La moyenne continue donne le même poids à chaque mètre ; les distances hors portée comptent pour zéro. Ce n’est pas une moyenne de tirs en partie. Les écarts restent affichés, même quand tu déplaces le curseur.</p>
+      <div id="history-grid" class="history-grid"></div>
+      <footer class="footnotes history-footnotes">
+        <p data-copy="limits">Les nouveaux tirs sont représentés en vol libre : le sol et les obstacles peuvent les arrêter avant. Un cercle marque la fin du vol simulé, sans inventer une chute des dégâts à zéro. Les anciennes coupures nettes de portée sont conservées sur les courbes « Avant ».</p>
+        <p data-copy="transport">Dans le Refuge comme au stand, les balles volent à vitesse finie avec ralentissement et chute. Les dégâts et les réactions arrivent au contact, sur la trajectoire réellement parcourue.</p>
+        <p id="history-provenance"></p>
+      </footer>
+    </section>
+    <noscript>Active JavaScript pour afficher les graphiques.</noscript>
+  </main>
+</body>
+</html>

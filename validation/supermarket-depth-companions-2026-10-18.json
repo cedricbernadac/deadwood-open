@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-18",
+  "scope": "Deterministic real simulation, human command body paths; no model API, server, browser or human play session",
+  "mapId": "supermarket",
+  "geometryId": "supermarket-depth",
+  "checks": [
+    {
+      "check": "Both stair flights traversed in both directions with authoritative survivor physics",
+      "pass": true,
+      "interiorSamples": 97,
+      "exteriorSamples": 157
+    },
+    {
+      "check": "Umbrella opens on exposed terrace and folds under cellar shelter",
+      "pass": true
+    },
+    {
+      "check": "Companion descends from sales floor and revives a downed human in cellar",
+      "pass": true
+    },
+    {
+      "check": "Cellar ammunition and coins offered and reachable; purchase descends to basement rack",
+      "pass": true
+    },
+    {
+      "check": "Actual basement shots hit visible enemy; ground floor target hidden by slab",
+      "pass": true
+    },
+    {
+      "check": "Order changed to hold during descent completes flight and clears last tread",
+      "pass": true
+    },
+    {
+      "check": "Nonmovement order on flight reloads while continuing to a landing",
+      "pass": true
+    },
+    {
+      "check": "Following a nearby human behind terrace partition takes the actual connecting passage",
+      "pass": true
+    },
+    {
+      "check": "Legacy and tactical brain guides describe cellar, terrace and two stairs",
+      "pass": true
+    }
+  ],
+  "passed": 9,
+  "failed": 0
+}

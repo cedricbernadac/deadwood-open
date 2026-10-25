@@ -1,0 +1,1890 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-reproducible",
+  "model": {
+    "damage": "Optional rational A/(1+(d/L)^p); otherwise A*exp(-2*kappa*d).",
+    "physicalEnergy": "0.5*mass*muzzleSpeed^2*exp(-2*kappa*d)",
+    "airDensity": 1.225,
+    "damagePerJoule": 1,
+    "maxLifeSeconds": 4,
+    "minimumDamagePv": 0.01,
+    "gravity": 9.81,
+    "distinction": "Rational responses and muzzle overrides are explicit gameplay damage calibration, not a claim that fixed energy transmission produces these curves.",
+    "unchanged": "Every SI physical profile value: mass, muzzle speed, drag area, energy transmission and spread. Flight, physical slowdown and drop use those original values."
+  },
+  "baseline": {
+    "sourcePath": "public/weapon-damage-before.json",
+    "sha256": "f478fdf4f89122d682a0f99e10cf5e15e5560cb6eb5640f5494ecec852429904",
+    "provenance": {
+      "label": "Refuge habituel avant le modèle physique",
+      "checkedAt": "2026-10-17T09:09:55.9401583Z",
+      "sourceUrl": "http://127.0.0.1:3002/world.json",
+      "responseSha256": "b059f6bfd10fced0b708102dee6ad44f74d3e220511f1f5ef2674012b8913306",
+      "sourceRepositoryHead": "bbab5b252c6703bfb19afb651e9898e15d343086",
+      "sourceFilesClean": true,
+      "sources": [
+        {
+          "path": "public/ballistics.js",
+          "sha256": "82e8969eca601d154ed8824b86c830b732e1595ebde586cac9f68a9cd0a1531c",
+          "servedUrl": "http://127.0.0.1:3002/ballistics.js",
+          "servedMatchesLocal": true
+        },
+        {
+          "path": "public/rules.js",
+          "sha256": "0ca48f0e1857c46385b40c31a56f62df543e759d41f38f1b41cf3198daecbdee",
+          "servedUrl": "http://127.0.0.1:3002/rules.js",
+          "servedMatchesLocal": true
+        },
+        {
+          "path": "simulation.mjs",
+          "sha256": "16745180e34f92296bd59f13c0fb1be64fca6548bf2097a2e3a76aba817d39d4"
+        },
+        {
+          "path": "public/melee-reach.js",
+          "sha256": "12c87d8c0e174912e985872c618dc6c3f349c0834af2e8f90a130a48ae279842",
+          "servedUrl": "http://127.0.0.1:3002/melee-reach.js",
+          "servedMatchesLocal": true
+        }
+      ],
+      "scope": "Frozen live weapon settings; first unobstructed target, body hit, no armor or upgrades. Damage before clipping to remaining HP, except explicit ordinary Magnum example.",
+      "formulas": {
+        "legacy": "near until start; linear interpolation from near to far between start and end; far afterward",
+        "beyond30m": "when longRangeDamage50 exists, interpolate legacyFalloff(30) to min(legacyFalloff(30), longRangeDamage50/damage) over 30..50m; constant afterward",
+        "shotgun": "multiply by 1+(multiplier-1)*(1-t*t*(3-2*t)), t=clamp((distance-fullUntil)/(end-fullUntil),0,1), below boost.end",
+        "sniper": "longRangePenetration bypasses falloff; 350 damage until strict maximum range",
+        "maximumRange": "bullet contact requires hitAt < weapon.range; zero at and beyond range",
+        "penetration": "first target index=0: multiplier 1; no secondary-target damage included",
+        "headshots": "excluded; old ordinary bullets used currentWaveBalance headshotMultiplier; Magnum oneShot ignored it",
+        "magnum": "ordinary target HP is set to zero; bosses lose fixed 1000 HP; stored weapon.damage=200 was not actual zombie damage",
+        "rocket": "distance from explosion center: damage through innerRadius inclusive, linear decrease to zero at radiusDamage; flight distance does not attenuate blast",
+        "flamethrower": "direct contact DPS inside cone; separate burnDps and burnDuration not summed into direct DPS",
+        "melee": "first target light or heavy damage within selected attack reach; no falloff or subsequent-target retention"
+      }
+    },
+    "definition": "Frozen habitual Refuge on port 3002; first body impact, no armor, headshot, upgrade or prior penetration. Per projectile; Magnum table uses the boss rule."
+  },
+  "predecessor": {
+    "commit": "fb9a1759e0c957c7872b1e9e1a347887fc1b9ada",
+    "profilesSourcePath": "public/bullet-profiles.js",
+    "profilesSourceSha256": "45a50fca8fa4ca4538ccd355a7b746b50ce5949d697b8effa42c7c0531ced386",
+    "historicalReport": "validation/physical-bullet-calibration.json",
+    "definition": "Exact prior shipped profile literals are frozen inside the calibration script. The historical report remains unchanged."
+  },
+  "policy": {
+    "anchorDistance": 10,
+    "meanInterval": [
+      0,
+      30
+    ],
+    "meanWeighting": "Uniform continuous distance, not player shot frequency, hit probability, DPS or a crowd score.",
+    "integralMethod": "Three-point Gauss-Legendre separately on every legacy breakpoint; exact for the polynomial pieces, subject to floating-point rounding.",
+    "meanRoundingTolerance": 1e-12,
+    "rootMethod": "Closed-form rational integrals and bracketed bisection, 90 iterations maximum; choose the low-amplitude rational root. Previous exponential-only proposal is retained for comparison.",
+    "rationalPowers": {
+      "pistol": 3,
+      "smg": 2,
+      "minigun": 2,
+      "rifle": 2,
+      "assault": 2
+    },
+    "exceptions": "Shotgun and sniper retain exponential shapes anchored at 10 m with small mean deficits; Magnum retains its complete approved 2000-PV muzzle profile.",
+    "errorSources": [
+      "IEEE-754 rounding; old coefficients are themselves stored floating-point values.",
+      "Distance averages describe unobstructed first body damage, not gameplay encounter frequency or shotgun pellet contact probability.",
+      "Gameplay damage is separated from the physical energy curve; all projectile flight parameters are preserved.",
+      "Previous/current damage samples beyond the physical horizon are theoretical curve values, with currentReachable false. The old samples are zero beyond their old hard ranges.",
+      "Magnum ordinary forced kills are not a finite legacy damage curve; matching boss 1000 would abandon the approved 2000 muzzle choice.",
+      "No human playtest, multiplayer validation or performance claim is established by this calculation."
+    ]
+  },
+  "distances": [
+    0,
+    4,
+    10,
+    12,
+    30,
+    50,
+    100
+  ],
+  "feasibility": {
+    "anchoredMeanRatio": "(exp(20*kappa)-exp(-40*kappa))/(60*kappa)",
+    "minimumKappa": 0.03581876333178438,
+    "minimumMeanToAnchorRatio": 0.8414343723433004,
+    "rationalMinima": {
+      "power2": {
+        "c": 0.4858173317414648,
+        "meanToAnchorRatio": 0.79918738569379
+      },
+      "power3": {
+        "c": 0.37970245496380184,
+        "meanToAnchorRatio": 0.7031623677177864
+      }
+    },
+    "note": "Ratios below this minimum have no nonnegative-drag solution; nonflat feasible ratios below one have two roots. Zero-drag plateau or steep second roots can satisfy aggregates while harming weapon roles."
+  },
+  "profileSourceSha256": "a7b69354490b1dec03cb3c32aa0af875f26abac48e816c270b7570802f495533",
+  "kernelAgreement": {
+    "checkedDistances": [
+      0,
+      4,
+      10,
+      12,
+      30,
+      50,
+      100
+    ],
+    "checkedFunctions": [
+      "sampleBulletAtDistance",
+      "bulletDamageAtAge for reachable samples"
+    ],
+    "note": "Kernel receives generated profiles explicitly; the report does not depend on the mutable imported profile table."
+  },
+  "rows": [
+    {
+      "id": "pistol",
+      "beforeProfile": {
+        "mass": 0.002734889724622,
+        "muzzleSpeed": 170,
+        "dragArea": 0.00004018613472915,
+        "transmission": 0.7
+      },
+      "profile": {
+        "mass": 0.002734889724622,
+        "muzzleSpeed": 170,
+        "dragArea": 0.00004018613472915,
+        "transmission": 0.7,
+        "muzzleDamage": 25.165480031899513,
+        "damageCurve": {
+          "kind": "rational",
+          "halfDistance": 24.776051652398877,
+          "power": 3
+        }
+      },
+      "choice": {
+        "mode": "rational-low-root",
+        "power": 3,
+        "meanRatio": 1,
+        "reason": "A cubic shoulder matches 10 m and the old mean while keeping point-blank damage almost unchanged."
+      },
+      "legacyAt10": 23.612903225806452,
+      "legacyMean0To30": 19.23870967741935,
+      "legacyMeanToAnchorRatio": 0.8147540983606556,
+      "exactExponentialFitFeasible": false,
+      "meanTargetRatio": 1,
+      "selectedKappa": 0.009000000000002333,
+      "muzzleDamage": 25.165480031899513,
+      "currentAt10": 23.612903225806452,
+      "currentMean0To30": 19.238709677419347,
+      "meanErrorPercent": -2.220446049250313e-14,
+      "anchorErrorPercent": 0,
+      "previousMean0To30": 21.375196270560146,
+      "exactCandidates": [],
+      "rationalCandidates": [
+        {
+          "c": 0.06575120353672814,
+          "muzzleDamage": 25.165480031899513,
+          "damageCurve": {
+            "kind": "rational",
+            "halfDistance": 24.776051652398877,
+            "power": 3
+          },
+          "mean0To30": 19.238709677419347,
+          "samples": [
+            {
+              "distance": 0,
+              "damage": 25.165480031899513
+            },
+            {
+              "distance": 4,
+              "damage": 25.060025514253223
+            },
+            {
+              "distance": 10,
+              "damage": 23.612903225806452
+            },
+            {
+              "distance": 12,
+              "damage": 22.597944924187814
+            },
+            {
+              "distance": 30,
+              "damage": 9.067718357601386
+            },
+            {
+              "distance": 50,
+              "damage": 2.7297702356129916
+            },
+            {
+              "distance": 100,
+              "damage": 0.37700413922953235
+            }
+          ]
+        },
+        {
+          "c": 1.285975793906856,
+          "muzzleDamage": 53.97852519805866,
+          "damageCurve": {
+            "kind": "rational",
+            "halfDistance": 9.195790503465727,
+            "power": 3
+          },
+          "mean0To30": 19.238709677419354,
+          "samples": [
+            {
+              "distance": 0,
+              "damage": 53.97852519805866
+            },
+            {
+              "distance": 4,
+              "damage": 49.87379004608089
+            },
+            {
+              "distance": 10,
+              "damage": 23.61290322580645
+            },
+            {
+              "distance": 12,
+              "damage": 16.752247500231938
+            },
+            {
+              "distance": 30,
+              "damage": 1.5110999607908706
+            },
+            {
+              "distance": 50,
+              "damage": 0.3337220090343927
+            },
+            {
+              "distance": 100,
+              "damage": 0.04194214487453314
+            }
+          ]
+        }
+      ],
+      "exponentialProposal": {
+        "choice": {
+          "mode": "mean-ratio-low-root",
+          "meanRatio": 1.1,
+          "reason": "Exact mean is impossible; +10% retains a moderate muzzle increase instead of the +92% at the mathematical minimum."
+        },
+        "kappa": 0.013793787756449344,
+        "muzzleDamage": 31.11434804129066,
+        "damageAt10": 23.612903225806452,
+        "mean0To30": 21.162580645161288,
+        "damageAt30": 13.599619293404803,
+        "theoreticalDamageAt100": 1.9717303615058939,
+        "timeAt30": 0.21858740500478546,
+        "dropAt30": 0.23436312503909157,
+        "fourSecondDistance": 169.63138098738193
+      },
+      "minimumMeanCandidate": {
+        "kappa": 0.03581876333178438,
+        "muzzleDamage": 48.335610967700426,
+        "damageAt10": 23.612903225806452,
+        "mean0To30": 19.868708405009542,
+        "damageAt30": 5.635257123664105,
+        "theoreticalDamageAt100": 0.037418722798284516,
+        "timeAt30": 0.3167436973303904,
+        "dropAt30": 0.4921018248617698,
+        "fourSecondDistance": 90.26122131458735,
+        "meanErrorPercent": 3.274641273523815
+      },
+      "samples": [
+        {
+          "distance": 0,
+          "legacyDamage": 25.161290322580644,
+          "legacyReachable": true,
+          "previousDamage": 27.66340956455153,
+          "currentDamage": 25.165480031899513,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 0.016651408831402925,
+          "currentTime": 0,
+          "currentDrop": 0
+        },
+        {
+          "distance": 4,
+          "legacyDamage": 25.161290322580644,
+          "legacyReachable": true,
+          "previousDamage": 25.741657283293932,
+          "currentDamage": 25.060025514253226,
+          "currentReachable": true,
+          "relativeToLegacyPercent": -0.4024626997628178,
+          "currentTime": 0.023958069601911044,
+          "currentDrop": 0.0028154165308403186
+        },
+        {
+          "distance": 10,
+          "legacyDamage": 23.612903225806452,
+          "legacyReachable": true,
+          "previousDamage": 23.106421955338483,
+          "currentDamage": 23.61290322580645,
+          "currentReachable": true,
+          "relativeToLegacyPercent": -1.1102230246251565e-14,
+          "currentTime": 0.0615518194151709,
+          "currentDrop": 0.018583212851623856
+        },
+        {
+          "distance": 12,
+          "legacyDamage": 22.064516129032256,
+          "legacyReachable": true,
+          "previousDamage": 22.289385656342382,
+          "currentDamage": 22.597944924187818,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 2.4175866447108785,
+          "currentTime": 0.07454101005651582,
+          "currentDrop": 0.027253956494104635
+        },
+        {
+          "distance": 30,
+          "legacyDamage": 12,
+          "legacyReachable": true,
+          "previousDamage": 16.120803578446058,
+          "currentDamage": 9.067718357601384,
+          "currentReachable": true,
+          "relativeToLegacyPercent": -24.4356803533218,
+          "currentTime": 0.2025911442701037,
+          "currentDrop": 0.20131675736836618
+        },
+        {
+          "distance": 50,
+          "legacyDamage": 8,
+          "legacyReachable": true,
+          "previousDamage": 11.247103013921928,
+          "currentDamage": 2.7297702356129916,
+          "currentReachable": true,
+          "relativeToLegacyPercent": -65.87787205483761,
+          "currentTime": 0.3714458728694146,
+          "currentDrop": 0.6767528388937931
+        },
+        {
+          "distance": 100,
+          "legacyDamage": 0,
+          "legacyReachable": false,
+          "previousDamage": 4.572730845436637,
+          "currentDamage": 0.37700413922953235,
+          "currentReachable": true,
+          "relativeToLegacyPercent": null,
+          "currentTime": 0.9539889615406176,
+          "currentDrop": 4.464015674526302
+        }
+      ],
+      "kernelAgreement": {
+        "maxDamageAbsoluteError": 3.552713678800501e-15,
+        "maxTimeAbsoluteError": 0,
+        "maxDropAbsoluteError": 0,
+        "maxContactDamageAbsoluteError": 1.4210854715202004e-14
+      }
+    },
+    {
+      "id": "smg",
+      "beforeProfile": {
+        "mass": 0.003474150344536,
+        "muzzleSpeed": 170,
+        "dragArea": 0.00006239290414678,
+        "transmission": 0.45
+      },
+      "profile": {
+        "mass": 0.003474150344536,
+        "muzzleSpeed": 170,
+        "dragArea": 0.00006239290414678,
+        "transmission": 0.45,
+        "muzzleDamage": 21.42612912050946,
+        "damageCurve": {
+          "kind": "rational",
+          "halfDistance": 22.897649866639668,
+          "power": 2
+        }
+      },
+      "choice": {
+        "mode": "rational-low-root",
+        "power": 2,
+        "meanRatio": 1,
+        "reason": "The quadratic shoulder matches both targets with a small point-blank change."
+      },
+      "legacyAt10": 17.9941176193231,
+      "legacyMean0To30": 15.026764689056014,
+      "legacyMeanToAnchorRatio": 0.8350931680539548,
+      "exactExponentialFitFeasible": false,
+      "meanTargetRatio": 1,
+      "selectedKappa": 0.011000000000001942,
+      "muzzleDamage": 21.42612912050946,
+      "currentAt10": 17.9941176193231,
+      "currentMean0To30": 15.026764689056014,
+      "meanErrorPercent": 0,
+      "anchorErrorPercent": 0,
+      "previousMean0To30": 16.53734620538151,
+      "exactCandidates": [],
+      "rationalCandidates": [
+        {
+          "c": 0.19072963586171504,
+          "muzzleDamage": 21.42612912050946,
+          "damageCurve": {
+            "kind": "rational",
+            "halfDistance": 22.897649866639668,
+            "power": 2
+          },
+          "mean0To30": 15.026764689056014,
+          "samples": [
+            {
+              "distance": 0,
+              "damage": 21.42612912050946
+            },
+            {
+              "distance": 4,
+              "damage": 20.791636130409884
+            },
+            {
+              "distance": 10,
+              "damage": 17.9941176193231
+            },
+            {
+              "distance": 12,
+              "damage": 16.809412594346146
+            },
+            {
+              "distance": 30,
+              "damage": 7.887208858531833
+            },
+            {
+              "distance": 50,
+              "damage": 3.71449970706857
+            },
+            {
+              "distance": 100,
+              "damage": 1.0674123443969263
+            }
+          ]
+        },
+        {
+          "c": 1.0237721163547706,
+          "muzzleDamage": 36.41599349639417,
+          "damageCurve": {
+            "kind": "rational",
+            "halfDistance": 9.88321746778255,
+            "power": 2
+          },
+          "mean0To30": 15.026764689056014,
+          "samples": [
+            {
+              "distance": 0,
+              "damage": 36.41599349639417
+            },
+            {
+              "distance": 4,
+              "damage": 31.290499030168217
+            },
+            {
+              "distance": 10,
+              "damage": 17.9941176193231
+            },
+            {
+              "distance": 12,
+              "damage": 14.718100703634835
+            },
+            {
+              "distance": 30,
+              "damage": 3.565319674901086
+            },
+            {
+              "distance": 50,
+              "damage": 1.3693155869202853
+            },
+            {
+              "distance": 100,
+              "damage": 0.35226325918716217
+            }
+          ]
+        }
+      ],
+      "exponentialProposal": {
+        "choice": {
+          "mode": "mean-ratio-low-root",
+          "meanRatio": 1.05,
+          "reason": "Exact mean is impossible; +5% avoids the +75% muzzle increase and severe slowing at the mathematical minimum."
+        },
+        "kappa": 0.017906261814453126,
+        "muzzleDamage": 25.74319040507692,
+        "damageAt10": 17.9941176193231,
+        "mean0To30": 15.778102923508817,
+        "damageAt30": 8.791579892052694,
+        "theoreticalDamageAt100": 0.7167112629859713,
+        "timeAt30": 0.23363104756632233,
+        "dropAt30": 0.26773190262792684,
+        "fourSecondDistance": 143.9952460778984
+      },
+      "minimumMeanCandidate": {
+        "kappa": 0.03581876333178438,
+        "muzzleDamage": 36.83395729179508,
+        "damageAt10": 17.9941176193231,
+        "mean0To30": 15.140869064886655,
+        "damageAt30": 4.2943249514324435,
+        "theoreticalDamageAt100": 0.028514786714634602,
+        "timeAt30": 0.3167436973303904,
+        "dropAt30": 0.4921018248617698,
+        "fourSecondDistance": 90.26122131458735,
+        "meanErrorPercent": 0.7593409372660398
+      },
+      "samples": [
+        {
+          "distance": 0,
+          "legacyDamage": 21.01176466705234,
+          "legacyReachable": true,
+          "previousDamage": 22.59066261534534,
+          "currentDamage": 21.42612912050946,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 1.9720592726172548,
+          "currentTime": 0,
+          "currentDrop": 0
+        },
+        {
+          "distance": 4,
+          "legacyDamage": 21.01176466705234,
+          "legacyReachable": true,
+          "previousDamage": 20.687645002389186,
+          "currentDamage": 20.791636130409884,
+          "currentReachable": true,
+          "relativeToLegacyPercent": -1.0476442132803299,
+          "currentTime": 0.024054735234462006,
+          "currentDrop": 0.002838181558716333
+        },
+        {
+          "distance": 10,
+          "legacyDamage": 17.9941176193231,
+          "legacyReachable": true,
+          "previousDamage": 18.129431407242137,
+          "currentDamage": 17.9941176193231,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 0,
+          "currentTime": 0.06218078634164301,
+          "currentDrop": 0.018964938182269107
+        },
+        {
+          "distance": 12,
+          "legacyDamage": 16.48529409545848,
+          "legacyReachable": true,
+          "previousDamage": 17.349031131896375,
+          "currentDamage": 16.80941259434615,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 1.9661068647659707,
+          "currentTime": 0.07545899426055443,
+          "currentDrop": 0.027929363391664564
+        },
+        {
+          "distance": 30,
+          "legacyDamage": 0,
+          "legacyReachable": false,
+          "previousDamage": 11.676014119791619,
+          "currentDamage": 7.887208858531833,
+          "currentReachable": true,
+          "relativeToLegacyPercent": null,
+          "currentTime": 0.20907386548865897,
+          "currentDrop": 0.2144067774349642
+        },
+        {
+          "distance": 50,
+          "legacyDamage": 0,
+          "legacyReachable": false,
+          "previousDamage": 7.519778346226236,
+          "currentDamage": 3.71449970706857,
+          "currentReachable": true,
+          "relativeToLegacyPercent": null,
+          "currentTime": 0.39211391329809303,
+          "currentDrop": 0.7541600395145374
+        },
+        {
+          "distance": 100,
+          "legacyDamage": 0,
+          "legacyReachable": false,
+          "previousDamage": 2.5031167672771937,
+          "currentDamage": 1.0674123443969263,
+          "currentReachable": true,
+          "relativeToLegacyPercent": null,
+          "currentTime": 1.071746536869873,
+          "currentDrop": 5.634082335730038
+        }
+      ],
+      "kernelAgreement": {
+        "maxDamageAbsoluteError": 3.552713678800501e-15,
+        "maxTimeAbsoluteError": 0,
+        "maxDropAbsoluteError": 0,
+        "maxContactDamageAbsoluteError": 3.552713678800501e-15
+      }
+    },
+    {
+      "id": "shotgun",
+      "beforeProfile": {
+        "mass": 0.004373842762205,
+        "muzzleSpeed": 170,
+        "dragArea": 0.0002856387110012,
+        "transmission": 0.55,
+        "spread": 0.11
+      },
+      "profile": {
+        "mass": 0.004373842762205,
+        "muzzleSpeed": 170,
+        "dragArea": 0.0002856387110012,
+        "transmission": 0.55,
+        "spread": 0.11,
+        "muzzleDamage": 36.62604490265088
+      },
+      "choice": {
+        "mode": "exponential-preserve-drag",
+        "reason": "Keep the steep existing shape and anchor 10 m. Exact rational fits distort the old localized point-blank boost."
+      },
+      "legacyAt10": 16.457142815816333,
+      "legacyMean0To30": 14.511428541466838,
+      "legacyMeanToAnchorRatio": 0.8817708337270098,
+      "exactExponentialFitFeasible": true,
+      "meanTargetRatio": null,
+      "selectedKappa": 0.040000000000008,
+      "muzzleDamage": 36.62604490265088,
+      "currentAt10": 16.457142815816333,
+      "currentMean0To30": 13.876418779996339,
+      "meanErrorPercent": -4.375928666539897,
+      "anchorErrorPercent": 0,
+      "previousMean0To30": 13.169857547405076,
+      "exactCandidates": [
+        {
+          "kappa": 0.016761632247718913,
+          "muzzleDamage": 23.01145744438674,
+          "damageAt10": 16.457142815816333,
+          "mean0To30": 14.51142854146684,
+          "damageAt30": 8.417343728319587,
+          "theoreticalDamageAt100": 0.8054660637683049,
+          "timeAt30": 0.22931401472127683,
+          "dropAt30": 0.2579290195899288,
+          "fourSecondDistance": 150.19586798233226
+        },
+        {
+          "kappa": 0.05633941302178301,
+          "muzzleDamage": 50.782299413848044,
+          "damageAt10": 16.457142815816333,
+          "mean0To30": 14.51142854146684,
+          "damageAt30": 1.7283774458206163,
+          "theoreticalDamageAt100": 0.0006488332894438141,
+          "timeAt30": 0.46153765092613197,
+          "dropAt30": 1.044848400805931,
+          "fourSecondDistance": 65.16751089699555
+        }
+      ],
+      "rationalCandidates": [],
+      "exponentialProposal": {
+        "choice": {
+          "mode": "preserve-drag",
+          "reason": "Keep the current steep close-range curve and flight; exact mean roots either halve point-blank damage or strongly boost damage at 4 m."
+        },
+        "kappa": 0.040000000000008,
+        "muzzleDamage": 36.62604490265088,
+        "damageAt10": 16.457142815816333,
+        "mean0To30": 13.876418779996339,
+        "damageAt30": 3.322639830653013,
+        "theoreticalDamageAt100": 0.012286669272698997,
+        "timeAt30": 0.34119366510836474,
+        "dropAt30": 0.5710063394249373,
+        "fourSecondDistance": 83.48304944858982
+      },
+      "minimumMeanCandidate": {
+        "kappa": 0.03581876333178438,
+        "muzzleDamage": 33.68776999500097,
+        "damageAt10": 16.457142815816333,
+        "mean0To30": 13.84760563579047,
+        "damageAt30": 3.927523456185222,
+        "theoreticalDamageAt100": 0.026079184723198274,
+        "timeAt30": 0.3167436973303904,
+        "dropAt30": 0.4921018248617698,
+        "fourSecondDistance": 90.26122131458735,
+        "meanErrorPercent": -4.574483509872729
+      },
+      "samples": [
+        {
+          "distance": 0,
+          "legacyDamage": 42.171428447448996,
+          "legacyReachable": true,
+          "previousDamage": 34.76111535262424,
+          "currentDamage": 36.62604490265088,
+          "currentReachable": true,
+          "relativeToLegacyPercent": -13.149622265483307,
+          "currentTime": 0,
+          "currentDrop": 0
+        },
+        {
+          "distance": 4,
+          "legacyDamage": 21.085714223724498,
+          "legacyReachable": true,
+          "previousDamage": 25.241750440913968,
+          "currentDamage": 26.595967237876,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 26.132636322803158,
+          "currentTime": 0.02551630455761957,
+          "currentDrop": 0.003193556220549652
+        },
+        {
+          "distance": 10,
+          "legacyDamage": 16.457142815816333,
+          "legacyReachable": true,
+          "previousDamage": 15.619175952951396,
+          "currentDamage": 16.457142815816333,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 0,
+          "currentTime": 0.07232716141783696,
+          "currentDrop": 0.025659125657326844
+        },
+        {
+          "distance": 12,
+          "legacyDamage": 14.14285711186225,
+          "legacyReachable": true,
+          "previousDamage": 13.309783777077513,
+          "currentDamage": 14.023852034627344,
+          "currentReachable": true,
+          "relativeToLegacyPercent": -0.8414500428989724,
+          "currentTime": 0.09059917679307725,
+          "currentDrop": 0.040261274148535926
+        },
+        {
+          "distance": 30,
+          "legacyDamage": 7.2,
+          "legacyReachable": true,
+          "previousDamage": 3.153457238845732,
+          "currentDamage": 3.322639830653013,
+          "currentReachable": true,
+          "relativeToLegacyPercent": -53.85222457426371,
+          "currentTime": 0.34119366510836474,
+          "currentDrop": 0.5710063394249373
+        },
+        {
+          "distance": 50,
+          "legacyDamage": 0,
+          "legacyReachable": false,
+          "previousDamage": 0.6366720361677898,
+          "currentDamage": 0.67082941235898,
+          "currentReachable": true,
+          "relativeToLegacyPercent": null,
+          "currentTime": 0.9395670733724013,
+          "currentDrop": 4.330066729718167
+        },
+        {
+          "distance": 100,
+          "legacyDamage": 0,
+          "legacyReachable": false,
+          "previousDamage": 0.011661055104995011,
+          "currentDamage": 0.012286669272698997,
+          "currentReachable": false,
+          "relativeToLegacyPercent": null,
+          "currentTime": 7.882080887231943,
+          "currentDrop": 304.7339116486131
+        }
+      ],
+      "kernelAgreement": {
+        "maxDamageAbsoluteError": 0,
+        "maxTimeAbsoluteError": 0,
+        "maxDropAbsoluteError": 0,
+        "maxContactDamageAbsoluteError": 3.552713678800501e-15
+      }
+    },
+    {
+      "id": "minigun",
+      "beforeProfile": {
+        "mass": 0.00541318683813922,
+        "muzzleSpeed": 200,
+        "dragArea": 0.00004418928031133747,
+        "transmission": 0.3
+      },
+      "profile": {
+        "mass": 0.00541318683813922,
+        "muzzleSpeed": 200,
+        "dragArea": 0.00004418928031133747,
+        "transmission": 0.3,
+        "muzzleDamage": 31.78561689430243,
+        "damageCurve": {
+          "kind": "rational",
+          "halfDistance": 41.95144015424762,
+          "power": 2
+        }
+      },
+      "choice": {
+        "mode": "rational-low-root",
+        "power": 2,
+        "meanRatio": 1,
+        "reason": "The low-root quadratic shoulder matches both targets with less close-range inflation than the exponential fit."
+      },
+      "legacyAt10": 30.07664231646598,
+      "legacyMean0To30": 27.59343064216527,
+      "legacyMeanToAnchorRatio": 0.9174372043204693,
+      "exactExponentialFitFeasible": true,
+      "meanTargetRatio": 1,
+      "selectedKappa": 0.00499999999999965,
+      "muzzleDamage": 31.78561689430243,
+      "currentAt10": 30.07664231646598,
+      "currentMean0To30": 27.593430642165266,
+      "meanErrorPercent": -1.1102230246251565e-14,
+      "anchorErrorPercent": 0,
+      "previousMean0To30": 28.059987929824853,
+      "exactCandidates": [
+        {
+          "kappa": 0.010161049352773156,
+          "muzzleDamage": 36.8542098427182,
+          "damageAt10": 30.07664231646598,
+          "mean0To30": 27.59343064216527,
+          "damageAt30": 20.031517208676334,
+          "theoreticalDamageAt100": 4.829582303095073,
+          "timeAt30": 0.17537381831375567,
+          "dropAt30": 0.15085806301548604,
+          "fourSecondDistance": 217.63879884539674
+        },
+        {
+          "kappa": 0.06418031503686247,
+          "muzzleDamage": 108.56566187126708,
+          "damageAt10": 30.07664231646598,
+          "mean0To30": 27.593430642165274,
+          "damageAt30": 2.3083575775482026,
+          "theoreticalDamageAt100": 0.00028910869337936477,
+          "timeAt30": 0.45636704069221107,
+          "dropAt30": 1.0215686459469655,
+          "fourSecondDistance": 61.66753980798288
+        }
+      ],
+      "rationalCandidates": [
+        {
+          "c": 0.05682065703527164,
+          "muzzleDamage": 31.78561689430243,
+          "damageCurve": {
+            "kind": "rational",
+            "halfDistance": 41.95144015424762,
+            "power": 2
+          },
+          "mean0To30": 27.593430642165266,
+          "samples": [
+            {
+              "distance": 0,
+              "damage": 31.78561689430243
+            },
+            {
+              "distance": 4,
+              "damage": 31.49924762293414
+            },
+            {
+              "distance": 10,
+              "damage": 30.07664231646598
+            },
+            {
+              "distance": 12,
+              "damage": 29.381565870704527
+            },
+            {
+              "distance": 30,
+              "damage": 21.03077487637422
+            },
+            {
+              "distance": 50,
+              "damage": 13.13175013167819
+            },
+            {
+              "distance": 100,
+              "damage": 4.756854886584581
+            }
+          ]
+        },
+        {
+          "c": 1.7501707710421002,
+          "muzzleDamage": 82.7159025898327,
+          "damageCurve": {
+            "kind": "rational",
+            "halfDistance": 7.558920656393713,
+            "power": 2
+          },
+          "mean0To30": 27.59343064216527,
+          "samples": [
+            {
+              "distance": 0,
+              "damage": 82.7159025898327
+            },
+            {
+              "distance": 4,
+              "damage": 64.6204194862597
+            },
+            {
+              "distance": 10,
+              "damage": 30.07664231646598
+            },
+            {
+              "distance": 12,
+              "damage": 23.49719442832017
+            },
+            {
+              "distance": 30,
+              "damage": 4.937809759735369
+            },
+            {
+              "distance": 50,
+              "damage": 1.848223732123206
+            },
+            {
+              "distance": 100,
+              "damage": 0.4699311223129854
+            }
+          ]
+        }
+      ],
+      "exponentialProposal": {
+        "choice": {
+          "mode": "mean-ratio-low-root",
+          "meanRatio": 1,
+          "reason": "The low-drag root satisfies both targets; the other root ruins the automatic weapon role."
+        },
+        "kappa": 0.010161049352773156,
+        "muzzleDamage": 36.8542098427182,
+        "damageAt10": 30.07664231646598,
+        "mean0To30": 27.59343064216527,
+        "damageAt30": 20.031517208676334,
+        "theoreticalDamageAt100": 4.829582303095073,
+        "timeAt30": 0.17537381831375567,
+        "dropAt30": 0.15085806301548604,
+        "fourSecondDistance": 217.63879884539674
+      },
+      "minimumMeanCandidate": {
+        "kappa": 0.03581876333178438,
+        "muzzleDamage": 61.56688435645444,
+        "damageAt10": 30.07664231646598,
+        "mean0To30": 25.307520649749502,
+        "damageAt30": 7.177838796397031,
+        "theoreticalDamageAt100": 0.047661633589935554,
+        "timeAt30": 0.2692321427308318,
+        "dropAt30": 0.3555435684626286,
+        "fourSecondDistance": 94.63283457173428,
+        "meanErrorPercent": -8.284254401200453
+      },
+      "samples": [
+        {
+          "distance": 0,
+          "legacyDamage": 30.07664231646598,
+          "legacyReachable": true,
+          "previousDamage": 32.47912102883532,
+          "currentDamage": 31.78561689430243,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 5.682065703527162,
+          "currentTime": 0,
+          "currentDrop": 0
+        },
+        {
+          "distance": 4,
+          "legacyDamage": 30.07664231646598,
+          "legacyReachable": true,
+          "previousDamage": 31.205596477455206,
+          "currentDamage": 31.499247622934135,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 4.729933918485729,
+          "currentTime": 0.020201340026755797,
+          "currentDrop": 0.002001701751189752
+        },
+        {
+          "distance": 10,
+          "legacyDamage": 30.07664231646598,
+          "legacyReachable": true,
+          "previousDamage": 29.388324011809,
+          "currentDamage": 30.07664231646598,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 0,
+          "currentTime": 0.05127109637602395,
+          "currentDrop": 0.012893897712255726
+        },
+        {
+          "distance": 12,
+          "legacyDamage": 30.07664231646598,
+          "legacyReachable": true,
+          "previousDamage": 28.806396207084283,
+          "currentDamage": 29.381565870704527,
+          "currentReachable": true,
+          "relativeToLegacyPercent": -2.3110174282350626,
+          "currentTime": 0.061836546545359486,
+          "currentDrop": 0.018755535386859694
+        },
+        {
+          "distance": 30,
+          "legacyDamage": 21.799270068796954,
+          "legacyReachable": true,
+          "previousDamage": 24.061124649888455,
+          "currentDamage": 21.03077487637422,
+          "currentReachable": true,
+          "relativeToLegacyPercent": -3.525325343451491,
+          "currentTime": 0.16183424272828226,
+          "currentDrop": 0.1284635299958364
+        },
+        {
+          "distance": 50,
+          "legacyDamage": 15,
+          "legacyReachable": true,
+          "previousDamage": 19.699582704506643,
+          "currentDamage": 13.13175013167819,
+          "currentReachable": true,
+          "relativeToLegacyPercent": -12.454999122145393,
+          "currentTime": 0.28402541668773884,
+          "currentDrop": 0.39568849507737724
+        },
+        {
+          "distance": 100,
+          "legacyDamage": 0,
+          "legacyReachable": false,
+          "previousDamage": 11.948400893828417,
+          "currentDamage": 4.756854886584581,
+          "currentReachable": true,
+          "relativeToLegacyPercent": null,
+          "currentTime": 0.6487212707001159,
+          "currentDrop": 2.0642167030232814
+        }
+      ],
+      "kernelAgreement": {
+        "maxDamageAbsoluteError": 3.552713678800501e-15,
+        "maxTimeAbsoluteError": 0,
+        "maxDropAbsoluteError": 0,
+        "maxContactDamageAbsoluteError": 1.0658141036401503e-14
+      }
+    },
+    {
+      "id": "rifle",
+      "beforeProfile": {
+        "mass": 0.00610462898142,
+        "muzzleSpeed": 170,
+        "dragArea": 0.00001794013414948,
+        "transmission": 0.35
+      },
+      "profile": {
+        "mass": 0.00610462898142,
+        "muzzleSpeed": 170,
+        "dragArea": 0.00001794013414948,
+        "transmission": 0.35,
+        "muzzleDamage": 30.17300863999586,
+        "damageCurve": {
+          "kind": "rational",
+          "halfDistance": 131.6820961879102,
+          "power": 2
+        }
+      },
+      "choice": {
+        "mode": "rational-low-root",
+        "power": 2,
+        "meanRatio": 1,
+        "reason": "The low-root quadratic shoulder matches both targets and retains a broad useful range."
+      },
+      "legacyAt10": 30,
+      "legacyMean0To30": 29.66666666666667,
+      "legacyMeanToAnchorRatio": 0.988888888888889,
+      "exactExponentialFitFeasible": true,
+      "meanTargetRatio": 1,
+      "selectedKappa": 0.0018000000000000821,
+      "muzzleDamage": 30.17300863999586,
+      "currentAt10": 30,
+      "currentMean0To30": 29.66666666666667,
+      "meanErrorPercent": 0,
+      "anchorErrorPercent": 0,
+      "previousMean0To30": 29.265389604549377,
+      "exactCandidates": [
+        {
+          "kappa": 0.0011367109865740503,
+          "muzzleDamage": 30.68983834889125,
+          "damageAt10": 30,
+          "mean0To30": 29.66666666666667,
+          "damageAt30": 28.66649279278944,
+          "theoreticalDamageAt100": 24.449002170823523,
+          "timeAt30": 0.17951402563499688,
+          "dropAt30": 0.15806502488544175,
+          "fourSecondDistance": 503.7801434467939
+        },
+        {
+          "kappa": 0.0755523240931772,
+          "muzzleDamage": 135.9441124656878,
+          "damageAt10": 30,
+          "mean0To30": 29.666666666666668,
+          "damageAt30": 1.4609755798323536,
+          "theoreticalDamageAt100": 0.00003723650520659159,
+          "timeAt30": 0.6731801065270988,
+          "dropAt30": 2.222805990815916,
+          "fourSecondDistance": 52.39336455890159
+        }
+      ],
+      "rationalCandidates": [
+        {
+          "c": 0.005766954666528693,
+          "muzzleDamage": 30.17300863999586,
+          "damageCurve": {
+            "kind": "rational",
+            "halfDistance": 131.6820961879102,
+            "power": 2
+          },
+          "mean0To30": 29.66666666666667,
+          "samples": [
+            {
+              "distance": 0,
+              "damage": 30.17300863999586
+            },
+            {
+              "distance": 4,
+              "damage": 30.14519328590089
+            },
+            {
+              "distance": 10,
+              "damage": 30
+            },
+            {
+              "distance": 12,
+              "damage": 29.924503155508518
+            },
+            {
+              "distance": 30,
+              "damage": 28.684223111061108
+            },
+            {
+              "distance": 50,
+              "damage": 26.370999652343183
+            },
+            {
+              "distance": 100,
+              "damage": 19.136865221062283
+            }
+          ]
+        },
+        {
+          "c": 2.3554200758733534,
+          "muzzleDamage": 100.6626022762006,
+          "damageCurve": {
+            "kind": "rational",
+            "halfDistance": 6.515771021293323,
+            "power": 2
+          },
+          "mean0To30": 29.666666666666668,
+          "samples": [
+            {
+              "distance": 0,
+              "damage": 100.6626022762006
+            },
+            {
+              "distance": 4,
+              "damage": 73.10988408225997
+            },
+            {
+              "distance": 10,
+              "damage": 30
+            },
+            {
+              "distance": 12,
+              "damage": 22.920554158498845
+            },
+            {
+              "distance": 30,
+              "damage": 4.534600513167952
+            },
+            {
+              "distance": 50,
+              "damage": 1.6809177361427883
+            },
+            {
+              "distance": 100,
+              "damage": 0.4255590932998835
+            }
+          ]
+        }
+      ],
+      "exponentialProposal": {
+        "choice": {
+          "mode": "mean-ratio-low-root",
+          "meanRatio": 1,
+          "reason": "The low-drag root satisfies both targets while preserving useful distant damage."
+        },
+        "kappa": 0.0011367109865740503,
+        "muzzleDamage": 30.68983834889125,
+        "damageAt10": 30,
+        "mean0To30": 29.66666666666667,
+        "damageAt30": 28.66649279278944,
+        "theoreticalDamageAt100": 24.449002170823523,
+        "timeAt30": 0.17951402563499688,
+        "dropAt30": 0.15806502488544175,
+        "fourSecondDistance": 503.7801434467939
+      },
+      "minimumMeanCandidate": {
+        "kappa": 0.03581876333178438,
+        "muzzleDamage": 61.40999754093087,
+        "damageAt10": 30,
+        "mean0To30": 25.243031170299012,
+        "damageAt30": 7.159547984983083,
+        "theoreticalDamageAt100": 0.04754018060437787,
+        "timeAt30": 0.3167436973303904,
+        "dropAt30": 0.4921018248617698,
+        "fourSecondDistance": 90.26122131458735,
+        "meanErrorPercent": -14.91113088663255
+      },
+      "samples": [
+        {
+          "distance": 0,
+          "legacyDamage": 30,
+          "legacyReachable": true,
+          "previousDamage": 30.87416107353165,
+          "currentDamage": 30.17300863999586,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 0.5766954666528656,
+          "currentTime": 0,
+          "currentDrop": 0
+        },
+        {
+          "distance": 4,
+          "legacyDamage": 30,
+          "legacyReachable": true,
+          "previousDamage": 30.43275887728931,
+          "currentDamage": 30.14519328590089,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 0.4839776196696288,
+          "currentTime": 0.023614321307633458,
+          "currentDrop": 0.0027352054178728436
+        },
+        {
+          "distance": 10,
+          "legacyDamage": 30,
+          "legacyReachable": true,
+          "previousDamage": 29.78245979901673,
+          "currentDamage": 30,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 0,
+          "currentTime": 0.059356131992790086,
+          "currentDrop": 0.01728105273723877
+        },
+        {
+          "distance": 12,
+          "legacyDamage": 30,
+          "legacyReachable": true,
+          "previousDamage": 29.568796200444613,
+          "currentDamage": 29.924503155508518,
+          "currentReachable": true,
+          "relativeToLegacyPercent": -0.2516561483049462,
+          "currentTime": 0.07135610694526139,
+          "currentDrop": 0.02497475906207146
+        },
+        {
+          "distance": 30,
+          "legacyDamage": 28,
+          "legacyReachable": true,
+          "previousDamage": 27.713498996240173,
+          "currentDamage": 28.684223111061108,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 2.4436539680753766,
+          "currentTime": 0.18132222926496766,
+          "currentDrop": 0.16126536779965384
+        },
+        {
+          "distance": 50,
+          "legacyDamage": 28,
+          "legacyReachable": true,
+          "previousDamage": 25.788267047034232,
+          "currentDamage": 26.370999652343183,
+          "currentReachable": true,
+          "relativeToLegacyPercent": -5.817858384488628,
+          "currentTime": 0.3077590970758514,
+          "currentDrop": 0.4645803212905871
+        },
+        {
+          "distance": 100,
+          "legacyDamage": 0,
+          "legacyReachable": false,
+          "previousDamage": 21.540171268306448,
+          "currentDamage": 19.136865221062283,
+          "currentReachable": true,
+          "relativeToLegacyPercent": null,
+          "currentTime": 0.6445011866725848,
+          "currentDrop": 2.0374476290477253
+        }
+      ],
+      "kernelAgreement": {
+        "maxDamageAbsoluteError": 0,
+        "maxTimeAbsoluteError": 0,
+        "maxDropAbsoluteError": 0,
+        "maxContactDamageAbsoluteError": 7.105427357601002e-15
+      }
+    },
+    {
+      "id": "assault",
+      "beforeProfile": {
+        "mass": 0.0035356431694053914,
+        "muzzleSpeed": 250,
+        "dragArea": 0.000018471931660566945,
+        "transmission": 0.4
+      },
+      "profile": {
+        "mass": 0.0035356431694053914,
+        "muzzleSpeed": 250,
+        "dragArea": 0.000018471931660566945,
+        "transmission": 0.4,
+        "muzzleDamage": 42.61401567587669,
+        "damageCurve": {
+          "kind": "rational",
+          "halfDistance": 82.70559983260127,
+          "power": 2
+        }
+      },
+      "choice": {
+        "mode": "rational-low-root",
+        "power": 2,
+        "meanRatio": 1,
+        "reason": "The low-root quadratic shoulder matches both targets and keeps the short-range plateau nearly unchanged."
+      },
+      "legacyAt10": 42,
+      "legacyMean0To30": 40.88,
+      "legacyMeanToAnchorRatio": 0.9733333333333334,
+      "exactExponentialFitFeasible": true,
+      "meanTargetRatio": 1,
+      "selectedKappa": 0.0032000000000000006,
+      "muzzleDamage": 42.61401567587669,
+      "currentAt10": 42,
+      "currentMean0To30": 40.88,
+      "meanErrorPercent": 0,
+      "anchorErrorPercent": 0,
+      "previousMean0To30": 40.21175632548313,
+      "exactCandidates": [
+        {
+          "kappa": 0.0028223211497545703,
+          "muzzleDamage": 44.43893685268959,
+          "damageAt10": 42,
+          "mean0To30": 40.88,
+          "damageAt30": 37.51634753657157,
+          "theoreticalDamageAt100": 25.270856412978286,
+          "timeAt30": 0.12522664409818998,
+          "dropAt30": 0.0769187992832247,
+          "fourSecondDistance": 475.0904655297739
+        },
+        {
+          "kappa": 0.07337024698080541,
+          "muzzleDamage": 182.19445629835263,
+          "damageAt10": 42,
+          "mean0To30": 40.88,
+          "damageAt30": 2.231914503833114,
+          "theoreticalDamageAt100": 0.00007721052019501237,
+          "timeAt30": 0.4380529574894338,
+          "dropAt30": 0.9412223804375007,
+          "fourSecondDistance": 58.73029099671127
+        }
+      ],
+      "rationalCandidates": [
+        {
+          "c": 0.01461942085420698,
+          "muzzleDamage": 42.61401567587669,
+          "damageCurve": {
+            "kind": "rational",
+            "halfDistance": 82.70559983260127,
+            "power": 2
+          },
+          "mean0To30": 40.88,
+          "samples": [
+            {
+              "distance": 0,
+              "damage": 42.61401567587669
+            },
+            {
+              "distance": 4,
+              "damage": 42.51456953436336
+            },
+            {
+              "distance": 10,
+              "damage": 42
+            },
+            {
+              "distance": 12,
+              "damage": 41.73540338163573
+            },
+            {
+              "distance": 30,
+              "damage": 37.65903600852538
+            },
+            {
+              "distance": 50,
+              "damage": 31.20795864139553
+            },
+            {
+              "distance": 100,
+              "damage": 17.309105656153076
+            }
+          ]
+        },
+        {
+          "c": 2.222743870217517,
+          "muzzleDamage": 135.3552425491357,
+          "damageCurve": {
+            "kind": "rational",
+            "halfDistance": 6.707416723834604,
+            "power": 2
+          },
+          "mean0To30": 40.879999999999995,
+          "samples": [
+            {
+              "distance": 0,
+              "damage": 135.3552425491357
+            },
+            {
+              "distance": 4,
+              "damage": 99.84608043042141
+            },
+            {
+              "distance": 10,
+              "damage": 42
+            },
+            {
+              "distance": 12,
+              "damage": 32.22167583156857
+            },
+            {
+              "distance": 30,
+              "damage": 6.444047087187341
+            },
+            {
+              "distance": 50,
+              "damage": 2.392762951754218
+            },
+            {
+              "distance": 100,
+              "damage": 0.60622825732335
+            }
+          ]
+        }
+      ],
+      "exponentialProposal": {
+        "choice": {
+          "mode": "mean-ratio-low-root",
+          "meanRatio": 1,
+          "reason": "The low-drag root satisfies both targets while preserving the fast, flat assault role."
+        },
+        "kappa": 0.0028223211497545703,
+        "muzzleDamage": 44.43893685268959,
+        "damageAt10": 42,
+        "mean0To30": 40.88,
+        "damageAt30": 37.51634753657157,
+        "theoreticalDamageAt100": 25.270856412978286,
+        "timeAt30": 0.12522664409818998,
+        "dropAt30": 0.0769187992832247,
+        "fourSecondDistance": 475.0904655297739
+      },
+      "minimumMeanCandidate": {
+        "kappa": 0.03581876333178438,
+        "muzzleDamage": 85.97399655730322,
+        "damageAt10": 42,
+        "mean0To30": 35.34024363841862,
+        "damageAt30": 10.023367178976319,
+        "theoreticalDamageAt100": 0.06655625284612902,
+        "timeAt30": 0.21538571418466543,
+        "dropAt30": 0.22754788381608232,
+        "fourSecondDistance": 100.67370430905422,
+        "meanErrorPercent": -13.551263115414347
+      },
+      "samples": [
+        {
+          "distance": 0,
+          "legacyDamage": 42,
+          "legacyReachable": true,
+          "previousDamage": 44.19553961756739,
+          "currentDamage": 42.61401567587669,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 1.4619420854206977,
+          "currentTime": 0,
+          "currentDrop": 0
+        },
+        {
+          "distance": 4,
+          "legacyDamage": 42,
+          "legacyReachable": true,
+          "previousDamage": 43.07849300497156,
+          "currentDamage": 42.51456953436336,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 1.2251655580080012,
+          "currentTime": 0.016102838308354787,
+          "currentDrop": 0.0012718733747745156
+        },
+        {
+          "distance": 10,
+          "legacyDamage": 42,
+          "legacyReachable": true,
+          "previousDamage": 41.45563711823664,
+          "currentDamage": 42,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 0,
+          "currentTime": 0.04064688163139803,
+          "currentDrop": 0.008103888878080508
+        },
+        {
+          "distance": 12,
+          "legacyDamage": 42,
+          "legacyReachable": true,
+          "previousDamage": 40.92838656536945,
+          "currentDamage": 41.73540338163573,
+          "currentReachable": true,
+          "relativeToLegacyPercent": -0.6299919484863636,
+          "currentTime": 0.048933510601535835,
+          "currentDrop": 0.01174496589527299
+        },
+        {
+          "distance": 30,
+          "legacyDamage": 36.4,
+          "legacyReachable": true,
+          "previousDamage": 36.47488240307463,
+          "currentDamage": 37.65903600852539,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 3.4588901333115096,
+          "currentTime": 0.12594882999247364,
+          "currentDrop": 0.07780854364360021
+        },
+        {
+          "distance": 50,
+          "legacyDamage": 18,
+          "legacyReachable": true,
+          "previousDamage": 32.09254853624872,
+          "currentDamage": 31.207958641395525,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 73.3775480077529,
+          "currentTime": 0.2168885887397628,
+          "currentDrop": 0.23073443693470486
+        },
+        {
+          "distance": 100,
+          "legacyDamage": 0,
+          "legacyReachable": false,
+          "previousDamage": 23.303973216837697,
+          "currentDamage": 17.309105656153076,
+          "currentReachable": true,
+          "relativeToLegacyPercent": null,
+          "currentTime": 0.47140970541994637,
+          "currentDrop": 1.0900239763360116
+        }
+      ],
+      "kernelAgreement": {
+        "maxDamageAbsoluteError": 7.105427357601002e-15,
+        "maxTimeAbsoluteError": 0,
+        "maxDropAbsoluteError": 0,
+        "maxContactDamageAbsoluteError": 2.1316282072803006e-14
+      }
+    },
+    {
+      "id": "sniper",
+      "beforeProfile": {
+        "mass": 0.0331933082502,
+        "muzzleSpeed": 382.5,
+        "dragArea": 0.0001354828908172,
+        "transmission": 0.15
+      },
+      "profile": {
+        "mass": 0.0331933082502,
+        "muzzleSpeed": 382.5,
+        "dragArea": 0.0001354828908172,
+        "transmission": 0.15,
+        "muzzleDamage": 367.9448837316162
+      },
+      "choice": {
+        "mode": "exponential-preserve-drag",
+        "reason": "Anchor 350 at 10 m and retain the existing gentle decline; exact plateau averages would remove attenuation or distort the role."
+      },
+      "legacyAt10": 350,
+      "legacyMean0To30": 350,
+      "legacyMeanToAnchorRatio": 1,
+      "exactExponentialFitFeasible": true,
+      "meanTargetRatio": null,
+      "selectedKappa": 0.002500000000001055,
+      "muzzleDamage": 367.9448837316162,
+      "currentAt10": 350,
+      "currentMean0To30": 341.6785827934804,
+      "meanErrorPercent": -2.377547773291311,
+      "anchorErrorPercent": 0,
+      "previousMean0To30": 338.2280875940517,
+      "exactCandidates": [
+        {
+          "kappa": 0,
+          "muzzleDamage": 350,
+          "damageAt10": 350,
+          "mean0To30": 350,
+          "damageAt30": 350,
+          "theoreticalDamageAt100": 350,
+          "timeAt30": 0.0784313725490196,
+          "dropAt30": 0.03017301038062284,
+          "fourSecondDistance": 1530
+        },
+        {
+          "kappa": 0.07703893026616476,
+          "muzzleDamage": 1633.8782460243842,
+          "damageAt10": 350,
+          "mean0To30": 350,
+          "damageAt30": 16.060710434924186,
+          "theoreticalDamageAt100": 0.00033243231136780704,
+          "timeAt30": 0.3083475419623701,
+          "dropAt30": 0.46635860354092556,
+          "fourSecondDistance": 62.02093887827343
+        }
+      ],
+      "rationalCandidates": [],
+      "exponentialProposal": {
+        "choice": {
+          "mode": "preserve-drag",
+          "reason": "The old curve is flat; exact mean requires zero drag or a pathological short-range profile. Preserve existing flight and accept the small mean deficit."
+        },
+        "kappa": 0.002500000000001055,
+        "muzzleDamage": 367.9448837316162,
+        "damageAt10": 350,
+        "mean0To30": 341.6785827934804,
+        "damageAt30": 316.6930963125725,
+        "theoreticalDamageAt100": 223.16985306757826,
+        "timeAt30": 0.08144747804928919,
+        "dropAt30": 0.032538257693291224,
+        "fourSecondDistance": 629.5242939162478
+      },
+      "minimumMeanCandidate": {
+        "kappa": 0.03581876333178438,
+        "muzzleDamage": 716.4499713108602,
+        "damageAt10": 350,
+        "mean0To30": 294.50203032015514,
+        "damageAt30": 83.52805982480265,
+        "theoreticalDamageAt100": 0.5546354403844085,
+        "timeAt30": 0.1407749765912846,
+        "dropAt30": 0.09720529873812736,
+        "fourSecondDistance": 112.28255871336354,
+        "meanErrorPercent": -15.856562765669956
+      },
+      "samples": [
+        {
+          "distance": 0,
+          "legacyDamage": 350,
+          "legacyReachable": true,
+          "previousDamage": 364.22913413856173,
+          "currentDamage": 367.9448837316162,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 5.127109637604632,
+          "currentTime": 0,
+          "currentDrop": 0
+        },
+        {
+          "distance": 4,
+          "legacyDamage": 350,
+          "legacyReachable": true,
+          "previousDamage": 357.01691406228343,
+          "currentDamage": 360.6590868837355,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 3.045453395353004,
+          "currentTime": 0.01050997865011041,
+          "currentDrop": 0.0005418045892624344
+        },
+        {
+          "distance": 10,
+          "legacyDamage": 350,
+          "legacyReachable": true,
+          "previousDamage": 346.46546965301013,
+          "currentDamage": 350,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 0,
+          "currentTime": 0.02647332865299762,
+          "currentDrop": 0.0034376061225010095
+        },
+        {
+          "distance": 12,
+          "legacyDamage": 350,
+          "legacyReachable": true,
+          "previousDamage": 343.01808062978864,
+          "currentDamage": 346.5174418122074,
+          "currentReachable": true,
+          "relativeToLegacyPercent": -0.9950166250836001,
+          "currentTime": 0.031847878644200835,
+          "currentDrop": 0.0049750795701358225
+        },
+        {
+          "distance": 30,
+          "legacyDamage": 350,
+          "legacyReachable": true,
+          "previousDamage": 313.49492099943257,
+          "currentDamage": 316.6930963125725,
+          "currentReachable": true,
+          "relativeToLegacyPercent": -9.516258196407856,
+          "currentTime": 0.08144747804928919,
+          "currentDrop": 0.032538257693291224
+        },
+        {
+          "distance": 50,
+          "legacyDamage": 350,
+          "legacyReachable": true,
+          "previousDamage": 283.6619348845017,
+          "currentDamage": 286.55576357726943,
+          "currentReachable": true,
+          "relativeToLegacyPercent": -18.126924692208735,
+          "currentTime": 0.1392402123574692,
+          "currentDrop": 0.09509733919671705
+        },
+        {
+          "distance": 100,
+          "legacyDamage": 0,
+          "legacyReachable": false,
+          "previousDamage": 220.91613701557648,
+          "currentDamage": 223.16985306757826,
+          "currentReachable": true,
+          "relativeToLegacyPercent": null,
+          "currentTime": 0.2970200435950401,
+          "currentDrop": 0.43272354538776364
+        }
+      ],
+      "kernelAgreement": {
+        "maxDamageAbsoluteError": 0,
+        "maxTimeAbsoluteError": 0,
+        "maxDropAbsoluteError": 0,
+        "maxContactDamageAbsoluteError": 1.1368683772161603e-13
+      }
+    },
+    {
+      "id": "magnum",
+      "beforeProfile": {
+        "mass": 0.02194787379973,
+        "muzzleSpeed": 450,
+        "dragArea": 0.0002866661067719,
+        "transmission": 0.9
+      },
+      "profile": {
+        "mass": 0.02194787379973,
+        "muzzleSpeed": 450,
+        "dragArea": 0.0002866661067719,
+        "transmission": 0.9
+      },
+      "choice": {
+        "mode": "unchanged",
+        "reason": "Keep the approved 2000-PV muzzle profile. The old boss rule was 1000 PV and ordinary targets were forced dead, so one finite energy curve cannot reproduce both."
+      },
+      "legacyAt10": 1000,
+      "legacyMean0To30": 1000,
+      "legacyMeanToAnchorRatio": 1,
+      "exactExponentialFitFeasible": true,
+      "meanTargetRatio": null,
+      "selectedKappa": 0.007999999999997665,
+      "muzzleDamage": 2000.0000000003963,
+      "currentAt10": 1704.28757793284,
+      "currentMean0To30": 1588.402534141497,
+      "meanErrorPercent": 58.84025341414969,
+      "anchorErrorPercent": 70.42875779328399,
+      "previousMean0To30": 1588.402534141497,
+      "exactCandidates": [
+        {
+          "kappa": 0,
+          "muzzleDamage": 1000,
+          "damageAt10": 1000,
+          "mean0To30": 1000,
+          "damageAt30": 1000,
+          "theoreticalDamageAt100": 1000,
+          "timeAt30": 0.06666666666666667,
+          "dropAt30": 0.0218,
+          "fourSecondDistance": 1800
+        },
+        {
+          "kappa": 0.07703893026616476,
+          "muzzleDamage": 4668.2235600696695,
+          "damageAt10": 1000,
+          "mean0To30": 1000.0000000000001,
+          "damageAt30": 45.8877440997834,
+          "theoreticalDamageAt100": 0.0009498066039080203,
+          "timeAt30": 0.26209541066801456,
+          "dropAt30": 0.3369440910583187,
+          "fourSecondDistance": 64.11411754424826
+        }
+      ],
+      "rationalCandidates": [],
+      "exponentialProposal": {
+        "choice": {
+          "mode": "unchanged",
+          "reason": "Keep the approved 2000-PV muzzle profile. The old boss rule was 1000 PV and ordinary targets were forced dead, so one finite energy curve cannot reproduce both."
+        },
+        "kappa": 0.007999999999997665,
+        "muzzleDamage": 2000.0000000003963,
+        "mean0To30": 1588.402534141497
+      },
+      "minimumMeanCandidate": {
+        "kappa": 0.03581876333178438,
+        "muzzleDamage": 2046.999918031029,
+        "damageAt10": 1000,
+        "mean0To30": 841.4343723433004,
+        "damageAt30": 238.65159949943612,
+        "theoreticalDamageAt100": 1.5846726868125955,
+        "timeAt30": 0.1196587301025919,
+        "dropAt30": 0.070230828338297,
+        "fourSecondDistance": 116.74466889707328,
+        "meanErrorPercent": -15.856562765669956
+      },
+      "samples": [
+        {
+          "distance": 0,
+          "legacyDamage": 1000,
+          "legacyReachable": true,
+          "previousDamage": 2000.0000000003963,
+          "currentDamage": 2000.0000000003963,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 100.00000000003962,
+          "currentTime": 0,
+          "currentDrop": 0
+        },
+        {
+          "distance": 4,
+          "legacyDamage": 1000,
+          "legacyReachable": true,
+          "previousDamage": 1876.0099990618658,
+          "currentDamage": 1876.0099990618658,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 87.60099990618657,
+          "currentTime": 0.00903264036253285,
+          "currentDrop": 0.0004001920433619965
+        },
+        {
+          "distance": 10,
+          "legacyDamage": 1000,
+          "legacyReachable": true,
+          "previousDamage": 1704.28757793284,
+          "currentDamage": 1704.28757793284,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 70.42875779328399,
+          "currentTime": 0.023135296576377102,
+          "currentDrop": 0.0026253617533553227
+        },
+        {
+          "distance": 12,
+          "legacyDamage": 1000,
+          "legacyReachable": true,
+          "previousDamage": 1650.6137369837843,
+          "currentDamage": 1650.6137369837843,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 65.06137369837843,
+          "currentTime": 0.027988628887215965,
+          "currentDrop": 0.0038423972169678014
+        },
+        {
+          "distance": 30,
+          "legacyDamage": 1000,
+          "legacyReachable": true,
+          "previousDamage": 1237.5667836127004,
+          "currentDamage": 1237.5667836127004,
+          "currentReachable": true,
+          "relativeToLegacyPercent": 23.756678361270044,
+          "currentTime": 0.07534698620038745,
+          "currentDrop": 0.02784651065610615
+        },
+        {
+          "distance": 50,
+          "legacyDamage": 0,
+          "legacyReachable": false,
+          "previousDamage": 898.657928234831,
+          "currentDamage": 898.657928234831,
+          "currentReachable": true,
+          "relativeToLegacyPercent": null,
+          "currentTime": 0.13661797156701103,
+          "currentDrop": 0.09154922611069012
+        },
+        {
+          "distance": 100,
+          "legacyDamage": 0,
+          "legacyReachable": false,
+          "previousDamage": 403.7930359895794,
+          "currentDamage": 403.7930359895794,
+          "currentReachable": true,
+          "relativeToLegacyPercent": null,
+          "currentTime": 0.3404280356923072,
+          "currentDrop": 0.5684465689155083
+        }
+      ],
+      "kernelAgreement": {
+        "maxDamageAbsoluteError": 0,
+        "maxTimeAbsoluteError": 0,
+        "maxDropAbsoluteError": 0,
+        "maxContactDamageAbsoluteError": 6.821210263296962e-13
+      }
+    }
+  ]
+}

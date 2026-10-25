@@ -1,0 +1,50 @@
+/* Frisson (15+) feedback (art/frisson/UI-SOUND.md), linked by feedback.js only in a Frisson room, after style.css and frisson.css: same-specificity rules win; removing the link restores Famille.
+   Bone, rust and dried blood instead of warm gold and icy blue; a 7x7 pixel skull instead of the star (14 px: whole device pixels at 100 % and 150 %); stepped motion that never overshoots. Colours only on Famille's own selectors. */
+/* Hit marker: bone, then blood-red framed in bone; the peak brightness still rises with the tier. */
+.hit-marker.tier-hit{font-size:32px;color:#d8cfbd;text-shadow:0 1px 0 #000,0 0 3px #000;animation:frisson-hit 120ms steps(2,end)}
+.hit-marker.tier-headshot{font-size:40px;color:#ebe2d0;text-shadow:0 1px 0 #000,0 0 3px #000,0 0 8px #5e0909;animation:frisson-hit 200ms steps(2,end)}
+.hit-marker.tier-kill{font-size:46px;color:#c0261e;-webkit-text-stroke:1px #f0e6d2;text-shadow:0 1px 0 #000,0 0 3px #000,0 0 10px #4a0606;animation:frisson-flinch 260ms steps(1,end)}
+.hit-marker.tier-headshotKill{font-size:52px;color:#d8352a;-webkit-text-stroke:1px #f4ecdc;text-shadow:0 1px 0 #000,0 0 3px #000,0 0 14px #5e0909;animation:frisson-flinch 340ms steps(1,end)}
+.hit-marker.tier-headshot::after{border:2px dashed #8c1212;animation:hit-ring 200ms steps(4,end) forwards}
+.hit-marker.tier-headshotKill::after{border:2px dashed #c0261e;animation:hit-ring 340ms steps(4,end) forwards}
+@keyframes frisson-hit{0%{transform:translate(-50%,-50%) scale(1.15)}100%{transform:translate(-50%,-50%) scale(1)}}
+@keyframes frisson-flinch{0%{transform:translate(-50%,-50%) translateX(-2px) scale(1.3)}25%{transform:translate(-50%,-50%) translateX(2px) scale(1.12)}50%{transform:translate(-50%,-50%) translateX(-1px) scale(1.04)}75%,100%{transform:translate(-50%,-50%)}}
+/* Score popup: bone '+N' with no glyph; a head shot's label reads CRÂNE in lit blood. */
+.score-popup:not(.coin){color:#d8cfbd;text-shadow:0 2px 0 #000,0 0 8px #4a0606aa}
+.score-popup:not(.coin)::before{content:none}
+.score-popup.headshot{color:#ebe2d0}
+.score-popup.headshot small{font-size:11px;letter-spacing:3px;color:#d8352a;text-shadow:0 1px 0 #000}
+/* Score panel and the wave card's score line: the pixel skull, no glow. */
+.score-panel .score-label{color:#9a9284}
+.score-panel #score-value{color:#e6dccb}
+.score-panel #score-value::before{content:'';flex:none;width:14px;height:14px;text-shadow:none;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 7' shape-rendering='crispEdges'><path fill='%23d8cfbd' d='M1 0h5v1H1zM0 1h7v1H0zM0 2h1v2H0zM3 2h1v2H3zM6 2h1v2H6zM0 4h3v1H0zM4 4h3v1H4zM1 5h5v1H1zM1 6h1v1H1zM3 6h1v1H3zM5 6h1v1H5z'/></svg>") 0 0/14px 14px no-repeat}
+.score-panel #score-value.score-bump{transform:scale(1.08);color:#f0e6d2}
+.kills-line strong{color:#c9bfae;text-shadow:0 2px 8px #000,0 0 10px #4a060655}
+.kills-line small{color:#9a9284}
+.wave-card-score{color:#d8cfbd}
+.wave-card-score::before{content:'';display:inline-block;width:14px;height:14px;margin-right:6px;vertical-align:-2px;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 7' shape-rendering='crispEdges'><path fill='%23d8cfbd' d='M1 0h5v1H1zM0 1h7v1H0zM0 2h1v2H0zM3 2h1v2H3zM6 2h1v2H6zM0 4h3v1H0zM4 4h3v1H4zM1 5h5v1H1zM1 6h1v1H1zM3 6h1v1H3zM5 6h1v1H5z'/></svg>") 0 0/14px 14px no-repeat}
+/* Wallet and coins: tarnished brass, still money; a smaller bump, no outer glow. The label too, never Famille's amber. */
+.wallet{color:#b0915a}
+.wallet strong{color:#c8ad78}
+.wallet strong::before{background:radial-gradient(circle at 35% 35%,#e0cf9a,#b0915a 45%,#6e5424);box-shadow:inset 0 0 0 2px #7a5a2488}
+.wallet strong.score-bump{transform:scale(1.06);color:#e0cf9a}
+.score-popup.coin{color:#c8ad78;text-shadow:0 2px 6px #000}
+.score-popup.coin::before{background:radial-gradient(circle at 35% 35%,#e0cf9a,#b0915a 45%,#6e5424);box-shadow:inset 0 0 0 2px #7a5a2488}
+/* Chain banner: an epitaph, bone at first, then a red that climbs the word and a deepening glow; darker at each step, never brighter.
+   Tiers 1-2 keep style.css's sizes (38 px, 46 px with chain-5/chain-6): no size rule on .chain-5/.chain-6 here, or tiers 3-6 would shrink.
+   Readable on the night: the lowest quarter of the letters (64-78 % down the line box) reaches 3 : 1 on #15191c. The first reds (rust #9a3a26,
+   #8c1c14, #a02018, #b0241c over #7a1410) measured 2.0 to 2.6 : 1, and lifting the end to #a02018 could not reach 3 : 1 (#a02018 alone is
+   2.3 : 1), so each tier's two reds rose together toward lit blood #d8352a, just far enough (HUD sheet, 14 October 2026); tier 5's end rose once
+   more (#be2c23 to #c22d24) when THE REAPER, a rounder word, took count 30 (2.999 : 1). Tiers 4-6 now differ more by size and glow than by red. */
+.chain-banner strong{font-family:'Palatino Linotype','Book Antiqua',Georgia,serif;font-weight:700;letter-spacing:5px;background:linear-gradient(#ece2ce,#a89880);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 2px 6px #000)}
+.chain-banner small{color:#c9bfae}
+.chain-banner.chain-2,.chain-banner.chain-3,.chain-banner.chain-4,.chain-banner.chain-5,.chain-banner.chain-6{animation:frisson-chain 1300ms ease-out forwards}
+@keyframes frisson-chain{0%{transform:translate(-50%,-50%) scale(1.06);opacity:0;filter:blur(3px)}10%{transform:translate(-50%,-50%) scale(1);opacity:1;filter:blur(0)}77%{transform:translate(-50%,-50%) scale(1);opacity:1;filter:blur(0)}100%{transform:translate(-50%,-50%) translateY(-6px);opacity:0;filter:blur(0)}}
+.chain-banner.chain-tier-3 strong{font-size:min(48px,9vw);background:linear-gradient(#e6dac4,#bc3728 70%,#ae261e);-webkit-background-clip:text;background-clip:text;-webkit-text-stroke:.5px #d8cfbd66;filter:drop-shadow(0 2px 6px #000) drop-shadow(0 0 12px #3a0604aa)}
+.chain-banner.chain-tier-4 strong{font-size:min(52px,9vw);background:linear-gradient(#e6d8c2,#c52f25 55%,#c12d24);-webkit-background-clip:text;background-clip:text;-webkit-text-stroke:.5px #d8cfbd66;filter:drop-shadow(0 2px 6px #000) drop-shadow(0 0 16px #5a0808aa);animation:frisson-flicker .45s steps(1,end)}
+.chain-banner.chain-tier-5 strong{font-size:min(56px,9vw);background:linear-gradient(#f0e6d2,#c82f25 45%,#c22d24);-webkit-background-clip:text;background-clip:text;-webkit-text-stroke:.5px #d8cfbd66;filter:drop-shadow(0 2px 6px #000) drop-shadow(0 0 20px #6e0a0acc);animation:frisson-flicker .5s steps(1,end)}
+.chain-banner.chain-tier-6 strong{font-size:min(60px,9vw);letter-spacing:4px;background:linear-gradient(#f4ecdc,#cc3026 40%,#bc2b22);-webkit-background-clip:text;background-clip:text;-webkit-text-stroke:.5px #d8cfbd66;filter:drop-shadow(0 2px 6px #000) drop-shadow(0 0 24px #8c1212cc);animation:frisson-flicker .55s steps(1,end)}
+/* Four steps at most, never under .75 opacity, then rest: no rotation, no wobble. */
+@keyframes frisson-flicker{0%{transform:translateX(-2px);opacity:.75}20%{transform:translateX(2px);opacity:1}40%{transform:translateX(-1px);opacity:.85}60%{transform:translateX(1px);opacity:1}80%,100%{transform:none;opacity:1}}
+.team-chain{color:#d6cdbb;background:#120f0ecc;border-left-color:#6e1a16}
+@media (prefers-reduced-motion: reduce){.hit-marker,.hit-marker::after,.chain-banner,.chain-banner strong,.team-chain{animation:none!important}}

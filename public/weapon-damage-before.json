@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "provenance": {
+    "label": "Refuge habituel avant le modèle physique",
+    "checkedAt": "2026-10-17T09:09:55.9401583Z",
+    "sourceUrl": "http://127.0.0.1:3002/world.json",
+    "responseSha256": "b059f6bfd10fced0b708102dee6ad44f74d3e220511f1f5ef2674012b8913306",
+    "sourceRepositoryHead": "bbab5b252c6703bfb19afb651e9898e15d343086",
+    "sourceFilesClean": true,
+    "sources": [
+      { "path": "public/ballistics.js", "sha256": "82e8969eca601d154ed8824b86c830b732e1595ebde586cac9f68a9cd0a1531c", "servedUrl": "http://127.0.0.1:3002/ballistics.js", "servedMatchesLocal": true },
+      { "path": "public/rules.js", "sha256": "0ca48f0e1857c46385b40c31a56f62df543e759d41f38f1b41cf3198daecbdee", "servedUrl": "http://127.0.0.1:3002/rules.js", "servedMatchesLocal": true },
+      { "path": "simulation.mjs", "sha256": "16745180e34f92296bd59f13c0fb1be64fca6548bf2097a2e3a76aba817d39d4" },
+      { "path": "public/melee-reach.js", "sha256": "12c87d8c0e174912e985872c618dc6c3f349c0834af2e8f90a130a48ae279842", "servedUrl": "http://127.0.0.1:3002/melee-reach.js", "servedMatchesLocal": true }
+    ],
+    "scope": "Frozen live weapon settings; first unobstructed target, body hit, no armor or upgrades. Damage before clipping to remaining HP, except explicit ordinary Magnum example.",
+    "formulas": {
+      "legacy": "near until start; linear interpolation from near to far between start and end; far afterward",
+      "beyond30m": "when longRangeDamage50 exists, interpolate legacyFalloff(30) to min(legacyFalloff(30), longRangeDamage50/damage) over 30..50m; constant afterward",
+      "shotgun": "multiply by 1+(multiplier-1)*(1-t*t*(3-2*t)), t=clamp((distance-fullUntil)/(end-fullUntil),0,1), below boost.end",
+      "sniper": "longRangePenetration bypasses falloff; 350 damage until strict maximum range",
+      "maximumRange": "bullet contact requires hitAt < weapon.range; zero at and beyond range",
+      "penetration": "first target index=0: multiplier 1; no secondary-target damage included",
+      "headshots": "excluded; old ordinary bullets used currentWaveBalance headshotMultiplier; Magnum oneShot ignored it",
+      "magnum": "ordinary target HP is set to zero; bosses lose fixed 1000 HP; stored weapon.damage=200 was not actual zombie damage",
+      "rocket": "distance from explosion center: damage through innerRadius inclusive, linear decrease to zero at radiusDamage; flight distance does not attenuate blast",
+      "flamethrower": "direct contact DPS inside cone; separate burnDps and burnDuration not summed into direct DPS",
+      "melee": "first target light or heavy damage within selected attack reach; no falloff or subsequent-target retention"
+    }
+  },
+  "specialRules": { "magnumBossDamage": 1000 },
+  "weapons": {
+    "pistol": { "name": "Pistolet", "magazine": 12, "reserve": 36, "damage": 24, "longRangeDamage50": 8, "interval": 0.25, "reloadTime": 1.25, "range": 60, "pellets": 1, "spread": 0.016, "penetrationTargets": 1, "penetrationRetention": 1, "falloff": { "start": 8, "end": 25, "far": 0.5, "near": 1.0483870967741935 } },
+    "rifle": { "name": "Mitrailleuse", "magazine": 30, "reserve": 90, "damage": 30, "longRangeDamage50": 28, "interval": 0.09, "reloadTime": 1.65, "range": 65, "pellets": 1, "spread": 0.008, "penetrationTargets": 3, "penetrationRetention": 0.65, "falloff": { "start": 20, "end": 50, "far": 0.8, "near": 1 } },
+    "shotgun": { "name": "Fusil à pompe", "magazine": 8, "reserve": 24, "damage": 18, "interval": 0.85, "reloadTime": 2.4, "range": 32, "pellets": 9, "spread": 0.11, "penetrationTargets": 2, "penetrationRetention": 0.45, "falloff": { "start": 6, "end": 18, "far": 0.4, "near": 1.1714285679846943 }, "closeRangeBoost": { "fullUntil": 1, "end": 4, "multiplier": 2 } },
+    "smg": { "name": "Pistolet-mitrailleur", "magazine": 40, "reserve": 120, "damage": 19, "longRangeDamage50": 6, "interval": 0.085, "reloadTime": 1.5, "range": 30, "pellets": 1, "spread": 0.025, "penetrationTargets": 2, "penetrationRetention": 0.55, "falloff": { "start": 6, "end": 20, "far": 0.55, "near": 1.1058823508974915 } },
+    "minigun": { "name": "Minigun", "magazine": 75, "reserve": 75, "damage": 30, "longRangeDamage50": 15, "interval": 0.055, "reloadTime": 3.4, "range": 65, "pellets": 1, "spread": 0.025, "penetrationTargets": 4, "penetrationRetention": 0.7, "falloff": { "start": 12, "end": 35, "far": 0.65, "near": 1.0025547438821993 } },
+    "magnum": { "name": "Magnum doré", "magazine": 6, "reserve": 0, "damage": 200, "interval": 0.7, "reloadTime": 2.7, "range": 45, "pellets": 1, "spread": 0.002, "penetrationTargets": 1, "penetrationRetention": 1, "oneShot": true },
+    "assault": { "name": "Fusil d’assaut", "magazine": 24, "reserve": 72, "damage": 42, "longRangeDamage50": 18, "interval": 0.13, "reloadTime": 1.6, "range": 55, "pellets": 1, "spread": 0.006, "penetrationTargets": 2, "penetrationRetention": 0.6, "falloff": { "start": 18, "end": 45, "far": 0.7, "near": 1 } },
+    "rocket": { "name": "Lance-roquettes", "magazine": 1, "reserve": 2, "damage": 700, "interval": 0.8, "reloadTime": 2.8, "range": 60, "pellets": 1, "spread": 0, "penetrationTargets": 1, "penetrationRetention": 1, "explosive": true, "innerRadius": 2, "radiusDamage": 4 },
+    "flamethrower": { "name": "Lance-flammes", "magazine": 80, "reserve": 40, "damage": 6.25, "interval": 0.125, "reloadTime": 3, "pellets": 1, "spread": 0, "penetrationTargets": 1, "penetrationRetention": 1, "fuel": true, "range": 5, "coneAngle": 0.6981317007977318, "contactDps": 50, "burnDps": 175, "burnDuration": 4 },
+    "katana": { "name": "Katana", "melee": true, "magazine": 0, "reserve": 0, "damage": 216, "interval": 0.55, "reloadTime": 0, "range": 1.9, "pellets": 0, "spread": 0, "penetrationTargets": 3, "penetrationRetention": 0.75, "attacks": { "light": { "damage": 216, "range": 1.9, "coneAngle": 1.3962634015954636, "windup": 0.16, "duration": 0.55, "interval": 0.55, "maxTargets": 3, "retention": 0.75 }, "heavy": { "damage": 504, "range": 2.1, "coneAngle": 1.1344640137963142, "windup": 0.7, "duration": 1.5, "interval": 1.5, "maxTargets": 3, "retention": 0.75 } } },
+    "hammer": { "name": "Masse à pointes", "melee": true, "magazine": 0, "reserve": 0, "damage": 300, "interval": 0.8, "reloadTime": 0, "range": 1.8, "pellets": 0, "spread": 0, "penetrationTargets": 2, "penetrationRetention": 0.5, "attacks": { "light": { "damage": 300, "range": 1.8, "coneAngle": 1.0471975511965976, "windup": 0.3, "duration": 0.8, "interval": 0.8, "maxTargets": 2, "retention": 0.5 }, "heavy": { "damage": 900, "range": 2, "coneAngle": 0.7853981633974483, "windup": 0.75, "duration": 2.2, "interval": 2.2, "maxTargets": 2, "retention": 0.5 } }, "pushMultiplier": 2 },
+    "sniper": { "name": "Fusil à verrou", "magazine": 5, "reserve": 10, "damage": 350, "interval": 1.25, "reloadTime": 3, "range": 90, "pellets": 1, "spread": 0.001, "penetrationTargets": 6, "penetrationRetention": 0.85, "longRangePenetration": true },
+    "bat": { "name": "Batte en bois", "melee": true, "magazine": 0, "reserve": 0, "damage": 120, "interval": 0.4, "reloadTime": 0, "range": 1.6, "pellets": 0, "spread": 0, "penetrationTargets": 1, "penetrationRetention": 1, "attacks": { "light": { "damage": 120, "range": 1.6, "coneAngle": 0.8726646259971648, "windup": 0.12, "duration": 0.4, "interval": 0.4, "maxTargets": 1, "retention": 1 }, "heavy": { "damage": 200, "range": 1.8, "coneAngle": 0.6981317007977318, "windup": 0.35, "duration": 1, "interval": 1, "maxTargets": 1, "retention": 1 } } },
+    "fireaxe": { "name": "Hache de pompier", "melee": true, "magazine": 0, "reserve": 0, "damage": 160, "interval": 0.6, "reloadTime": 0, "range": 1.8, "pellets": 0, "spread": 0, "penetrationTargets": 2, "penetrationRetention": 0.75, "attacks": { "light": { "damage": 160, "range": 1.8, "coneAngle": 1.7453292519943295, "windup": 0.4, "duration": 0.6, "interval": 0.6, "maxTargets": 2, "retention": 0.75 }, "heavy": { "damage": 320, "range": 2, "coneAngle": 1.5707963267948966, "windup": 0.55, "duration": 1.4, "interval": 1.4, "maxTargets": 2, "retention": 0.75 } } }
+  }
+}

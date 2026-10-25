@@ -1,0 +1,107 @@
+{
+  "date": "2026-10-18",
+  "generator": "built-in image_gen",
+  "style": "flat filled silhouettes matching the existing weapon HUD; rendered through the same CSS alpha-mask approach",
+  "reference": "weapon-silhouette-reference.png",
+  "processing": "resize to 128x128 and lossless WebP encoding only; original alpha retained",
+  "icons": [
+    {
+      "kind": "stone",
+      "source": "source/stone.png",
+      "asset": "public/bonus-icons/stone.webp",
+      "originalGenerationFilename": "exec-a9d73a4b-f0cb-45c1-865f-bbab68f97fe7.png",
+      "prompt": "Use case: style-transfer. Asset type: single flat bonus silhouette for the Deadwood game HUD. The supplied reference board shows the ACTUAL weapon silhouettes used by this game. Match those solid simple shapes exactly in graphic treatment: one uniform flat warm sand-gold color (#E5AA60), bold opaque filled silhouette, simple subtly angular contour. Absolutely no gradient, lighting, texture, grain, shading, outline strokes, thin lines, bevel, 3D, noise or distressed specks. This must resemble a crisp cut-paper symbol. Transparent background and clean transparent cutouts ONLY where necessary for recognition, no frame, no badge, no scene, no text or watermark. Square icon, centered object about 72 percent occupancy, generous transparent margin, readable at 24 pixels. Do not reproduce the reference board, its labels, panels or other weapons; output only the requested new isolated icon. Subject: REINFORCED MELEE WEAPONS — one sturdy short-handled axe resting diagonally on a low rectangular sharpening stone. Filled flat tool shapes with a single clear separation cutout; no extra decorative elements."
+    },
+    {
+      "kind": "perforating",
+      "source": "source/perforating.png",
+      "asset": "public/bonus-icons/perforating.webp",
+      "originalGenerationFilename": "exec-3d094806-c67a-418a-840d-a38c6d76305a.png",
+      "prompt": "Use case: style-transfer. Asset type: single flat bonus silhouette for the Deadwood game HUD. The supplied reference board shows the ACTUAL weapon silhouettes used by this game. Match those solid simple shapes exactly in graphic treatment: one uniform flat warm sand-gold color (#E5AA60), bold opaque filled silhouette, simple subtly angular contour. Absolutely no gradient, lighting, texture, grain, shading, outline strokes, thin lines, bevel, 3D, noise or distressed specks. This must resemble a crisp cut-paper symbol. Transparent background and clean transparent cutouts ONLY where necessary for recognition, no frame, no badge, no scene, no text or watermark. Square icon, centered object about 72 percent occupancy, generous transparent margin, readable at 24 pixels. Do not reproduce the reference board, its labels, panels or other weapons; output only the requested new isolated icon. Subject: ARMOR-PIERCING ROUNDS — one pointed cartridge going diagonally through a small rectangular metal plate, with a clear large broken gap in the plate. Bold bullet silhouette dominates; just two simple plate fragments."
+    },
+    {
+      "kind": "extended",
+      "source": "source/extended.png",
+      "asset": "public/bonus-icons/extended.webp",
+      "originalGenerationFilename": "exec-bc10c649-4343-434f-a44e-446b9208b97a.png",
+      "prompt": "Use case: style-transfer. Asset type: single flat bonus silhouette for the Deadwood game HUD. The supplied reference board shows the ACTUAL weapon silhouettes used by this game. Match those solid simple shapes exactly in graphic treatment: one uniform flat warm sand-gold color (#E5AA60), bold opaque filled silhouette, simple subtly angular contour. Absolutely no gradient, lighting, texture, grain, shading, outline strokes, thin lines, bevel, 3D, noise or distressed specks. This must resemble a crisp cut-paper symbol. Transparent background and clean transparent cutouts ONLY where necessary for recognition, no frame, no badge, no scene, no text or watermark. Square icon, centered object about 72 percent occupancy, generous transparent margin, readable at 24 pixels. Do not reproduce the reference board, its labels, panels or other weapons; output only the requested new isolated icon. Subject: EXTENDED MAGAZINE — one compact curved rifle magazine with a stepped top and three simple short cartridge tips visible above its rim. Filled body with only two large simple slot cutouts."
+    },
+    {
+      "kind": "reinforced",
+      "source": "source/reinforced.png",
+      "asset": "public/bonus-icons/reinforced.webp",
+      "originalGenerationFilename": "exec-a66f534c-cc94-49fd-88c8-587b5fd441bb.png",
+      "prompt": "Use case: style-transfer. Asset type: single flat bonus silhouette for the Deadwood game HUD. The supplied reference board shows the ACTUAL weapon silhouettes used by this game. Match those solid simple shapes exactly in graphic treatment: one uniform flat warm sand-gold color (#E5AA60), bold opaque filled silhouette, simple subtly angular contour. Absolutely no gradient, lighting, texture, grain, shading, outline strokes, thin lines, bevel, 3D, noise or distressed specks. This must resemble a crisp cut-paper symbol. Transparent background and clean transparent cutouts ONLY where necessary for recognition, no frame, no badge, no scene, no text or watermark. Square icon, centered object about 72 percent occupancy, generous transparent margin, readable at 24 pixels. Do not reproduce the reference board, its labels, panels or other weapons; output only the requested new isolated icon. Subject: REINFORCED AMMUNITION — two thick pointed cartridges slightly crossed, their tips pointing up. One small solid four-point energy spark beside the tips; simple filled shapes, no elaborate decorations."
+    },
+    {
+      "kind": "vitamins",
+      "source": "source/vitamins.png",
+      "asset": "public/bonus-icons/vitamins.webp",
+      "originalGenerationFilename": "exec-3c1279a2-766a-48a1-a636-5ba4a419cfbe.png",
+      "prompt": "Use case: style-transfer. Asset type: single flat bonus silhouette for the Deadwood game HUD. The supplied reference board shows the ACTUAL weapon silhouettes used by this game. Match those solid simple shapes exactly in graphic treatment: one uniform flat warm sand-gold color (#E5AA60), bold opaque filled silhouette, simple subtly angular contour. Absolutely no gradient, lighting, texture, grain, shading, outline strokes, thin lines, bevel, 3D, noise or distressed specks. This must resemble a crisp cut-paper symbol. Transparent background and clean transparent cutouts ONLY where necessary for recognition, no frame, no badge, no scene, no text or watermark. Square icon, centered object about 72 percent occupancy, generous transparent margin, readable at 24 pixels. Do not reproduce the reference board, its labels, panels or other weapons; output only the requested new isolated icon. Subject: VITAMINS — one squat vitamin bottle with a wide short cap and a large lightning bolt cut out of the filled bottle body. One bold compact silhouette, no loose capsules, no text label."
+    },
+    {
+      "kind": "reload",
+      "source": "source/reload.png",
+      "asset": "public/bonus-icons/reload.webp",
+      "originalGenerationFilename": "exec-22ff243c-07be-4933-bbb8-10d364f7224b.png",
+      "prompt": "Use case: style-transfer. Asset type: single flat bonus silhouette for the Deadwood game HUD. The supplied reference board shows the ACTUAL weapon silhouettes used by this game. Match those solid simple shapes exactly in graphic treatment: one uniform flat warm sand-gold color (#E5AA60), bold opaque filled silhouette, simple subtly angular contour. Absolutely no gradient, lighting, texture, grain, shading, outline strokes, thin lines, bevel, 3D, noise or distressed specks. This must resemble a crisp cut-paper symbol. Transparent background and clean transparent cutouts ONLY where necessary for recognition, no frame, no badge, no scene, no text or watermark. Square icon, centered object about 72 percent occupancy, generous transparent margin, readable at 24 pixels. Do not reproduce the reference board, its labels, panels or other weapons; output only the requested new isolated icon. Subject: FASTER RELOAD — one upright pointed cartridge surrounded by one thick clockwise circular arrow. A single clear arrowhead and generous open space around the cartridge, very bold simple symbol."
+    },
+    {
+      "kind": "switching",
+      "source": "source/switching.png",
+      "asset": "public/bonus-icons/switching.webp",
+      "originalGenerationFilename": "exec-c715f191-4a7d-4a37-8fb3-77a6e552188b.png",
+      "prompt": "Use case: style-transfer. Asset type: single flat bonus silhouette for the Deadwood game HUD. The supplied reference board shows the ACTUAL weapon silhouettes used by this game. Match those solid simple shapes exactly in graphic treatment: one uniform flat warm sand-gold color (#E5AA60), bold opaque filled silhouette, simple subtly angular contour. Absolutely no gradient, lighting, texture, grain, shading, outline strokes, thin lines, bevel, 3D, noise or distressed specks. This must resemble a crisp cut-paper symbol. Transparent background and clean transparent cutouts ONLY where necessary for recognition, no frame, no badge, no scene, no text or watermark. Square icon, centered object about 72 percent occupancy, generous transparent margin, readable at 24 pixels. Do not reproduce the reference board, its labels, panels or other weapons; output only the requested new isolated icon. Subject: QUICK HANDS — two sturdy work gloves crossed at their wrists, three short broad speed streaks beside them. Keep the fingers as a simple filled mitten-like contour with only one large notch to indicate the thumb; no seams or fine detail."
+    },
+    {
+      "kind": "vitality",
+      "source": "source/vitality.png",
+      "asset": "public/bonus-icons/vitality.webp",
+      "originalGenerationFilename": "exec-35372124-43ce-46fb-a3a6-3be96715c2c5.png",
+      "prompt": "Use case: style-transfer. Asset type: single flat bonus silhouette for the Deadwood game HUD. The supplied reference board shows the ACTUAL weapon silhouettes used by this game. Match those solid simple shapes exactly in graphic treatment: one uniform flat warm sand-gold color (#E5AA60), bold opaque filled silhouette, simple subtly angular contour. Absolutely no gradient, lighting, texture, grain, shading, outline strokes, thin lines, bevel, 3D, noise or distressed specks. This must resemble a crisp cut-paper symbol. Transparent background and clean transparent cutouts ONLY where necessary for recognition, no frame, no badge, no scene, no text or watermark. Square icon, centered object about 72 percent occupancy, generous transparent margin, readable at 24 pixels. Do not reproduce the reference board, its labels, panels or other weapons; output only the requested new isolated icon. Subject: VITALITY — one broad filled heart with a large simple medical plus sign cut out of its center. Symmetric compact heart, chunky clean cutout; no extra objects."
+    },
+    {
+      "kind": "rainproof",
+      "source": "source/rainproof.png",
+      "asset": "public/bonus-icons/rainproof.webp",
+      "originalGenerationFilename": "exec-0be144c1-5825-4992-aa61-e35c66c8f0fb.png",
+      "prompt": "Use case: style-transfer. Asset type: single flat bonus silhouette for the Deadwood game HUD. The supplied reference board shows the ACTUAL weapon silhouettes used by this game. Match those solid simple shapes exactly in graphic treatment: one uniform flat warm sand-gold color (#E5AA60), bold opaque filled silhouette, simple subtly angular contour. Absolutely no gradient, lighting, texture, grain, shading, outline strokes, thin lines, bevel, 3D, noise or distressed specks. This must resemble a crisp cut-paper symbol. Transparent background and clean transparent cutouts ONLY where necessary for recognition, no frame, no badge, no scene, no text or watermark. Square icon, centered object about 72 percent occupancy, generous transparent margin, readable at 24 pixels. Do not reproduce the reference board, its labels, panels or other weapons; output only the requested new isolated icon. Subject: RAINPROOF — one open umbrella with a broad solid rounded canopy, clear hooked handle and three solid raindrops to one side. Bold simple filled shapes, no thin ribs, no outline-only umbrella."
+    },
+    {
+      "kind": "toughskin",
+      "source": "source/toughskin.png",
+      "asset": "public/bonus-icons/toughskin.webp",
+      "originalGenerationFilename": "exec-24d156e8-8eeb-4731-ad92-ae81adce55f4.png",
+      "prompt": "Use case: style-transfer. Asset type: single flat bonus silhouette for the Deadwood game HUD. The supplied reference board shows the ACTUAL weapon silhouettes used by this game. Match those solid simple shapes exactly in graphic treatment: one uniform flat warm sand-gold color (#E5AA60), bold opaque filled silhouette, simple subtly angular contour. Absolutely no gradient, lighting, texture, grain, shading, outline strokes, thin lines, bevel, 3D, noise or distressed specks. This must resemble a crisp cut-paper symbol. Transparent background and clean transparent cutouts ONLY where necessary for recognition, no frame, no badge, no scene, no text or watermark. Square icon, centered object about 72 percent occupancy, generous transparent margin, readable at 24 pixels. Do not reproduce the reference board, its labels, panels or other weapons; output only the requested new isolated icon. Subject: TOUGH SKIN — one sturdy symmetrical medieval-style shield silhouette with thick broad shoulders and a pointed bottom, one large simple check mark cut out of the solid center. No border outline or decoration."
+    },
+    {
+      "kind": "medic",
+      "source": "source/medic.png",
+      "asset": "public/bonus-icons/medic.webp",
+      "originalGenerationFilename": "exec-9ec9b339-ebcd-4a42-b469-dc94317d6941.png",
+      "prompt": "Use case: style-transfer. Asset type: single flat bonus silhouette for the Deadwood game HUD. The supplied reference board shows the ACTUAL weapon silhouettes used by this game. Match those solid simple shapes exactly in graphic treatment: one uniform flat warm sand-gold color (#E5AA60), bold opaque filled silhouette, simple subtly angular contour. Absolutely no gradient, lighting, texture, grain, shading, outline strokes, thin lines, bevel, 3D, noise or distressed specks. This must resemble a crisp cut-paper symbol. Transparent background and clean transparent cutouts ONLY where necessary for recognition, no frame, no badge, no scene, no text or watermark. Square icon, centered object about 72 percent occupancy, generous transparent margin, readable at 24 pixels. Do not reproduce the reference board, its labels, panels or other weapons; output only the requested new isolated icon. Subject: FIRST AIDER — one compact first-aid satchel with a broad short handle above, solid squared bag with slightly clipped corners, and a large medical plus sign cut out of the center. Distinct from a heart or vitamin bottle."
+    },
+    {
+      "kind": "grenadier",
+      "source": "source/grenadier.png",
+      "asset": "public/bonus-icons/grenadier.webp",
+      "originalGenerationFilename": "exec-6546a316-66be-421f-8c39-7d7359118cc1.png",
+      "prompt": "Use case: style-transfer. Asset type: single flat bonus silhouette for the Deadwood game HUD. The supplied reference board shows the ACTUAL weapon silhouettes used by this game. Match those solid simple shapes exactly in graphic treatment: one uniform flat warm sand-gold color (#E5AA60), bold opaque filled silhouette, simple subtly angular contour. Absolutely no gradient, lighting, texture, grain, shading, outline strokes, thin lines, bevel, 3D, noise or distressed specks. This must resemble a crisp cut-paper symbol. Transparent background and clean transparent cutouts ONLY where necessary for recognition, no frame, no badge, no scene, no text or watermark. Square icon, centered object about 72 percent occupancy, generous transparent margin, readable at 24 pixels. Do not reproduce the reference board, its labels, panels or other weapons; output only the requested new isolated icon. Subject: GRENADIER: an upright hand grenade with a filled solid oval body, short neck, safety lever and a single open pin ring. The grenade body is entirely filled, no internal segmented holes. Match the grenade in the reference board; make its contour a little more clear and deliberate."
+    },
+    {
+      "kind": "radar",
+      "source": "source/radar.png",
+      "asset": "public/bonus-icons/radar.webp",
+      "originalGenerationFilename": "exec-023961f4-3c77-4e0b-b376-2d34e5789d1a.png",
+      "prompt": "Use case: style-transfer. Asset type: single flat bonus silhouette for the Deadwood game HUD. The supplied reference board shows the ACTUAL weapon silhouettes used by this game. Match those solid simple shapes exactly in graphic treatment: one uniform flat warm sand-gold color (#E5AA60), bold opaque filled silhouette, simple subtly angular contour. Absolutely no gradient, lighting, texture, grain, shading, outline strokes, thin lines, bevel, 3D, noise or distressed specks. This must resemble a crisp cut-paper symbol. Transparent background and clean transparent cutouts ONLY where necessary for recognition, no frame, no badge, no scene, no text or watermark. Square icon, centered object about 72 percent occupancy, generous transparent margin, readable at 24 pixels. Do not reproduce the reference board, its labels, panels or other weapons; output only the requested new isolated icon. Subject: RECON GLASSES — one compact pair of binoculars seen from slightly above and front: two large joined solid lens barrels, short central bridge, and two clear circular transparent lens cutouts. Bold recognisable binocular silhouette, no glass reflections."
+    },
+    {
+      "kind": "frostaura",
+      "source": "source/frostaura.png",
+      "asset": "public/bonus-icons/frostaura.webp",
+      "originalGenerationFilename": "exec-e82641c1-0de4-4516-ba88-1b996e3a978b.png",
+      "prompt": "Use case: style-transfer. Asset type: single flat bonus silhouette for the Deadwood game HUD. The supplied reference board shows the ACTUAL weapon silhouettes used by this game. Match those solid simple shapes exactly in graphic treatment: one uniform flat warm sand-gold color (#E5AA60), bold opaque filled silhouette, simple subtly angular contour. Absolutely no gradient, lighting, texture, grain, shading, outline strokes, thin lines, bevel, 3D, noise or distressed specks. This must resemble a crisp cut-paper symbol. Transparent background and clean transparent cutouts ONLY where necessary for recognition, no frame, no badge, no scene, no text or watermark. Square icon, centered object about 72 percent occupancy, generous transparent margin, readable at 24 pixels. Do not reproduce the reference board, its labels, panels or other weapons; output only the requested new isolated icon. Subject: FROST AURA — one symmetrical bold six-armed snowflake, each thick solid arm ending in two short stout diagonal prongs. Compact connected snowflake shape, no enclosing circle, no fine line drawing."
+    }
+  ]
+}

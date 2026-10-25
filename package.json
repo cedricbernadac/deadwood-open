@@ -1,0 +1,27 @@
+{
+  "name": "deadwood-last-light",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "An original cooperative Three.js zombie survival game for a local network.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "start:lan": "node lan-gateway.mjs",
+    "start:supermarket": "node start-supermarket.mjs",
+    "start:hospital": "node start-hospital.mjs",
+    "start:funfair": "node start-funfair.mjs",
+    "dev": "node --watch server.mjs",
+    "build:online": "node online-client-build.mjs",
+    "start:online": "node online-client-build.mjs && node online-gateway.mjs",
+    "companions": "node companion-brain/brain.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "three": "0.180.0",
+    "ws": "8.21.0"
+  }
+}

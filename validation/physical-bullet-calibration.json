@@ -1,0 +1,2128 @@
+{
+  "generatedAt": "2026-10-16T22:51:39.280Z",
+  "status": "frozen",
+  "model": {
+    "conversionPvPerJoule": 1,
+    "airDensity": 1.225,
+    "energy": "0.5*mass*muzzleSpeed^2*exp(-2*kappa*distance)",
+    "damage": "conversionPvPerJoule*transmission*energy",
+    "kappa": "airDensity*dragArea/(2*mass)",
+    "penetration": "remainingEnergy *= 1-transmission per body; v *= sqrt(1-transmission)",
+    "fit": "Preserve old continuous mean over2..14m exactly; round kappa; Magnum muzzle damage2000.",
+    "technicalTermination": {
+      "maxLifeSeconds": 4,
+      "minimumDamagePvPerProjectile": 0.01,
+      "note": "Technical end may retain nonzero damage; graph must end without a false zero. Terrain and obstacles normally intercept earlier."
+    }
+  },
+  "baseline": {
+    "commit": "0b4fa5af7fb8ea245b482728bb644e99d74060c1",
+    "definition": "WEAPONS extracted from commit, old near/30-50/fade formulas reproduced, outdoor endings120/110/80/180/240/220/300",
+    "simulationSha256": "92fba6351ab4aeb6ba5278e41b728097c5ca27126f50382bcf02b31a1b30f641"
+  },
+  "distances": [
+    0,
+    1,
+    4,
+    12,
+    20,
+    30,
+    50,
+    100,
+    200
+  ],
+  "rows": [
+    {
+      "id": "pistol",
+      "kappa": 0.009,
+      "targetMean2To14": 23.99999999999892,
+      "muzzleDamage": 27.663409564555693,
+      "profile": {
+        "mass": 0.002734889724622412,
+        "muzzleSpeed": 170,
+        "dragArea": 0.00004018613472914564,
+        "transmission": 0.7
+      },
+      "baselineWeapon": {
+        "name": "Pistolet",
+        "magazine": 12,
+        "reserve": 36,
+        "damage": 24,
+        "longRangeDamage50": 8,
+        "interval": 0.25,
+        "reloadTime": 1.25,
+        "range": 60,
+        "pellets": 1,
+        "spread": 0.016,
+        "penetrationTargets": 1,
+        "penetrationRetention": 1,
+        "falloff": {
+          "start": 8,
+          "end": 25,
+          "far": 0.5,
+          "near": 1.0483870967741935
+        }
+      },
+      "oldDamage": [
+        25.161290322580644,
+        25.161290322580644,
+        25.161290322580644,
+        22.064516129032256,
+        15.870967741935484,
+        12,
+        8,
+        1.5860058309037903,
+        0
+      ],
+      "newDamage": [
+        27.663409564555693,
+        27.16992289647451,
+        25.741657283298284,
+        22.289385656346983,
+        19.300105951597438,
+        16.120803578450744,
+        11.247103013926244,
+        4.57273084543946,
+        0.7558673248876985
+      ],
+      "newMean2To14": 23.99999999999892,
+      "pellets": 1,
+      "baselineNote": null
+    },
+    {
+      "id": "smg",
+      "kappa": 0.011,
+      "targetMean2To14": 18.99999996856666,
+      "muzzleDamage": 22.590662615347902,
+      "profile": {
+        "mass": 0.0034741503445363943,
+        "muzzleSpeed": 170,
+        "dragArea": 0.00006239290414677605,
+        "transmission": 0.45
+      },
+      "baselineWeapon": {
+        "name": "Pistolet-mitrailleur",
+        "magazine": 40,
+        "reserve": 120,
+        "damage": 19,
+        "longRangeDamage50": 6,
+        "interval": 0.085,
+        "reloadTime": 1.5,
+        "range": 30,
+        "pellets": 1,
+        "spread": 0.025,
+        "penetrationTargets": 2,
+        "penetrationRetention": 0.55,
+        "falloff": {
+          "start": 6,
+          "end": 20,
+          "far": 0.55,
+          "near": 1.1058823508974915
+        }
+      },
+      "oldDamage": [
+        21.01176466705234,
+        21.01176466705234,
+        21.01176466705234,
+        16.48529409545848,
+        10.450000000000001,
+        10.450000000000001,
+        6,
+        0.44444444444444375,
+        0
+      ],
+      "newDamage": [
+        22.590662615347902,
+        22.099095106800515,
+        20.68764500239185,
+        17.349031131899153,
+        14.549209500685382,
+        11.676014119794305,
+        7.5197783462285495,
+        2.50311676727845,
+        0.2773532435641674
+      ],
+      "newMean2To14": 18.99999996856666,
+      "pellets": 1,
+      "baselineNote": null
+    },
+    {
+      "id": "shotgun",
+      "kappa": 0.04,
+      "targetMean2To14": 19.04126975745421,
+      "muzzleDamage": 34.76111535262671,
+      "profile": {
+        "mass": 0.00437384276220531,
+        "muzzleSpeed": 170,
+        "dragArea": 0.0002856387110011631,
+        "transmission": 0.55,
+        "spread": 0.11
+      },
+      "baselineWeapon": {
+        "name": "Fusil à pompe",
+        "magazine": 8,
+        "reserve": 24,
+        "damage": 18,
+        "interval": 0.85,
+        "reloadTime": 2.4,
+        "range": 32,
+        "pellets": 9,
+        "spread": 0.11,
+        "penetrationTargets": 2,
+        "penetrationRetention": 0.45,
+        "falloff": {
+          "start": 6,
+          "end": 18,
+          "far": 0.4,
+          "near": 1.1714285679846943
+        },
+        "closeRangeBoost": {
+          "fullUntil": 1,
+          "end": 4,
+          "multiplier": 2
+        }
+      },
+      "oldDamage": [
+        42.171428447448996,
+        42.171428447448996,
+        21.085714223724498,
+        14.14285711186225,
+        7.2,
+        7.2,
+        5.333333333333333,
+        0,
+        0
+      ],
+      "newDamage": [
+        34.76111535262671,
+        32.08855380064116,
+        25.24175044091738,
+        13.309783777081016,
+        7.0181481513058905,
+        3.15345723884747,
+        0.6366720361683444,
+        0.011661055105014506,
+        0.0000039118481896441675
+      ],
+      "newMean2To14": 19.04126975745421,
+      "pellets": 9,
+      "baselineNote": null
+    },
+    {
+      "id": "minigun",
+      "kappa": 0.00499999999999965,
+      "targetMean2To14": 29.999999980843043,
+      "muzzleDamage": 32.47912102883532,
+      "profile": {
+        "mass": 0.00541318683813922,
+        "muzzleSpeed": 200,
+        "dragArea": 0.00004418928031133747,
+        "transmission": 0.3
+      },
+      "baselineWeapon": {
+        "name": "Minigun",
+        "magazine": 75,
+        "reserve": 75,
+        "damage": 30,
+        "longRangeDamage50": 15,
+        "interval": 0.055,
+        "reloadTime": 3.4,
+        "range": 65,
+        "pellets": 1,
+        "spread": 0.025,
+        "penetrationTargets": 4,
+        "penetrationRetention": 0.7,
+        "falloff": {
+          "start": 12,
+          "end": 35,
+          "far": 0.65,
+          "near": 1.0025547438821993
+        }
+      },
+      "oldDamage": [
+        30.07664231646598,
+        30.07664231646598,
+        30.07664231646598,
+        30.07664231646598,
+        26.397810206390858,
+        21.799270068796954,
+        15,
+        11.677488287992109,
+        0
+      ],
+      "newDamage": [
+        32.47912102883532,
+        32.15594837491754,
+        31.205596477455206,
+        28.806396207084283,
+        26.59165521924963,
+        24.061124649888455,
+        19.699582704506643,
+        11.948400893828417,
+        4.395571043714268
+      ],
+      "newMean2To14": 29.999999980845168,
+      "pellets": 1,
+      "baselineNote": null
+    },
+    {
+      "id": "rifle",
+      "kappa": 0.0018,
+      "targetMean2To14": 30,
+      "muzzleDamage": 30.87416107352968,
+      "profile": {
+        "mass": 0.006104628981419611,
+        "muzzleSpeed": 170,
+        "dragArea": 0.00001794013414947804,
+        "transmission": 0.35
+      },
+      "baselineWeapon": {
+        "name": "Mitrailleuse",
+        "magazine": 30,
+        "reserve": 90,
+        "damage": 30,
+        "longRangeDamage50": 28,
+        "interval": 0.09,
+        "reloadTime": 1.65,
+        "range": 65,
+        "pellets": 1,
+        "spread": 0.008,
+        "penetrationTargets": 3,
+        "penetrationRetention": 0.65,
+        "falloff": {
+          "start": 20,
+          "end": 50,
+          "far": 0.8,
+          "near": 1
+        }
+      },
+      "oldDamage": [
+        30,
+        30,
+        30,
+        30,
+        30,
+        28,
+        28,
+        25.088,
+        3.719836734693877
+      ],
+      "newDamage": [
+        30.87416107352968,
+        30.763213918367168,
+        30.432758877287387,
+        29.568796200442787,
+        28.72936076117103,
+        27.713498996238542,
+        25.7882670470328,
+        21.54017126830543,
+        15.028067553412113
+      ],
+      "newMean2To14": 30,
+      "pellets": 1,
+      "baselineNote": null
+    },
+    {
+      "id": "assault",
+      "kappa": 0.0032000000000000006,
+      "targetMean2To14": 42,
+      "muzzleDamage": 44.19553961756739,
+      "profile": {
+        "mass": 0.0035356431694053914,
+        "muzzleSpeed": 250,
+        "dragArea": 0.000018471931660566945,
+        "transmission": 0.4
+      },
+      "baselineWeapon": {
+        "name": "Fusil d’assaut",
+        "magazine": 24,
+        "reserve": 72,
+        "damage": 42,
+        "longRangeDamage50": 18,
+        "interval": 0.13,
+        "reloadTime": 1.6,
+        "range": 55,
+        "pellets": 1,
+        "spread": 0.006,
+        "penetrationTargets": 2,
+        "penetrationRetention": 0.6,
+        "falloff": {
+          "start": 18,
+          "end": 45,
+          "far": 0.7,
+          "near": 1
+        }
+      },
+      "oldDamage": [
+        42,
+        42,
+        42,
+        42,
+        41.06666666666666,
+        36.4,
+        18,
+        14.713749060856498,
+        0.7292762334084648
+      ],
+      "newDamage": [
+        44.19553961756739,
+        43.913591360819275,
+        43.07849300497156,
+        40.92838656536945,
+        38.88559487563765,
+        36.47488240307463,
+        32.09254853624872,
+        23.303973216837697,
+        12.288008527340628
+      ],
+      "newMean2To14": 41.99999999999999,
+      "pellets": 1,
+      "baselineNote": null
+    },
+    {
+      "id": "sniper",
+      "kappa": 0.0025,
+      "targetMean2To14": 350,
+      "muzzleDamage": 364.22913413861573,
+      "profile": {
+        "mass": 0.03319330825020492,
+        "muzzleSpeed": 382.5,
+        "dragArea": 0.0001354828908171629,
+        "transmission": 0.15
+      },
+      "baselineWeapon": {
+        "name": "Fusil à verrou",
+        "magazine": 5,
+        "reserve": 10,
+        "damage": 350,
+        "interval": 1.25,
+        "reloadTime": 3,
+        "range": 90,
+        "pellets": 1,
+        "spread": 0.001,
+        "penetrationTargets": 6,
+        "penetrationRetention": 0.85,
+        "longRangePenetration": true
+      },
+      "oldDamage": [
+        350,
+        350,
+        350,
+        350,
+        350,
+        350,
+        350,
+        350,
+        175
+      ],
+      "newDamage": [
+        364.22913413861573,
+        362.4125337534681,
+        357.01691406233937,
+        343.0180806298482,
+        329.5681493074582,
+        313.4949209994989,
+        283.6619348845737,
+        220.91613701565586,
+        133.99241032527226
+      ],
+      "newMean2To14": 350,
+      "pellets": 1,
+      "baselineNote": null
+    },
+    {
+      "id": "magnum",
+      "kappa": 0.008,
+      "targetMean2To14": null,
+      "muzzleDamage": 2000,
+      "profile": {
+        "mass": 0.02194787379972565,
+        "muzzleSpeed": 450,
+        "dragArea": 0.00028666610677192684,
+        "transmission": 0.9
+      },
+      "baselineWeapon": {
+        "name": "Magnum doré",
+        "magazine": 6,
+        "reserve": 0,
+        "damage": 200,
+        "interval": 0.7,
+        "reloadTime": 2.7,
+        "range": 45,
+        "pellets": 1,
+        "spread": 0.002,
+        "penetrationTargets": 1,
+        "penetrationRetention": 1,
+        "oneShot": true
+      },
+      "oldDamage": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "newDamage": [
+        2000,
+        1968.2546401105703,
+        1876.009999061459,
+        1650.6137369833648,
+        1452.2980741473818,
+        1237.5667836122816,
+        898.6579282344431,
+        403.7930359893108,
+        81.5244079567324
+      ],
+      "newMean2To14": 1762.4109136440882,
+      "pellets": 1,
+      "baselineNote": "Old oneShot: ordinary kill,1000 bossHP,hard range45m. Not finite damage200."
+    }
+  ],
+  "limitations": [
+    "Fictional game equivalents, not real calibre claims.",
+    "No hard damage cutoff in the model; root technical horizon4s,threshold0.01PV/projectile.",
+    "Shotgun contact boost removed; isolated/crowd/colossus tradeoffs being measured.",
+    "This calculation does not validate trajectory integration, CPU, live play or headshots."
+  ],
+  "shotgun": {
+    "method": "Body-only crouched-eye0.88m; walker0.64x1.82m,colossus scale1.22. Isolated deterministic12000uniform-diskdirections. Crowd reuses original scenario engine in-memory with exponential energy replacing falloff,16latticephasesx128triggers per distance; paired seeds. Fixed32m window only for a controlled close-range comparison.",
+    "limitations": [
+      "Static ray geometry, no flight,drop,movingtargets,armour,headshots or death/overkill.",
+      "Transmission retention is applied as energy retention. The old additional30-50m penetration penalty is omitted only for physical candidates.",
+      "Contact boost cannot be preserved together with the same2-14m mean and one exponential without strong drag.",
+      "Pellets that miss one body may hit another: isolated hit probability alone cannot validate crowd balance."
+    ],
+    "baselineCrowd": [
+      {
+        "distance": 0,
+        "damagePerShot": 532.3067482689933,
+        "standardErrorDps": 4.614685965416871,
+        "targets": 2.8701171875,
+        "intersections": 17.93896484375
+      },
+      {
+        "distance": 4,
+        "damagePerShot": 272.18275568907103,
+        "standardErrorDps": 0.9113759248926181,
+        "targets": 5.16943359375,
+        "intersections": 17.900390625
+      },
+      {
+        "distance": 12,
+        "damagePerShot": 116.31351132360001,
+        "standardErrorDps": 1.6271760531225814,
+        "targets": 7.66845703125,
+        "intersections": 12.603515625
+      }
+    ],
+    "baselineIsolated": {
+      "walker": [
+        {
+          "distance": 0,
+          "damagePerShot": 379.542856027127,
+          "pellets": 9
+        },
+        {
+          "distance": 1,
+          "damagePerShot": 375.6979552580795,
+          "pellets": 9
+        },
+        {
+          "distance": 4,
+          "damagePerShot": 151.18457098412583,
+          "pellets": 7.17
+        },
+        {
+          "distance": 12,
+          "damagePerShot": 24.71392956683324,
+          "pellets": 1.78575
+        }
+      ],
+      "colossus": [
+        {
+          "distance": 0,
+          "damagePerShot": 379.542856027127,
+          "pellets": 9
+        },
+        {
+          "distance": 1,
+          "damagePerShot": 375.6979552580795,
+          "pellets": 9
+        },
+        {
+          "distance": 4,
+          "damagePerShot": 174.55808520113766,
+          "pellets": 8.2785
+        },
+        {
+          "distance": 12,
+          "damagePerShot": 36.43868225068552,
+          "pellets": 2.63475
+        }
+      ]
+    },
+    "candidates": [
+      {
+        "kappa": 0.012,
+        "spread": 0.09,
+        "muzzleDamage": 22.99220169572012,
+        "mean2To14": 19.04126975745421,
+        "crowd": [
+          {
+            "distance": 0,
+            "damagePerShot": 294.1027332629248,
+            "changePct": -44.749388539725146,
+            "standardErrorDps": 1.0304462283572762,
+            "targets": 2.8203125,
+            "intersections": 17.93603515625
+          },
+          {
+            "distance": 4,
+            "damagePerShot": 266.2087135518618,
+            "changePct": -2.194864300673649,
+            "standardErrorDps": 0.7077714892330579,
+            "targets": 4.40087890625,
+            "intersections": 17.9130859375
+          },
+          {
+            "distance": 12,
+            "damagePerShot": 182.2741527600165,
+            "changePct": 56.709354472933946,
+            "standardErrorDps": 1.7062404049970117,
+            "targets": 7.59228515625,
+            "intersections": 14.841796875
+          }
+        ],
+        "isolated": {
+          "walker": [
+            {
+              "distance": 0,
+              "damagePerShot": 205.689449459694,
+              "pellets": 9,
+              "changePct": -45.80600156389381
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 200.8018912603214,
+              "pellets": 9,
+              "changePct": -46.55230659363481
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 172.13045673621266,
+              "pellets": 8.292,
+              "changePct": 13.854512808907016
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 45.545880135937125,
+              "pellets": 2.65875,
+              "changePct": 84.29234417282197
+            }
+          ],
+          "colossus": [
+            {
+              "distance": 0,
+              "damagePerShot": 205.689449459694,
+              "pellets": 9,
+              "changePct": -45.80600156389381
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 200.8018912603214,
+              "pellets": 9,
+              "changePct": -46.55230659363481
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 186.82506860942433,
+              "pellets": 9,
+              "changePct": 7.027450715990513
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 59.73869742553501,
+              "pellets": 3.4875,
+              "changePct": 63.943078442171576
+            }
+          ]
+        },
+        "weightedCrowdChangePct": -15.439535183575027
+      },
+      {
+        "kappa": 0.012,
+        "spread": 0.11,
+        "muzzleDamage": 22.99220169572012,
+        "mean2To14": 19.04126975745421,
+        "crowd": [
+          {
+            "distance": 0,
+            "damagePerShot": 294.21968328826574,
+            "changePct": -44.727418120277854,
+            "standardErrorDps": 0.9198930718041737,
+            "targets": 2.8701171875,
+            "intersections": 17.93896484375
+          },
+          {
+            "distance": 4,
+            "damagePerShot": 265.28451120316043,
+            "changePct": -2.534416432241149,
+            "standardErrorDps": 0.6903298815953068,
+            "targets": 5.16943359375,
+            "intersections": 17.900390625
+          },
+          {
+            "distance": 12,
+            "damagePerShot": 154.75719359645032,
+            "changePct": 33.05177690482988,
+            "standardErrorDps": 1.5837485183391746,
+            "targets": 7.66845703125,
+            "intersections": 12.603515625
+          }
+        ],
+        "isolated": {
+          "walker": [
+            {
+              "distance": 0,
+              "damagePerShot": 205.68820907525753,
+              "pellets": 9,
+              "changePct": -45.80632837400675
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 200.79583690328676,
+              "pellets": 9,
+              "changePct": -46.553918089505345
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 148.82858390828196,
+              "pellets": 7.17,
+              "changePct": -1.558351530521751
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 30.590890435191202,
+              "pellets": 1.78575,
+              "changePct": 23.779953133171517
+            }
+          ],
+          "colossus": [
+            {
+              "distance": 0,
+              "damagePerShot": 205.68820907525753,
+              "pellets": 9,
+              "changePct": -45.80632837400675
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 200.79583690328676,
+              "pellets": 9,
+              "changePct": -46.553918089505345
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 171.83379339298656,
+              "pellets": 8.2785,
+              "changePct": -1.5606792461156815
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 45.12585327472167,
+              "pellets": 2.63475,
+              "changePct": 23.840519161125062
+            }
+          ]
+        },
+        "weightedCrowdChangePct": -17.891233648664727
+      },
+      {
+        "kappa": 0.012,
+        "spread": 0.13,
+        "muzzleDamage": 22.99220169572012,
+        "mean2To14": 19.04126975745421,
+        "crowd": [
+          {
+            "distance": 0,
+            "damagePerShot": 294.2791674293431,
+            "changePct": -44.71624333407219,
+            "standardErrorDps": 0.869118719637581,
+            "targets": 2.9130859375,
+            "intersections": 17.93603515625
+          },
+          {
+            "distance": 4,
+            "damagePerShot": 264.1866414280985,
+            "changePct": -2.93777401170372,
+            "standardErrorDps": 0.7778646292982848,
+            "targets": 5.73974609375,
+            "intersections": 17.85693359375
+          },
+          {
+            "distance": 12,
+            "damagePerShot": 134.59221535226288,
+            "changePct": 15.715030713679546,
+            "standardErrorDps": 1.1758348746993916,
+            "targets": 7.48486328125,
+            "intersections": 10.953125
+          }
+        ],
+        "isolated": {
+          "walker": [
+            {
+              "distance": 0,
+              "damagePerShot": 205.68671733692688,
+              "pellets": 9,
+              "changePct": -45.80672140955122
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 200.7885559381665,
+              "pellets": 9,
+              "changePct": -46.55585607320164
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 129.451316075601,
+              "pellets": 6.237,
+              "changePct": -14.375312749874979
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 21.995613445855618,
+              "pellets": 1.284,
+              "changePct": -10.999125467386929
+            }
+          ],
+          "colossus": [
+            {
+              "distance": 0,
+              "damagePerShot": 205.68671733692688,
+              "pellets": 9,
+              "changePct": -45.80672140955122
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 200.7885559381665,
+              "pellets": 9,
+              "changePct": -46.55585607320164
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 152.48573642297532,
+              "pellets": 7.347,
+              "changePct": -12.64470147729283
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 32.408714341192244,
+              "pellets": 1.89225,
+              "changePct": -11.059587396076754
+            }
+          ]
+        },
+        "weightedCrowdChangePct": -19.760596569488797
+      },
+      {
+        "kappa": 0.02,
+        "spread": 0.09,
+        "muzzleDamage": 25.97220897977787,
+        "mean2To14": 19.04126975745421,
+        "crowd": [
+          {
+            "distance": 0,
+            "damagePerShot": 328.4113844324014,
+            "changePct": -38.304110270936555,
+            "standardErrorDps": 1.412868762997121,
+            "targets": 2.8203125,
+            "intersections": 17.93603515625
+          },
+          {
+            "distance": 4,
+            "damagePerShot": 278.3134001158397,
+            "changePct": 2.2524000138245626,
+            "standardErrorDps": 0.8269169094920071,
+            "targets": 4.40087890625,
+            "intersections": 17.9130859375
+          },
+          {
+            "distance": 12,
+            "damagePerShot": 166.2361460283883,
+            "changePct": 42.92075283145458,
+            "standardErrorDps": 1.7457967904360003,
+            "targets": 7.59228515625,
+            "intersections": 14.841796875
+          }
+        ],
+        "isolated": {
+          "walker": [
+            {
+              "distance": 0,
+              "damagePerShot": 231.4193348594399,
+              "pellets": 9,
+              "changePct": -39.02682366839235
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 222.3272075337347,
+              "pellets": 9,
+              "changePct": -40.82288593212845
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 181.63434151540596,
+              "pellets": 8.292,
+              "changePct": 20.14079236595996
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 42.283552118864016,
+              "pellets": 2.65875,
+              "changePct": 71.09198278047081
+            }
+          ],
+          "colossus": [
+            {
+              "distance": 0,
+              "damagePerShot": 231.4193348594399,
+              "pellets": 9,
+              "changePct": -39.02682366839235
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 222.3272075337347,
+              "pellets": 9,
+              "changePct": -40.82288593212845
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 197.13853985409102,
+              "pellets": 9,
+              "changePct": 12.935782737840329
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 55.45721806448543,
+              "pellets": 3.4875,
+              "changePct": 52.1932590288501
+            }
+          ]
+        },
+        "weightedCrowdChangePct": -11.878720075844274
+      },
+      {
+        "kappa": 0.02,
+        "spread": 0.11,
+        "muzzleDamage": 25.97220897977787,
+        "mean2To14": 19.04126975745421,
+        "crowd": [
+          {
+            "distance": 0,
+            "damagePerShot": 328.59288727015337,
+            "changePct": -38.27001285655243,
+            "standardErrorDps": 1.2436150233550505,
+            "targets": 2.8701171875,
+            "intersections": 17.93896484375
+          },
+          {
+            "distance": 4,
+            "damagePerShot": 276.7878352051246,
+            "changePct": 1.691907154218919,
+            "standardErrorDps": 0.8217724125642265,
+            "targets": 5.16943359375,
+            "intersections": 17.900390625
+          },
+          {
+            "distance": 12,
+            "damagePerShot": 141.13965099367726,
+            "changePct": 21.344158032515725,
+            "standardErrorDps": 1.5717893088491937,
+            "targets": 7.66845703125,
+            "intersections": 12.603515625
+          }
+        ],
+        "isolated": {
+          "walker": [
+            {
+              "distance": 0,
+              "damagePerShot": 231.41700896318721,
+              "pellets": 9,
+              "changePct": -39.02743648357666
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 222.3160355609454,
+              "pellets": 9,
+              "changePct": -40.82585959025806
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 157.0383680262474,
+              "pellets": 7.17,
+              "changePct": 3.8719539990203167
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 28.399741883131448,
+              "pellets": 1.78575,
+              "changePct": 14.913906371428155
+            }
+          ],
+          "colossus": [
+            {
+              "distance": 0,
+              "damagePerShot": 231.41700896318721,
+              "pellets": 9,
+              "changePct": -39.02743648357666
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 222.3160355609454,
+              "pellets": 9,
+              "changePct": -40.82585959025806
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 181.30974850158657,
+              "pellets": 8.2785,
+              "changePct": 3.867860542047752
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 41.888110873506946,
+              "pellets": 2.63475,
+              "changePct": 14.95506501945172
+            }
+          ]
+        },
+        "weightedCrowdChangePct": -14.222932613738436
+      },
+      {
+        "kappa": 0.02,
+        "spread": 0.13,
+        "muzzleDamage": 25.97220897977787,
+        "mean2To14": 19.04126975745421,
+        "crowd": [
+          {
+            "distance": 0,
+            "damagePerShot": 328.7108204997029,
+            "changePct": -38.24785773078462,
+            "standardErrorDps": 1.1434308922138876,
+            "targets": 2.9130859375,
+            "intersections": 17.93603515625
+          },
+          {
+            "distance": 4,
+            "damagePerShot": 275.16653337579913,
+            "changePct": 1.0962405311733425,
+            "standardErrorDps": 0.9305157844213529,
+            "targets": 5.73974609375,
+            "intersections": 17.85693359375
+          },
+          {
+            "distance": 12,
+            "damagePerShot": 122.73543966554897,
+            "changePct": 5.521223002272091,
+            "standardErrorDps": 1.1494311093874294,
+            "targets": 7.48486328125,
+            "intersections": 10.953125
+          }
+        ],
+        "isolated": {
+          "walker": [
+            {
+              "distance": 0,
+              "damagePerShot": 231.41421175938615,
+              "pellets": 9,
+              "changePct": -39.028173476450235
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 222.30260055252776,
+              "pellets": 9,
+              "changePct": -40.82943560344356
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 136.58455402683452,
+              "pellets": 6.237,
+              "changePct": -9.657081316071793
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 20.420110285274763,
+              "pellets": 1.284,
+              "changePct": -17.374085614134383
+            }
+          ],
+          "colossus": [
+            {
+              "distance": 0,
+              "damagePerShot": 231.41421175938615,
+              "pellets": 9,
+              "changePct": -39.028173476450235
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 222.30260055252776,
+              "pellets": 9,
+              "changePct": -40.82943560344356
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 160.88540343412663,
+              "pellets": 7.347,
+              "changePct": -7.832740460721965
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 30.08329036380182,
+              "pellets": 1.89225,
+              "changePct": -17.44133293064991
+            }
+          ]
+        },
+        "weightedCrowdChangePct": -16.027554452581626
+      },
+      {
+        "kappa": 0.028,
+        "spread": 0.09,
+        "muzzleDamage": 29.249515842773366,
+        "mean2To14": 19.04126975745421,
+        "crowd": [
+          {
+            "distance": 0,
+            "damagePerShot": 365.6972989855277,
+            "changePct": -31.299518524847247,
+            "standardErrorDps": 1.8326812956498664,
+            "targets": 2.8203125,
+            "intersections": 17.93603515625
+          },
+          {
+            "distance": 4,
+            "damagePerShot": 290.1647631696956,
+            "changePct": 6.606593218993795,
+            "standardErrorDps": 0.9497503503702683,
+            "targets": 4.40087890625,
+            "intersections": 17.9130859375
+          },
+          {
+            "distance": 12,
+            "damagePerShot": 151.20519080465567,
+            "changePct": 29.997959036747048,
+            "standardErrorDps": 1.7533973606482218,
+            "targets": 7.59228515625,
+            "intersections": 14.841796875
+          }
+        ],
+        "isolated": {
+          "walker": [
+            {
+              "distance": 0,
+              "damagePerShot": 259.57850763635173,
+              "pellets": 9,
+              "changePct": -31.607589626769606
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 245.4137506195247,
+              "pellets": 9,
+              "changePct": -34.67791155505709
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 191.08195412358464,
+              "pellets": 8.292,
+              "changePct": 26.38985108053651
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 39.13589812846818,
+              "pellets": 2.65875,
+              "changePct": 58.35562702658832
+            }
+          ],
+          "colossus": [
+            {
+              "distance": 0,
+              "damagePerShot": 259.57850763635173,
+              "pellets": 9,
+              "changePct": -31.607589626769606
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 245.4137506195247,
+              "pellets": 9,
+              "changePct": -34.67791155505709
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 207.39075298651565,
+              "pellets": 9,
+              "changePct": 18.809021505675872
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 51.32652876127608,
+              "pellets": 3.4875,
+              "changePct": 40.85725825145743
+            }
+          ]
+        },
+        "weightedCrowdChangePct": -8.026395383009955
+      },
+      {
+        "kappa": 0.028,
+        "spread": 0.11,
+        "muzzleDamage": 29.249515842773366,
+        "mean2To14": 19.04126975745421,
+        "crowd": [
+          {
+            "distance": 0,
+            "damagePerShot": 365.9465769737908,
+            "changePct": -31.252688761919444,
+            "standardErrorDps": 1.603374208757198,
+            "targets": 2.8701171875,
+            "intersections": 17.93896484375
+          },
+          {
+            "distance": 4,
+            "damagePerShot": 287.99533720737946,
+            "changePct": 5.809545677600525,
+            "standardErrorDps": 0.9681415504599663,
+            "targets": 5.16943359375,
+            "intersections": 17.900390625
+          },
+          {
+            "distance": 12,
+            "damagePerShot": 128.37136015978007,
+            "changePct": 10.366679415801894,
+            "standardErrorDps": 1.5425136010614509,
+            "targets": 7.66845703125,
+            "intersections": 12.603515625
+          }
+        ],
+        "isolated": {
+          "walker": [
+            {
+              "distance": 0,
+              "damagePerShot": 259.5748551792823,
+              "pellets": 9,
+              "changePct": -31.608551957376395
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 245.3964861808895,
+              "pellets": 9,
+              "changePct": -34.68250685252774
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 165.1987161016824,
+              "pellets": 7.17,
+              "changePct": 9.26956039649578
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 26.28561502614307,
+              "pellets": 1.78575,
+              "changePct": 6.359512577955528
+            }
+          ],
+          "colossus": [
+            {
+              "distance": 0,
+              "damagePerShot": 259.5748551792823,
+              "pellets": 9,
+              "changePct": -31.608551957376395
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 245.3964861808895,
+              "pellets": 9,
+              "changePct": -34.68250685252774
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 190.72832905241458,
+              "pellets": 8.2785,
+              "changePct": 9.263531868285835
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 38.76480710707111,
+              "pellets": 2.63475,
+              "changePct": 6.383668982271806
+            }
+          ]
+        },
+        "weightedCrowdChangePct": -10.283203908004957
+      },
+      {
+        "kappa": 0.028,
+        "spread": 0.13,
+        "muzzleDamage": 29.249515842773366,
+        "mean2To14": 19.04126975745421,
+        "crowd": [
+          {
+            "distance": 0,
+            "damagePerShot": 366.1254843632212,
+            "changePct": -31.219078932622303,
+            "standardErrorDps": 1.4535760127263524,
+            "targets": 2.9130859375,
+            "intersections": 17.93603515625
+          },
+          {
+            "distance": 4,
+            "damagePerShot": 285.81429466714053,
+            "changePct": 5.008230203107189,
+            "standardErrorDps": 1.101481271902318,
+            "targets": 5.73974609375,
+            "intersections": 17.85693359375
+          },
+          {
+            "distance": 12,
+            "damagePerShot": 111.61671375582888,
+            "changePct": -4.03804984848578,
+            "standardErrorDps": 1.115953692359961,
+            "targets": 7.48486328125,
+            "intersections": 10.953125
+          }
+        ],
+        "isolated": {
+          "walker": [
+            {
+              "distance": 0,
+              "damagePerShot": 259.5704626332492,
+              "pellets": 9,
+              "changePct": -31.60970928281761
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 245.37572520869358,
+              "pellets": 9,
+              "changePct": -34.688032826759255
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 143.67400027958,
+              "pellets": 6.237,
+              "changePct": -4.967815601589676
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 18.899989536358728,
+              "pellets": 1.284,
+              "changePct": -23.524951848519372
+            }
+          ],
+          "colossus": [
+            {
+              "distance": 0,
+              "damagePerShot": 259.5704626332492,
+              "pellets": 9,
+              "changePct": -31.60970928281761
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 245.37572520869358,
+              "pellets": 9,
+              "changePct": -34.688032826759255
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 169.23319049188862,
+              "pellets": 7.347,
+              "changePct": -3.050500183427962
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 27.840073345916956,
+              "pellets": 1.89225,
+              "changePct": -23.597474918585448
+            }
+          ]
+        },
+        "weightedCrowdChangePct": -12.038281345178536
+      },
+      {
+        "kappa": 0.04,
+        "spread": 0.09,
+        "muzzleDamage": 34.76111535262671,
+        "mean2To14": 19.04126975745421,
+        "crowd": [
+          {
+            "distance": 0,
+            "damagePerShot": 427.4752491226442,
+            "changePct": -19.693813668011973,
+            "standardErrorDps": 2.537769522695578,
+            "targets": 2.8203125,
+            "intersections": 17.93603515625
+          },
+          {
+            "distance": 4,
+            "damagePerShot": 307.30812445140344,
+            "changePct": 12.905067653315271,
+            "standardErrorDps": 1.1373959508441427,
+            "targets": 4.40087890625,
+            "intersections": 17.9130859375
+          },
+          {
+            "distance": 12,
+            "damagePerShot": 130.51792667483025,
+            "changePct": 12.212179986305816,
+            "standardErrorDps": 1.7167794806592227,
+            "targets": 7.59228515625,
+            "intersections": 14.841796875
+          }
+        ],
+        "isolated": {
+          "walker": [
+            {
+              "distance": 0,
+              "damagePerShot": 306.64274795967987,
+              "pellets": 9,
+              "changePct": -19.20734560268914
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 283.02098883700563,
+              "pellets": 9,
+              "changePct": -24.667945386450384
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 205.02771688874978,
+              "pellets": 8.292,
+              "changePct": 35.614180437947866
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 34.65304622572302,
+              "pellets": 2.65875,
+              "changePct": 40.21665851240566
+            }
+          ],
+          "colossus": [
+            {
+              "distance": 0,
+              "damagePerShot": 306.64274795967987,
+              "pellets": 9,
+              "changePct": -19.20734560268914
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 283.02098883700563,
+              "pellets": 9,
+              "changePct": -24.667945386450384
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 222.52381881692156,
+              "pellets": 9,
+              "changePct": 27.47837979576513
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 45.44414935811082,
+              "pellets": 3.4875,
+              "changePct": 24.714030670677968
+            }
+          ]
+        },
+        "weightedCrowdChangePct": -1.7080125150087833
+      },
+      {
+        "kappa": 0.04,
+        "spread": 0.11,
+        "muzzleDamage": 34.76111535262671,
+        "mean2To14": 19.04126975745421,
+        "crowd": [
+          {
+            "distance": 0,
+            "damagePerShot": 427.8330907626297,
+            "changePct": -19.626588963243684,
+            "standardErrorDps": 2.2150164913788313,
+            "targets": 2.8701171875,
+            "intersections": 17.93896484375
+          },
+          {
+            "distance": 4,
+            "damagePerShot": 304.101425727298,
+            "changePct": 11.726925887505303,
+            "standardErrorDps": 1.2048544897206246,
+            "targets": 5.16943359375,
+            "intersections": 17.900390625
+          },
+          {
+            "distance": 12,
+            "damagePerShot": 110.7910115530474,
+            "changePct": -4.747943474243732,
+            "standardErrorDps": 1.4724008114257634,
+            "targets": 7.66845703125,
+            "intersections": 12.603515625
+          }
+        ],
+        "isolated": {
+          "walker": [
+            {
+              "distance": 0,
+              "damagePerShot": 306.63658417399415,
+              "pellets": 9,
+              "changePct": -19.20896960524585
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 282.9925470690797,
+              "pellets": 9,
+              "changePct": -24.675515767797396
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 177.24269756904025,
+              "pellets": 7.17,
+              "changePct": 17.235969527373584
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 23.274701505833733,
+              "pellets": 1.78575,
+              "changePct": -5.823550063568161
+            }
+          ],
+          "colossus": [
+            {
+              "distance": 0,
+              "damagePerShot": 306.63658417399415,
+              "pellets": 9,
+              "changePct": -19.20896960524585
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 282.9925470690797,
+              "pellets": 9,
+              "changePct": -24.675515767797396
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 204.62873473479357,
+              "pellets": 8.2785,
+              "changePct": 17.226729715215704
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 34.317711099101494,
+              "pellets": 2.63475,
+              "changePct": -5.820658214236385
+            }
+          ]
+        },
+        "weightedCrowdChangePct": -3.8691842202696947
+      },
+      {
+        "kappa": 0.04,
+        "spread": 0.13,
+        "muzzleDamage": 34.76111535262671,
+        "mean2To14": 19.04126975745421,
+        "crowd": [
+          {
+            "distance": 0,
+            "damagePerShot": 428.10939136737085,
+            "changePct": -19.57468268821718,
+            "standardErrorDps": 1.9891180344219241,
+            "targets": 2.9130859375,
+            "intersections": 17.93603515625
+          },
+          {
+            "distance": 4,
+            "damagePerShot": 301.02043642317676,
+            "changePct": 10.5949697882582,
+            "standardErrorDps": 1.379815827854995,
+            "targets": 5.73974609375,
+            "intersections": 17.85693359375
+          },
+          {
+            "distance": 12,
+            "damagePerShot": 96.30692209279793,
+            "changePct": -17.200571974085644,
+            "standardErrorDps": 1.054075633170328,
+            "targets": 7.48486328125,
+            "intersections": 10.953125
+          }
+        ],
+        "isolated": {
+          "walker": [
+            {
+              "distance": 0,
+              "damagePerShot": 306.62917150040454,
+              "pellets": 9,
+              "changePct": -19.21092265836539
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 282.9583465622755,
+              "pellets": 9,
+              "changePct": -24.684618959956296
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 154.13576723573055,
+              "pellets": 6.237,
+              "changePct": 1.9520485671217003
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 16.7350547001061,
+              "pellets": 1.284,
+              "changePct": -32.284930023572635
+            }
+          ],
+          "colossus": [
+            {
+              "distance": 0,
+              "damagePerShot": 306.62917150040454,
+              "pellets": 9,
+              "changePct": -19.21092265836539
+            },
+            {
+              "distance": 1,
+              "damagePerShot": 282.9583465622755,
+              "pellets": 9,
+              "changePct": -24.684618959956296
+            },
+            {
+              "distance": 4,
+              "damagePerShot": 181.55124913434523,
+              "pellets": 7.347,
+              "changePct": 4.006210268146315
+            },
+            {
+              "distance": 12,
+              "damagePerShot": 24.646107843145074,
+              "pellets": 1.89225,
+              "changePct": -32.36279052686816
+            }
+          ]
+        },
+        "weightedCrowdChangePct": -5.576645278013559
+      }
+    ],
+    "selected": {
+      "kappa": 0.04,
+      "spread": 0.11,
+      "muzzleDamage": 34.76111535262671,
+      "mean2To14": 19.04126975745421,
+      "crowd": [
+        {
+          "distance": 0,
+          "damagePerShot": 427.8330907626297,
+          "changePct": -19.626588963243684,
+          "standardErrorDps": 2.2150164913788313,
+          "targets": 2.8701171875,
+          "intersections": 17.93896484375
+        },
+        {
+          "distance": 4,
+          "damagePerShot": 304.101425727298,
+          "changePct": 11.726925887505303,
+          "standardErrorDps": 1.2048544897206246,
+          "targets": 5.16943359375,
+          "intersections": 17.900390625
+        },
+        {
+          "distance": 12,
+          "damagePerShot": 110.7910115530474,
+          "changePct": -4.747943474243732,
+          "standardErrorDps": 1.4724008114257634,
+          "targets": 7.66845703125,
+          "intersections": 12.603515625
+        }
+      ],
+      "isolated": {
+        "walker": [
+          {
+            "distance": 0,
+            "damagePerShot": 306.63658417399415,
+            "pellets": 9,
+            "changePct": -19.20896960524585
+          },
+          {
+            "distance": 1,
+            "damagePerShot": 282.9925470690797,
+            "pellets": 9,
+            "changePct": -24.675515767797396
+          },
+          {
+            "distance": 4,
+            "damagePerShot": 177.24269756904025,
+            "pellets": 7.17,
+            "changePct": 17.235969527373584
+          },
+          {
+            "distance": 12,
+            "damagePerShot": 23.274701505833733,
+            "pellets": 1.78575,
+            "changePct": -5.823550063568161
+          }
+        ],
+        "colossus": [
+          {
+            "distance": 0,
+            "damagePerShot": 306.63658417399415,
+            "pellets": 9,
+            "changePct": -19.20896960524585
+          },
+          {
+            "distance": 1,
+            "damagePerShot": 282.9925470690797,
+            "pellets": 9,
+            "changePct": -24.675515767797396
+          },
+          {
+            "distance": 4,
+            "damagePerShot": 204.62873473479357,
+            "pellets": 8.2785,
+            "changePct": 17.226729715215704
+          },
+          {
+            "distance": 12,
+            "damagePerShot": 34.317711099101494,
+            "pellets": 2.63475,
+            "changePct": -5.820658214236385
+          }
+        ]
+      },
+      "weightedCrowdChangePct": -3.8691842202696947
+    },
+    "decision": "kappa0.040,spread0.11 preserves exact2-14m mean and crowd weighted score within4%; accept contact-19%,4m+17%,12m-6% for isolated walker/colossus. No close-range multiplier."
+  },
+  "closeBodyShotThresholdChanges": [
+    {
+      "id": "pistol",
+      "distance": 0,
+      "hp": 80,
+      "oldShots": 4,
+      "newShots": 3
+    },
+    {
+      "id": "pistol",
+      "distance": 0,
+      "hp": 165,
+      "oldShots": 7,
+      "newShots": 6
+    },
+    {
+      "id": "pistol",
+      "distance": 0,
+      "hp": 230,
+      "oldShots": 10,
+      "newShots": 9
+    },
+    {
+      "id": "pistol",
+      "distance": 0,
+      "hp": 310,
+      "oldShots": 13,
+      "newShots": 12
+    },
+    {
+      "id": "pistol",
+      "distance": 0,
+      "hp": 400,
+      "oldShots": 16,
+      "newShots": 15
+    },
+    {
+      "id": "pistol",
+      "distance": 4,
+      "hp": 230,
+      "oldShots": 10,
+      "newShots": 9
+    },
+    {
+      "id": "pistol",
+      "distance": 12,
+      "hp": 310,
+      "oldShots": 15,
+      "newShots": 14
+    },
+    {
+      "id": "pistol",
+      "distance": 12,
+      "hp": 400,
+      "oldShots": 19,
+      "newShots": 18
+    },
+    {
+      "id": "smg",
+      "distance": 0,
+      "hp": 310,
+      "oldShots": 15,
+      "newShots": 14
+    },
+    {
+      "id": "smg",
+      "distance": 0,
+      "hp": 400,
+      "oldShots": 20,
+      "newShots": 18
+    },
+    {
+      "id": "smg",
+      "distance": 4,
+      "hp": 230,
+      "oldShots": 11,
+      "newShots": 12
+    },
+    {
+      "id": "smg",
+      "distance": 12,
+      "hp": 165,
+      "oldShots": 11,
+      "newShots": 10
+    },
+    {
+      "id": "smg",
+      "distance": 12,
+      "hp": 310,
+      "oldShots": 19,
+      "newShots": 18
+    },
+    {
+      "id": "smg",
+      "distance": 12,
+      "hp": 400,
+      "oldShots": 25,
+      "newShots": 24
+    },
+    {
+      "id": "minigun",
+      "distance": 0,
+      "hp": 310,
+      "oldShots": 11,
+      "newShots": 10
+    },
+    {
+      "id": "minigun",
+      "distance": 0,
+      "hp": 400,
+      "oldShots": 14,
+      "newShots": 13
+    },
+    {
+      "id": "minigun",
+      "distance": 4,
+      "hp": 310,
+      "oldShots": 11,
+      "newShots": 10
+    },
+    {
+      "id": "minigun",
+      "distance": 4,
+      "hp": 400,
+      "oldShots": 14,
+      "newShots": 13
+    },
+    {
+      "id": "rifle",
+      "distance": 0,
+      "hp": 400,
+      "oldShots": 14,
+      "newShots": 13
+    },
+    {
+      "id": "assault",
+      "distance": 0,
+      "hp": 310,
+      "oldShots": 8,
+      "newShots": 7
+    },
+    {
+      "id": "assault",
+      "distance": 0,
+      "hp": 400,
+      "oldShots": 10,
+      "newShots": 9
+    },
+    {
+      "id": "assault",
+      "distance": 12,
+      "hp": 165,
+      "oldShots": 4,
+      "newShots": 5
+    }
+  ],
+  "profileSourceSha256": "45a50fca8fa4ca4538ccd355a7b746b50ce5949d697b8effa42c7c0531ced386",
+  "roleTuning": {
+    "checkedAt": "2026-10-17T08:45:46.334Z",
+    "previousCommit": "70a9452414be45c8d311cbf33d7a087d4253819d",
+    "previousProfileSourceSha256": "14fd0128391233805cf8737a7714a4aeb68e985e83420961c979476f2fbab52a",
+    "reason": "Approved assault 250 m/s with k=.0032 and unchanged mean 2-14 m; minigun 200 m/s with unchanged damage curve and k=.005. Other cartridges and firing mechanics unchanged.",
+    "comparisons": [
+      {
+        "id": "minigun",
+        "before": {
+          "mass": 0.007492300121991517,
+          "muzzleSpeed": 170,
+          "dragArea": 0.00006116163364891034,
+          "transmission": 0.3
+        },
+        "after": {
+          "mass": 0.00541318683813922,
+          "muzzleSpeed": 200,
+          "dragArea": 0.00004418928031133747,
+          "transmission": 0.3
+        },
+        "mean2To14": 29.999999980845168,
+        "samples": [
+          {
+            "distance": 0,
+            "before": {
+              "distance": 0,
+              "damage": 32.47912102883323,
+              "time": 0,
+              "drop": 0
+            },
+            "after": {
+              "distance": 0,
+              "damage": 32.47912102883532,
+              "time": 0,
+              "drop": 0
+            },
+            "damageChangePercent": 6.461498003318411e-12
+          },
+          {
+            "distance": 4,
+            "before": {
+              "distance": 4,
+              "damage": 31.205596477453103,
+              "time": 0.0237662823844186,
+              "drop": 0.0027705214549339167
+            },
+            "after": {
+              "distance": 4,
+              "damage": 31.205596477455206,
+              "time": 0.020201340026755797,
+              "drop": 0.002001701751189752
+            },
+            "damageChangePercent": 6.750155989720952e-12
+          },
+          {
+            "distance": 12,
+            "before": {
+              "distance": 12,
+              "damage": 28.80639620708218,
+              "time": 0.07274887828865838,
+              "drop": 0.02595921852852564
+            },
+            "after": {
+              "distance": 12,
+              "damage": 28.806396207084283,
+              "time": 0.061836546545359486,
+              "drop": 0.018755535386859694
+            },
+            "damageChangePercent": 7.30526750203353e-12
+          },
+          {
+            "distance": 14,
+            "before": {
+              "distance": 14,
+              "damage": 28.235991344930703,
+              "time": 0.0853037426520194,
+              "drop": 0.035692353343717786
+            },
+            "after": {
+              "distance": 14,
+              "damage": 28.2359913449328,
+              "time": 0.07250818125421629,
+              "drop": 0.025787725290835957
+            },
+            "damageChangePercent": 7.416289804496046e-12
+          },
+          {
+            "distance": 50,
+            "before": {
+              "distance": 50,
+              "damage": 19.69958270450468,
+              "time": 0.3341475490444018,
+              "drop": 0.5476657371313284
+            },
+            "after": {
+              "distance": 50,
+              "damage": 19.699582704506643,
+              "time": 0.28402541668773884,
+              "drop": 0.39568849507737724
+            },
+            "damageChangePercent": 9.947598300641403e-12
+          },
+          {
+            "distance": 100,
+            "before": {
+              "distance": 100,
+              "damage": 11.94840089382681,
+              "time": 0.7632014949413273,
+              "drop": 2.8570473398247196
+            },
+            "after": {
+              "distance": 100,
+              "damage": 11.948400893828417,
+              "time": 0.6487212707001159,
+              "drop": 2.064216703023282
+            },
+            "damageChangePercent": 1.3455903058456897e-11
+          },
+          {
+            "distance": 200,
+            "before": {
+              "distance": 200,
+              "damage": 4.395571043713368,
+              "time": 2.0215080334812296,
+              "drop": 20.044256647849974
+            },
+            "after": {
+              "distance": 200,
+              "damage": 4.395571043714268,
+              "time": 1.7182818284589751,
+              "drop": 14.481975428070424
+            },
+            "damageChangePercent": 2.0472512574087887e-11
+          }
+        ]
+      },
+      {
+        "id": "assault",
+        "before": {
+          "mass": 0.00784215004139418,
+          "muzzleSpeed": 170,
+          "dragArea": 0.00006145684930398703,
+          "transmission": 0.4
+        },
+        "after": {
+          "mass": 0.0035356431694053914,
+          "muzzleSpeed": 250,
+          "dragArea": 0.000018471931660566945,
+          "transmission": 0.4
+        },
+        "mean2To14": 41.99999999999999,
+        "samples": [
+          {
+            "distance": 0,
+            "before": {
+              "distance": 0,
+              "damage": 45.32762723925836,
+              "time": 0,
+              "drop": 0
+            },
+            "after": {
+              "distance": 0,
+              "damage": 44.19553961756739,
+              "time": 0,
+              "drop": 0
+            },
+            "damageChangePercent": -2.49756647466971
+          },
+          {
+            "distance": 4,
+            "before": {
+              "distance": 4,
+              "damage": 43.62004181633126,
+              "time": 0.023756746730543433,
+              "drop": 0.002768298689650108
+            },
+            "after": {
+              "distance": 4,
+              "damage": 43.07849300497156,
+              "time": 0.016102838308354787,
+              "drop": 0.0012718733747745159
+            },
+            "damageChangePercent": -1.241513737286104
+          },
+          {
+            "distance": 12,
+            "before": {
+              "distance": 12,
+              "damage": 40.39543241025941,
+              "time": 0.0726607775464468,
+              "drop": 0.025896382051873987
+            },
+            "after": {
+              "distance": 12,
+              "damage": 40.92838656536945,
+              "time": 0.048933510601535835,
+              "drop": 0.01174496589527299
+            },
+            "damageChangePercent": 1.319342617000152
+          },
+          {
+            "distance": 14,
+            "before": {
+              "distance": 14,
+              "damage": 39.6272383695492,
+              "time": 0.08518303757055207,
+              "drop": 0.03559141520920455
+            },
+            "after": {
+              "distance": 14,
+              "damage": 40.40784181091288,
+              "time": 0.0572733440698722,
+              "drop": 0.01608955729033996
+            },
+            "damageChangePercent": 1.969865863687148
+          },
+          {
+            "distance": 50,
+            "before": {
+              "distance": 50,
+              "damage": 28.04798292563271,
+              "time": 0.33241317441348617,
+              "drop": 0.5419952333585071
+            },
+            "after": {
+              "distance": 50,
+              "damage": 32.09254853624872,
+              "time": 0.2168885887397628,
+              "drop": 0.23073443693470483
+            },
+            "damageChangePercent": 14.420165690131427
+          },
+          {
+            "distance": 100,
+            "before": {
+              "distance": 100,
+              "damage": 17.355626008043735,
+              "time": 0.7549931399422712,
+              "drop": 2.7959218158702606
+            },
+            "after": {
+              "distance": 100,
+              "damage": 23.303973216837697,
+              "time": 0.47140970541994637,
+              "drop": 1.0900239763360118
+            },
+            "damageChangePercent": 34.27330829805337
+          },
+          {
+            "distance": 200,
+            "before": {
+              "distance": 200,
+              "damage": 6.645345730124578,
+              "time": 1.975118227234213,
+              "drop": 19.134856316666585
+            },
+            "after": {
+              "distance": 200,
+              "damage": 12.288008527340628,
+              "time": 1.1206010991311892,
+              "drop": 6.159438168649614
+            },
+            "damageChangePercent": 84.91150086649093
+          }
+        ]
+      }
+    ]
+  }
+}

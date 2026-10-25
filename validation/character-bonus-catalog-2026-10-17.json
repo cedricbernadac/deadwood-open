@@ -1,0 +1,375 @@
+{
+  "schemaVersion": 2,
+  "status": "implemented",
+  "levels": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "values": "cumulative_effect_at_level_not_compounded_per_pick",
+  "firstAcquisitionChannel": "supply_crate",
+  "currentSupplyWaves": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "claim": "one_independent_choice_per_survivor_new_level_1_or_upgrade_by_1",
+  "pregameBuildAndXP": "deferred_no_character_xp_planned",
+  "definitions": [
+    {
+      "id": "vitamins",
+      "name": "Vitamines",
+      "type": "passive",
+      "effects": {
+        "horizontalSpeedBonusPercent": [
+          3,
+          6,
+          9,
+          12,
+          15,
+          18,
+          21,
+          24
+        ]
+      }
+    },
+    {
+      "id": "reload",
+      "name": "Huile de coude",
+      "type": "passive",
+      "effects": {
+        "reloadDurationReductionPercent": [
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          50
+        ]
+      }
+    },
+    {
+      "id": "switching",
+      "name": "Mains vives",
+      "type": "passive",
+      "baseLockMs": 250,
+      "effects": {
+        "switchFireLockMs": [
+          200,
+          160,
+          125,
+          95,
+          70,
+          45,
+          20,
+          20
+        ],
+        "dualWieldUnlocked": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true
+        ]
+      },
+      "dualWield": {
+        "mode": "optional_inventory_pair_at_level_8",
+        "pair": "two_distinct_ranged_weapon_instances_already_carried_same_type_allowed",
+        "mouse": {
+          "left": "fire_primary",
+          "right": "fire_secondary",
+          "both": "fire_both_independently"
+        },
+        "controller": {
+          "rightTrigger": "fire_primary",
+          "leftTrigger": "fire_secondary"
+        },
+        "aim": "hip_fire_in_dual_mode_scope_restored_in_single_mode",
+        "ammoAndCadence": "independent_magazines_reserves_shot_cooldowns_and_weapon_states",
+        "reload": "reload_both_in_parallel_each_with_its_own_duration_and_ammo",
+        "inventory": "no_extra_slot_no_created_weapon_no_duplicated_ammo",
+        "movement": "use_the_more_restrictive_of_the_two_held_weapon_speed_factors",
+        "sharedActions": "usual_umbrella_revive_interaction_and_incapacitation_gates_apply_to_both",
+        "invalidPair": "return_to_single_weapon_mode"
+      }
+    },
+    {
+      "id": "vitality",
+      "name": "Vitalité",
+      "type": "passive",
+      "baseMaxHp": 100,
+      "effects": {
+        "maxHp": [
+          110,
+          120,
+          130,
+          140,
+          150,
+          160,
+          170,
+          180
+        ]
+      }
+    },
+    {
+      "id": "rainproof",
+      "name": "Imperméable",
+      "type": "passive",
+      "effects": {
+        "rainDamageReductionPercent": [
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80
+        ]
+      }
+    },
+    {
+      "id": "toughskin",
+      "name": "Peau dure",
+      "type": "passive",
+      "effects": {
+        "combatDamageReductionPercent": [
+          3,
+          6,
+          9,
+          12,
+          15,
+          18,
+          21,
+          24
+        ]
+      }
+    },
+    {
+      "id": "medic",
+      "name": "Secouriste",
+      "type": "passive",
+      "additionalIdea": true,
+      "baseManualReviveSeconds": 5,
+      "effects": {
+        "manualReviveSeconds": [
+          4.5,
+          4.2,
+          3.9,
+          3.6,
+          3.3,
+          3,
+          2.5,
+          2
+        ]
+      }
+    },
+    {
+      "id": "radar",
+      "name": "Lunettes de reconnaissance",
+      "type": "sensor",
+      "evolvesExistingBonus": true,
+      "rangeMeters": 25,
+      "effects": {
+        "information": [
+          "local_presence",
+          "coarse_sectors",
+          "position_triangles",
+          "position_triangles",
+          "enemy_type",
+          "enemy_type_and_floor",
+          "quarter_health_bar",
+          "exact_current_and_max_hp"
+        ],
+        "refreshSeconds": [
+          8,
+          7,
+          6,
+          5,
+          4,
+          3,
+          2,
+          0.2
+        ]
+      }
+    },
+    {
+      "id": "frostaura",
+      "name": "Aura de froid",
+      "type": "passive",
+      "experimental": true,
+      "bossStrengthMultiplier": 0.5,
+      "stacking": "strongest_only",
+      "respectsObstaclesAndFloor": true,
+      "activeWhen": "carrier_alive_and_not_downed",
+      "activation": "continuous_no_duration_or_cooldown",
+      "affects": "zombie_movement_not_bites_projectiles_or_raiders",
+      "effects": {
+        "slowPercent": [
+          15,
+          15,
+          18,
+          18,
+          21,
+          21,
+          25,
+          25
+        ],
+        "radiusMeters": [
+          2,
+          2.5,
+          2.5,
+          3,
+          3,
+          3.5,
+          3.5,
+          4
+        ]
+      }
+    },
+    {
+      "id": "grenadier",
+      "name": "Grenadier",
+      "type": "passive",
+      "effects": {
+        "grenadeIntervalSeconds": [
+          20,
+          20,
+          17,
+          17,
+          14,
+          14,
+          12,
+          10
+        ],
+        "maxGrenades": [
+          2,
+          2,
+          3,
+          3,
+          3,
+          4,
+          4,
+          5
+        ],
+        "grenadeDamageBonusPercent": [
+          0,
+          10,
+          10,
+          20,
+          20,
+          30,
+          40,
+          50
+        ]
+      }
+    }
+  ],
+  "existingWeaponBonusReference": {
+    "stoneDamageBonusPercent": [
+      10,
+      20,
+      30,
+      40,
+      50,
+      60,
+      70,
+      80
+    ],
+    "stoneExtraTargets": [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      2
+    ],
+    "perforatingExtraTargets": [
+      0,
+      0,
+      1,
+      1,
+      1,
+      2,
+      2,
+      3
+    ],
+    "extendedMagazineAndReserveBonusPercent": [
+      10,
+      20,
+      30,
+      40,
+      50,
+      60,
+      70,
+      80
+    ],
+    "reinforcedDamageBonusPercent": [
+      0,
+      15,
+      15,
+      30,
+      30,
+      45,
+      45,
+      60
+    ]
+  },
+  "supplyCadence": {
+    "type": "one_claim_per_survivor_per_wave",
+    "firstWave": 2,
+    "lastWave": 18,
+    "maxClaims": 17,
+    "permanentOutdoorCrate": true
+  },
+  "updatedAt": "2026-10-18",
+  "grenadierRules": {
+    "firstGrenade": "after_full_interval",
+    "clock": "simulation_time_while_alive_standing_connected_in_active_hazard_phases",
+    "capacityTiers": [
+      3,
+      6,
+      8
+    ],
+    "fullStock": "no_hidden_reserve_full_interval_after_throw",
+    "resetIntervalOn": [
+      "acquisition",
+      "upgrade",
+      "recovery",
+      "incapacity",
+      "disconnect",
+      "loss",
+      "new_night"
+    ],
+    "capacityLoss": "clamp_stock_to_new_capacity_without_hidden_reserve",
+    "pause": "freeze",
+    "practice": "capacity_applies_but_regeneration_disabled",
+    "damage": "own_grenade_damage_only_captured_at_throw_no_radius_or_rocket_change"
+  }
+}

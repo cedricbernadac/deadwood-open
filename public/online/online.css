@@ -1,0 +1,5 @@
+#online-status{position:fixed;right:22px;top:66px;z-index:22;display:flex;gap:12px;align-items:center;padding:7px 11px;border:1px solid #a2bfa342;background:#101b1cdd;color:#c3d6c9;font:11px/1.4 system-ui,sans-serif;border-radius:3px;pointer-events:none}
+#online-status small{color:#c0b99e;font-variant-numeric:tabular-nums}
+#online-status[data-state=retry],#online-status[data-state=stale],#online-status[data-state=lost],#online-status[data-state=warning]{border-color:#d9a478;color:#ffcf9d}
+.online-note{color:#b7c5b9;font-size:12px;line-height:1.55;max-width:34em}
+@media(max-width:700px){#online-status{right:10px;top:56px;max-width:80vw;font-size:10px}}
